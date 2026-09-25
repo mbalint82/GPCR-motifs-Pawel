@@ -1,0 +1,2404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motifs with variant viewer for GPCRs of interest - Pawel Kozielewicz lab</title>
+    <style>
+        :root {
+            --primary-blue: #004b87;
+            --secondary-blue: #0072ce;
+            --text-dark: #333333;
+            --bg-light: #f8f9fa;
+            --border-color: #dee2e6;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--text-dark);
+            background-color: #ffffff;
+        }
+        header {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 1.5rem 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 400;
+        }
+        main {
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .intro-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            color: #555;
+        }
+        
+        /* Table Scroll Container */
+        .table-container {
+            width: 100%;
+            height: 1000px;
+            overflow-x: auto;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed; /* Enables strict column width control */
+            font-size: 0.88rem;
+            background-color: #ffffff;
+        }
+
+        th, td {
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border-color);
+            border-right: 1px solid #f1f3f5;
+            overflow: hidden;
+            word-wrap: break-word;
+        }
+
+        th {
+            background-color: var(--bg-light);
+            font-weight: 600;
+            color: var(--primary-blue);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            text-align: center;
+        }
+
+        /* Zebra striping for better row legibility */
+        tbody tr:nth-child(even) {
+            background-color: #fafbfc;
+        }
+        tr:hover {
+            background-color: #f1f5f9;
+        }
+
+        a {
+            color: var(--secondary-blue);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        a:hover {
+            text-decoration: underline;
+            color: var(--primary-blue);
+        }
+
+        /* --- Custom Column Widths & Alignments --- */
+        /* Short numbers / codes / indicators (Center aligned, narrow) */
+        th:nth-child(n+3):nth-child(-n+9),
+        td:nth-child(n+3):nth-child(-n+9),
+        th:nth-child(17), td:nth-child(17),
+        th:nth-child(18), td:nth-child(18),
+        th:nth-child(19), td:nth-child(19),
+        th:nth-child(20), td:nth-child(20),
+        th:nth-child(21), td:nth-child(21),
+        th:nth-child(23), td:nth-child(23),
+        th:nth-child(24), td:nth-child(24),
+        th:nth-child(25), td:nth-child(25),
+        th:nth-child(26), td:nth-child(26),
+        th:nth-child(27), td:nth-child(27),
+        th:nth-child(28), td:nth-child(28) {
+            text-align: center;
+            width: 90px;
+        }
+
+        /* Medium width columns */
+        th:nth-child(1), td:nth-child(1) { width: 180px; text-align: left; } /* Motif instance ID */
+        th:nth-child(2), td:nth-child(2) { width: 110px; text-align: center; } /* Variant viewer */
+        th:nth-child(10), td:nth-child(10) { width: 110px; text-align: center; } /* Location */
+        th:nth-child(11), td:nth-child(11) { width: 140px; text-align: left; } /* Motif ID */
+        th:nth-child(12), td:nth-child(12) { width: 100px; text-align: center; } /* Type */
+        th:nth-child(13), td:nth-child(13) { width: 160px; text-align: left; } /* Motif name */
+        th:nth-child(14), td:nth-child(14) { width: 140px; text-align: left; font-family: monospace; } /* Regex */
+        th:nth-child(15), td:nth-child(15) { width: 120px; text-align: left; font-family: monospace; } /* Matched sequence */
+        th:nth-child(22), td:nth-child(22) { width: 150px; text-align: left; } /* PTMs */
+        th:nth-child(23), td:nth-child(23) { width: 110px; text-align: center; } /* Enrichment gnomAD */
+
+        /* Long text columns (Left aligned, wide) */
+        th:nth-child(29), td:nth-child(29), /* Warning subcellular */
+        th:nth-child(30), td:nth-child(30), /* Warning missing PTMs */
+        th:nth-child(31), td:nth-child(31)  /* Note functional residues */ {
+            text-align: left;
+            width: 400px;
+        }
+
+        /* Extra long text column (Left aligned, wide) */
+        th:nth-child(16), td:nth-child(16) /* Description */ {
+            text-align: left;
+            width: 1000px;
+        }
+
+        footer {
+            background-color: var(--bg-light);
+            color: #666;
+            text-align: center;
+            padding: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+  <img src="../images/SJlogo.png" alt="St Jude Logo" class="header-logo" width="200" height="auto" style="float: left; margin-right: 15px;">
+  <h1 style="text-align: right;">GPCR variant and motif viewer | Pawel Kozielewicz and Babu lab collaboration</h1>
+  <div style="clear: both;"></div>
+</header>
+
+
+
+<main>
+    <div class="intro-text">
+        <p>This page provides an overview of the high confidence motif predictions for GPCRs of interest for the Pawel Kozielewicz lab. Click on the column headers to sort the table. Click on the links to explore external HGNC and UniProt records, explore the motifs for each GPCR, and view detailed variant data for each motif on the subsequent pages.</p>
+    </div>
+
+    <!-- Wrapped table in a container for smooth horizontal scrolling -->
+    <div class="table-container">
+        <table id="gpcrTable">
+            <thead>
+                <tr>
+                    <th onclick="sortTable(0)">Motif instance ID</th>
+                    <th onclick="sortTable(1)">Variant viewer</th>
+                    <th onclick="sortTable(2)">Confidence (overall) [1:5]</th>
+                    <th onclick="sortTable(3)">Confidence (information content) [1:5]</th>
+                    <th onclick="sortTable(4)">Confidence (evolution) [1:5]</th>
+                    <th onclick="sortTable(5)">Confidence (mutation) [1:5]</th>
+                    <th onclick="sortTable(6)">Confidence (regulation) [1:5]</th>
+                    <th onclick="sortTable(7)">Motif start</th>
+                    <th onclick="sortTable(8)">Motif end</th>
+                    <th onclick="sortTable(9)">Motif location</th>
+                    <th onclick="sortTable(10)">Motif ID</th>
+                    <th onclick="sortTable(11)">Motif type</th>
+                    <th onclick="sortTable(12)">Motif name</th>
+                    <th onclick="sortTable(13)">Regex</th>
+                    <th onclick="sortTable(14)">Matched sequence</th>
+                    <th onclick="sortTable(15)">Motif description</th>
+                    <th onclick="sortTable(16)">Probability of random occurrence [0:1]</th>
+                    <th onclick="sortTable(17)">Average conservation [0:1]</th>
+                    <th onclick="sortTable(18)">Relative local conservation [-1:1]</th>
+                    <th onclick="sortTable(19)">Orthologs with motif / Orthologs total number</th>
+                    <th onclick="sortTable(20)">Overall parsimony %</th>
+                    <th onclick="sortTable(21)">PTMs</th>
+                    <th onclick="sortTable(22)">Enrichment gnomAD</th>
+                    <th onclick="sortTable(23)">Enrichment gnomAD p-value</th>
+                    <th onclick="sortTable(24)">Enrichment gnomAD significance</th>
+                    <th onclick="sortTable(25)">Enrichment COSMIC</th>
+                    <th onclick="sortTable(26)">Enrichment COSMIC p-value</th>
+                    <th onclick="sortTable(27)">Enrichment COSMIC significance</th>
+                    <th onclick="sortTable(28)">Warning subcellular localization</th>
+                    <th onclick="sortTable(29)">Warning missing PTMs</th>
+                    <th onclick="sortTable(30)">Note functional residues</th>
+                </tr>
+            </thead>
+        <tbody>
+            <tr>
+                <td>Q8IZ08_CLV_NRD_NRD_1_224-226</td>
+                <td><a href="../ProteinPaint/Q8IZ08_CLV_NRD_NRD_1_224-226.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>1</td>
+                <td>5</td>
+                <td>1</td>
+                <td>N/A</td>
+                <td>224</td>
+                <td>226</td>
+                <td>ICL2</td>
+                <td>CLV_NRD_NRD_1</td>
+                <td>cleavage</td>
+                <td>NRD cleavage site</td>
+                <td>(.RK)|(RR[^KR])</td>
+                <td>RRA</td>
+                <td>N-arginine dibasic convertase (NRD convertase) is a endopeptidase in dibasic sites processing secreted proteins. N-Arg dibasic convertase (nardilysin) cleavage site (X-|-R-K or R-|-R-X).</td>
+                <td>0.9948</td>
+                <td>0.8597</td>
+                <td>0.0297</td>
+                <td>119/150</td>
+                <td>95.30</td>
+                <td>-</td>
+                <td>enrichment</td>
+                <td>5.000e-01</td>
+                <td>not significant</td>
+                <td>enrichment</td>
+                <td>5.000e-01</td>
+                <td>not significant</td>
+                <td>Warning: this motif has been described to occur primarily in the following subcellular compartments: Golgi apparatus / extracellular. The interaction between the receptor and the target molecule might require translocation of the GPCR (either the full receptor or the cleaved fragment containing the motif) to the target compartment or the translocation of the target molecule close to the plasma membrane.</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_CLV_NRD_NRD_1_461-463</td>
+                <td><a href="../ProteinPaint/Q8IZ08_CLV_NRD_NRD_1_461-463.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>1</td>
+                <td>5</td>
+                <td>3</td>
+                <td>N/A</td>
+                <td>461</td>
+                <td>463</td>
+                <td>Cterm</td>
+                <td>CLV_NRD_NRD_1</td>
+                <td>cleavage</td>
+                <td>NRD cleavage site</td>
+                <td>(.RK)|(RR[^KR])</td>
+                <td>ARK</td>
+                <td>N-arginine dibasic convertase (NRD convertase) is a endopeptidase in dibasic sites processing secreted proteins. N-Arg dibasic convertase (nardilysin) cleavage site (X-|-R-K or R-|-R-X).</td>
+                <td>0.9948</td>
+                <td>0.8560</td>
+                <td>0.0571</td>
+                <td>119/150</td>
+                <td>95.30</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>3.117e-01</td>
+                <td>not significant</td>
+                <td>enrichment</td>
+                <td>5.027e-02</td>
+                <td>not significant</td>
+                <td>Warning: this motif has been described to occur primarily in the following subcellular compartments: Golgi apparatus / extracellular. The interaction between the receptor and the target molecule might require translocation of the GPCR (either the full receptor or the cleaved fragment containing the motif) to the target compartment or the translocation of the target molecule close to the plasma membrane.</td>
+                <td>-</td>
+                <td>Note: the following motif residue has been predicted as functional according to ConSurf based on their evolutionary conservation profile: K463.</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_CLV_PCSK_KEX2_1_223-225</td>
+                <td><a href="../ProteinPaint/Q8IZ08_CLV_PCSK_KEX2_1_223-225.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>1</td>
+                <td>5</td>
+                <td>2</td>
+                <td>N/A</td>
+                <td>223</td>
+                <td>225</td>
+                <td>ICL2</td>
+                <td>CLV_PCSK_KEX2_1</td>
+                <td>cleavage</td>
+                <td>PCSK KEX2 cleavage site</td>
+                <td>[KR]R.</td>
+                <td>RRR</td>
+                <td>The subtilisin-like proprotein convertases are expressed extensively in mammalian neural and endocrine cells and play a major role in the proteolytic processing of both neuropeptide and peptide hormone precursors. Yeast kexin 2 cleavage site (K-R-|-X or R-R-|-X).</td>
+                <td>0.9964</td>
+                <td>0.8203</td>
+                <td>-0.0315</td>
+                <td>113/150</td>
+                <td>91.30</td>
+                <td>-</td>
+                <td>enrichment</td>
+                <td>5.000e-01</td>
+                <td>not significant</td>
+                <td>none</td>
+                <td>1.000e+00</td>
+                <td>not significant</td>
+                <td>Warning: this motif has been described to occur primarily in the following subcellular compartments: Golgi apparatus / extracellular. The interaction between the receptor and the target molecule might require translocation of the GPCR (either the full receptor or the cleaved fragment containing the motif) to the target compartment or the translocation of the target molecule close to the plasma membrane.</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_CLV_PCSK_KEX2_1_224-226</td>
+                <td><a href="../ProteinPaint/Q8IZ08_CLV_PCSK_KEX2_1_224-226.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>1</td>
+                <td>5</td>
+                <td>1</td>
+                <td>N/A</td>
+                <td>224</td>
+                <td>226</td>
+                <td>ICL2</td>
+                <td>CLV_PCSK_KEX2_1</td>
+                <td>cleavage</td>
+                <td>PCSK KEX2 cleavage site</td>
+                <td>[KR]R.</td>
+                <td>RRA</td>
+                <td>The subtilisin-like proprotein convertases are expressed extensively in mammalian neural and endocrine cells and play a major role in the proteolytic processing of both neuropeptide and peptide hormone precursors. Yeast kexin 2 cleavage site (K-R-|-X or R-R-|-X).</td>
+                <td>0.9964</td>
+                <td>0.8597</td>
+                <td>0.0297</td>
+                <td>113/150</td>
+                <td>91.30</td>
+                <td>-</td>
+                <td>enrichment</td>
+                <td>5.000e-01</td>
+                <td>not significant</td>
+                <td>enrichment</td>
+                <td>5.000e-01</td>
+                <td>not significant</td>
+                <td>Warning: this motif has been described to occur primarily in the following subcellular compartments: Golgi apparatus / extracellular. The interaction between the receptor and the target molecule might require translocation of the GPCR (either the full receptor or the cleaved fragment containing the motif) to the target compartment or the translocation of the target molecule close to the plasma membrane.</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_CLV_UL80_Peptidase_S21_465-468</td>
+                <td><a href="../ProteinPaint/Q8IZ08_CLV_UL80_Peptidase_S21_465-468.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>1</td>
+                <td>4</td>
+                <td>4</td>
+                <td>N/A</td>
+                <td>465</td>
+                <td>468</td>
+                <td>Cterm</td>
+                <td>CLV_UL80_Peptidase_S21</td>
+                <td>cleavage</td>
+                <td>UL80 Peptidase S21 cleavage site</td>
+                <td>[PV]..[LAV]</td>
+                <td>PVVL</td>
+                <td>UL80 Peptidase S21 cleavage site</td>
+                <td>0.9997</td>
+                <td>0.9065</td>
+                <td>0.1417</td>
+                <td>149/150</td>
+                <td>99.30</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>3.056e-02</td>
+                <td>not significant</td>
+                <td>depletion</td>
+                <td>5.000e-01</td>
+                <td>not significant</td>
+                <td>Warning: this motif has been described to occur primarily in the following subcellular compartments: nucleus (viral capsid assembly). The interaction between the receptor and the target molecule might require translocation of the GPCR (either the full receptor or the cleaved fragment containing the motif) to the target compartment or the translocation of the target molecule close to the plasma membrane.</td>
+                <td>-</td>
+                <td>Note: the following motif residue has been predicted as functional according to ConSurf based on their evolutionary conservation profile: P465.</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_CLV_peptidase_S9A_Peptidase_S9_N_414-416</td>
+                <td><a href="../ProteinPaint/Q8IZ08_CLV_peptidase_S9A_Peptidase_S9_N_414-416.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>2</td>
+                <td>5</td>
+                <td>2</td>
+                <td>N/A</td>
+                <td>414</td>
+                <td>416</td>
+                <td>Cterm</td>
+                <td>CLV_peptidase_S9A_Peptidase_S9_N</td>
+                <td>cleavage</td>
+                <td>Prolyl endopeptidase active site</td>
+                <td>F.[PV]</td>
+                <td>FLP</td>
+                <td>Prolyl endopeptidase active site</td>
+                <td>0.6105</td>
+                <td>0.7587</td>
+                <td>0.0572</td>
+                <td>56/150</td>
+                <td>91.90</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>1.242e-01</td>
+                <td>not significant</td>
+                <td>depletion</td>
+                <td>2.487e-01</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_DEG_Kelch_KLHL15_321-323</td>
+                <td><a href="../ProteinPaint/Q8IZ08_DEG_Kelch_KLHL15_321-323.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>3</td>
+                <td>5</td>
+                <td>1</td>
+                <td>N/A</td>
+                <td>321</td>
+                <td>323</td>
+                <td>ICL3</td>
+                <td>DEG_Kelch_KLHL15</td>
+                <td>degron</td>
+                <td>KLHL15 Kelch degron</td>
+                <td>[LF]R[FY]</td>
+                <td>LRF</td>
+                <td>The KLHL15 degron is a motif that mediates the interaction of target proteins with the KLHL15-CRL3 E3 ubiquitin ligase, leading to their ubiquitylation and proteasomal degradation, often requiring the target protein's N-terminus. It functions by being recognized by the KLHL15 Kelch domain, thus recruiting the target protein to the Cul3-based ligase complex.</td>
+                <td>0.1619</td>
+                <td>0.7947</td>
+                <td>-0.0898</td>
+                <td>114/150</td>
+                <td>95.30</td>
+                <td>-</td>
+                <td>enrichment</td>
+                <td>3.621e-01</td>
+                <td>not significant</td>
+                <td>depletion</td>
+                <td>5.000e-01</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_DEG_TRIM11_SPRY_325-329</td>
+                <td><a href="../ProteinPaint/Q8IZ08_DEG_TRIM11_SPRY_325-329.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>2</td>
+                <td>5</td>
+                <td>4</td>
+                <td>1</td>
+                <td>325</td>
+                <td>329</td>
+                <td>ICL3</td>
+                <td>DEG_TRIM11_SPRY</td>
+                <td>degron</td>
+                <td>TRIM11 phosphodegron</td>
+                <td>(S)...(T)</td>
+                <td>SEVRT</td>
+                <td>TRIM11 phosphodegron</td>
+                <td>0.5102</td>
+                <td>0.9108</td>
+                <td>0.0460</td>
+                <td>115/150</td>
+                <td>94.60</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>2.517e-01</td>
+                <td>not significant</td>
+                <td>enrichment</td>
+                <td>2.488e-01</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>Warning: this motif has been described to require prerequisite phosphorylations for binding to its target. However, none of the required phosphorylations has been detected in the protein sequence. This might be due to the fact that the motif is a false positive match, or that the corresponding phosphorylations have not yet been incorporated into relevant databases.</td>
+                <td>Note: the following motif residue has been predicted as functional according to ConSurf based on their evolutionary conservation profile: T329.</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_DOC_CAMK-CAMK2A_218-227</td>
+                <td><a href="../ProteinPaint/Q8IZ08_DOC_CAMK-CAMK2A_218-227.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>3</td>
+                <td>5</td>
+                <td>2</td>
+                <td>N/A</td>
+                <td>218</td>
+                <td>227</td>
+                <td>ICL2</td>
+                <td>DOC_CAMK-CAMK2A</td>
+                <td>docking</td>
+                <td>CAMK kinase docking motif - CAMK2A</td>
+                <td>[KRQ].{2,3}[LI].[KRP]...[LIVY]</td>
+                <td>REKIGRRRAL</td>
+                <td>The CAMK2A-binding motif is a recognition sequence for the protein kinase domain of CaMKII, essential for neuronal excitability, memory formation, and channel function through a phosphorylation-enhanced interaction. It has been validated in multiple proteins, underscoring its diverse roles in cellular processes.</td>
+                <td>0.3333</td>
+                <td>0.8142</td>
+                <td>-0.0639</td>
+                <td>74/150</td>
+                <td>90.60</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>2.468e-01</td>
+                <td>not significant</td>
+                <td>none</td>
+                <td>1.000e+00</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_DOC_MAPK_MEF2A_6_462-469</td>
+                <td><a href="../ProteinPaint/Q8IZ08_DOC_MAPK_MEF2A_6_462-469.html" target="_blank">variant viewer</a></td>
+                <td>5</td>
+                <td>2</td>
+                <td>5</td>
+                <td>5</td>
+                <td>N/A</td>
+                <td>462</td>
+                <td>469</td>
+                <td>Cterm</td>
+                <td>DOC_MAPK_MEF2A_6</td>
+                <td>docking</td>
+                <td>MAP kinase docking motif - MEF2A D motif</td>
+                <td>[RK].{2,4}[LIVMP].[LIV].[LIVMF]</td>
+                <td>RKNPVVLF</td>
+                <td>The MAPK-docking motif, also known as D-motif or kinase interaction motif (KIM) consists of one or more basic and two to four hydrophobic residues in adjacent groups. These residues bind to the MAPK-docking groove in various MAPKs. The basic-hydrophobic pattern can be present either in N- to C-terminal or C- to N-Terminal orientation. A linker region of variable length intersects the basic and hydrophobic residues. This linker region may build secondary structures, like helices, and therefore can add some additional order to the motif bound state. The docking motif patterns vary according to which MAPKs are to be bound. Some docking motifs are quite specific while others are more general.The binding site of the D-motifs is distinct from another MAPK docking motif class (the FxFP-type), thus they can act in a combinatorial manner. The greater MEF2A class of MAPK docking motifs mediates interaction towards the ERK1/2 and p38 subfamily of MAP kinases. (Garai,2012, Zeke,2015). Known partners include the mammalian ERK1 (MAPK3), ERK2 (MAPK1), p38alpha (MAPK14) and p38beta (MAPK11) proteins. They may also bind other classical MAPKs, including the mammalian ERK5 (MAPK7) (Barsyte-Lovejoy,2004). MEF2A-type motifs motifs are also found in fungi and higher plants, interacting with diverse MAPKs (Jung,2002; Hamel,2011). Since the CD region of ERK1/2 and p38 isoforms is wider compared to that of JNK, the N-termini of motifs binding to these kinases have larger conformational freedom and can make different motif patterns. MEF2A type motifs have the consensus sequence [RK].{2,4}[LIVMP].[LIV].[LIVMF], binding with an extended conformation into the docking groove (Zhou,2006). Typically three hydrophobic amino acids contact the surface (hL = Leu/Ile/Val/Met/Pro, hA = Leu/Ile/Val and hB = Leu/Ile/Val/Met/Phe). This hydrophobic C-terminus is usually locked into a single conformation in the bound state, whereas the charged N terminus might still remain as an ensemble of multiple conformations, invisible to X-ray crystallography (Garai,2012). Most motif instances feature multiple positively charged residues (Arg/Lys) on their N-termini, but their relative positioning is quite variable. Many (but not all) members also display a conserved Pro amino acid after the last hydrophobic position (hB) that can form an additional hydrophobic interaction towards the surface of p38alpha as in the case of human TAB1, MEF2A and MKK6 proteins ( De Nicola,2013; Chang,2002; Garai,2012).</td>
+                <td>0.6849</td>
+                <td>0.8999</td>
+                <td>0.1958</td>
+                <td>75/150</td>
+                <td>89.30</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>3.111e-02</td>
+                <td>not significant</td>
+                <td>enrichment</td>
+                <td>1.253e-01</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>-</td>
+                <td>Note: the following motif residue has been predicted as functional according to ConSurf based on their evolutionary conservation profile: P465.</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_DOC_MAPK_RevD_3_212-225</td>
+                <td><a href="../ProteinPaint/Q8IZ08_DOC_MAPK_RevD_3_212-225.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>3</td>
+                <td>5</td>
+                <td>1</td>
+                <td>N/A</td>
+                <td>212</td>
+                <td>225</td>
+                <td>ICL2</td>
+                <td>DOC_MAPK_RevD_3</td>
+                <td>docking</td>
+                <td>MAP kinase docking motif - reverse</td>
+                <td>[LIVMPFA].[LIV].{1,2}[LIVMP].{4,6}[LIV]..[RK][RK]</td>
+                <td>AIVRPPREKIGRRR</td>
+                <td>The MAPK-docking motif, also known as D-motif or kinase interaction motif (KIM) consists of one or more basic and two to four hydrophobic residues in adjacent groups. These residues bind to the MAPK-docking groove in various MAPKs. The basic-hydrophobic pattern can be present either in N- to C-terminal or C- to N-Terminal orientation. A linker region of variable length intersects the basic and hydrophobic residues. This linker region may build secondary structures, like helices, and therefore can add some additional order to the motif bound state. The docking motif patterns vary according to which MAPKs are to be bound. Some docking motifs are quite specific while others are more general.The binding site of the D-motifs is distinct from another MAPK docking motif class (the FxFP-type), thus they can act in a combinatorial manner. The reverse MAPK docking motif is carried by the RSK and MAPKAPK protein families and is well conserved in metazoans. Similar protein families in D. melanogaster or Yeast are also shown to carry a variation. It features a broad range of compositions for the linker between the CD/ED region and hydrophobic docking groove, including local secondary structure, e.g. in helical conformation (Zeke,2015). In some cases removing essential residues of the revD-motif does not prevent phosphorylation of a target protein (Tomas-Zuber,2001). This assumes, that the motif is not exclusively mediating the interaction or a corresponding processing event, in those cases. The revD-motif is present in interaction partners of ERK1/2 and p38. For JNK no interaction partner is shown so far. RevD-motif containing proteins may show preferences to certain kinases. Whereas the RSK1-motif (Q15418) primarily binds ERK2 (P28482), the MK2-motif (P49137) favours p38alpha (Q16539). However, MSK1 (O75582) and MNK1 (Q9BUB5) equally interact with both, ERK2 and p38alpha. Discrimination between those kinases is potentially mediated by side chain interactions flanking the motif site or in the linker sequence (Garai,2012).The reversed motif is composed of 3 hydrophobic residues each separated by 1 or 1/2 arbitrary residues, respectively. A fourth hydrophobic residue completes the hydrophobic part of the motif separated by 4 to 6 variable residues. A positively charged region comprised of 2 residues, being either ARG or LYS, then follows the last hydrophobic residue with fixed spacing. Crystal structures show ordered conformations, such as helical turns, in the motif region (4TYH). This agrees with rather low IUPred values (~0.3) for some residues in a disorder prediction. However, crystal structures indicate that the motif undergoes a disorder-to-order transition upon binding to the docking groove. The binding and specificity to a certain MAPK is enhanced by intra-molecule or intra-peptide H-bonds.</td>
+                <td>0.1035</td>
+                <td>0.8642</td>
+                <td>-0.0152</td>
+                <td>45/150</td>
+                <td>97.30</td>
+                <td>-</td>
+                <td>enrichment</td>
+                <td>1.574e-01</td>
+                <td>not significant</td>
+                <td>depletion</td>
+                <td>5.000e-01</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>-</td>
+                <td>Note: the following motif residue has been predicted as functional according to ConSurf based on their evolutionary conservation profile: P216.</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_DOC_MAPK_gen_1_462-469</td>
+                <td><a href="../ProteinPaint/Q8IZ08_DOC_MAPK_gen_1_462-469.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>1</td>
+                <td>5</td>
+                <td>4</td>
+                <td>N/A</td>
+                <td>462</td>
+                <td>469</td>
+                <td>Cterm</td>
+                <td>DOC_MAPK_gen_1</td>
+                <td>docking</td>
+                <td>MAP kinase docking motif - canonical D motif</td>
+                <td>[KR]{0,2}[KR].{0,2}[KR].{2,4}[ILVM].[ILVF]</td>
+                <td>RKNPVVLF</td>
+                <td>The MAPK-docking motif, also known as D-motif or kinase interaction motif (KIM) consists of one or more basic and two to four hydrophobic residues in adjacent groups. These residues bind to the MAPK-docking groove in various MAPKs. The basic-hydrophobic pattern can be present either in N- to C-terminal or C- to N-Terminal orientation. A linker region of variable length intersects the basic and hydrophobic residues. This linker region may build secondary structures, like helices, and therefore can add some additional order to the motif bound state. The docking motif patterns vary according to which MAPKs are to be bound. Some docking motifs are quite specific while others are more general.The binding site of the D-motifs is distinct from another MAPK docking motif class (the FxFP-type), thus they can act in a combinatorial manner. MAPK interacting molecules (e.g. MAPKKs, substrates, phosphatases) carry docking motifs that help to regulate specific interactions in the MAPK cascade. The classic MAPK docking site was first identified in c-JUN, a substrate of JNK (Kallunki,1996). This motif is characterized by a cluster of basic residues positioned upstream to a #-x-# motif. The substrates that carry this motif recognize a broad range of MAPKs (Sharrocks,2000).</td>
+                <td>0.8316</td>
+                <td>0.8999</td>
+                <td>0.1958</td>
+                <td>128/150</td>
+                <td>92.60</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>3.111e-02</td>
+                <td>not significant</td>
+                <td>enrichment</td>
+                <td>1.253e-01</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>-</td>
+                <td>Note: the following motif residue has been predicted as functional according to ConSurf based on their evolutionary conservation profile: K463.</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_DOC_PLK_polo-box_445-449</td>
+                <td><a href="../ProteinPaint/Q8IZ08_DOC_PLK_polo-box_445-449.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>3</td>
+                <td>4</td>
+                <td>2</td>
+                <td>5</td>
+                <td>445</td>
+                <td>449</td>
+                <td>Cterm</td>
+                <td>DOC_PLK_polo-box</td>
+                <td>docking</td>
+                <td>PLK kinase docking motif (polo-box phospho)</td>
+                <td>.S([ST])[PLMVAN].</td>
+                <td>SSSNP</td>
+                <td>The PLK kinase docking motif, also known as polo-box phospho motif, is a phosphoserine/threonine-dependent motif that interacts with kinases containing the Polo-box domain (PBD) (POLO_box). This interaction is crucial for the kinase to localize to specific subcellular locations and target its substrates. The motif requires prior phosphorylation for recognition by the PBD of Polo-like kinases (Plks), serving as a docking site for the kinase. The first PLK kinase docking motif was identified in human CDC25C. The motif plays a crucial role in cell cycle progression, particularly in mitosis and cytokinesis (PMID:14532005, PMID:14592974, PMID:17351640). It facilitates the localization of Plks to specific subcellular structures such as centrosomes (PMID:12595692, PMID:17307877), kinetochores (PMID:21765407), and the central spindle (PMID:17351640), where they regulate various mitotic events. The motifs are involved in G2/M transition of mitotic cell cycle, negative regulation of nuclear division, mitotic cytokinesis, protein localization to chromosome, signal transduction involved in DNA damage checkpoint processes. Plk1, through its PBD, interacts with phosphorylated proteins to regulate processes such as spindle formation (PMID:19509060), chromosome segregation (PMID:31685831, PMID:32099015), and contractile ring assembly (PMID:21376600).</td>
+                <td>0.4629</td>
+                <td>0.8306</td>
+                <td>0.1644</td>
+                <td>128/150</td>
+                <td>89.30</td>
+                <td>S447 phosphorylation - Prerequisite for binding<br><br>S446 phosphorylation - Inhibition<br><br></td>
+                <td>depletion</td>
+                <td>2.517e-01</td>
+                <td>not significant</td>
+                <td>none</td>
+                <td>1.000e+00</td>
+                <td>not significant</td>
+                <td>Warning: this motif has been described to occur primarily in the following subcellular compartments: nucleus, centrosomes, kinetochores, central spindle. The interaction between the receptor and the target molecule might require translocation of the GPCR (either the full receptor or the cleaved fragment containing the motif) to the target compartment or the translocation of the target molecule close to the plasma membrane.</td>
+                <td>-</td>
+                <td>Note: the following motif residue has been predicted as functional according to ConSurf based on their evolutionary conservation profile: S447.</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_DOC_PP2A-B55_305-310</td>
+                <td><a href="../ProteinPaint/Q8IZ08_DOC_PP2A-B55_305-310.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>3</td>
+                <td>5</td>
+                <td>2</td>
+                <td>N/A</td>
+                <td>305</td>
+                <td>310</td>
+                <td>ICL3</td>
+                <td>DOC_PP2A-B55</td>
+                <td>docking</td>
+                <td>PP2A phosphatase docking motif - B55 [RK]Vxx[VI]</td>
+                <td>[RK][LV]..[IV][KRQ]</td>
+                <td>RLSDVR</td>
+                <td>The [RK]Vxx[VI] motif is a short linear motif that mediates the interaction of substrates and inhibitors with the WD40 domain of PP2A/B55 phosphatases. This motif is essential for substrate recruitment to the PP2A/B55 complex and for the inhibitory function of proteins like FAM122A.</td>
+                <td>0.1217</td>
+                <td>0.8650</td>
+                <td>0.0036</td>
+                <td>111/150</td>
+                <td>90.60</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>2.719e-01</td>
+                <td>not significant</td>
+                <td>enrichment</td>
+                <td>2.488e-01</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>-</td>
+                <td>Note: the following motif residue has been predicted as functional according to ConSurf based on their evolutionary conservation profile: R310.</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_DOC_aPKC_468-472</td>
+                <td><a href="../ProteinPaint/Q8IZ08_DOC_aPKC_468-472.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>2</td>
+                <td>5</td>
+                <td>2</td>
+                <td>N/A</td>
+                <td>468</td>
+                <td>472</td>
+                <td>Cterm</td>
+                <td>DOC_aPKC</td>
+                <td>docking</td>
+                <td>aPKC kinase docking motif</td>
+                <td>.F.R.</td>
+                <td>LFCRE</td>
+                <td>This motif, found within the Par3/Baz CR3 region, binds to the aPKC kinase domain, functioning both as an inhibitory complex by disrupting the kinase N lobe and as a high-affinity anchor. This interaction regulates the localization and phosphorylation of Par3/Baz, impacting substrate access.</td>
+                <td>0.5858</td>
+                <td>0.8958</td>
+                <td>0.1930</td>
+                <td>142/150</td>
+                <td>96.00</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>1.423e-01</td>
+                <td>not significant</td>
+                <td>none</td>
+                <td>1.000e+00</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_INT_BRCT_TOPBP1_489-493</td>
+                <td><a href="../ProteinPaint/Q8IZ08_INT_BRCT_TOPBP1_489-493.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>1</td>
+                <td>5</td>
+                <td>3</td>
+                <td>1</td>
+                <td>489</td>
+                <td>493</td>
+                <td>Cterm</td>
+                <td>INT_BRCT_TOPBP1</td>
+                <td>interaction</td>
+                <td>BRCT domain binding phosphomotif - [ILV]xxS</td>
+                <td>[AILVF]..([ST]).</td>
+                <td>AGDTS</td>
+                <td>The [ILV]xxS motif, when phosphorylated, serves as a binding site for BRCT domains, mediating protein interactions critical for DNA damage checkpoint signaling. This interaction, often involving TopBP1, is crucial for activating the ATR-ATRIP kinase complex and initiating the DNA-damage-checkpoint response.</td>
+                <td>1.0000</td>
+                <td>0.7908</td>
+                <td>0.2749</td>
+                <td>150/150</td>
+                <td>100.00</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>6.104e-02</td>
+                <td>not significant</td>
+                <td>depletion</td>
+                <td>5.000e-01</td>
+                <td>not significant</td>
+                <td>Warning: this motif has been described to occur primarily in the following subcellular compartments: nucleus. The interaction between the receptor and the target molecule might require translocation of the GPCR (either the full receptor or the cleaved fragment containing the motif) to the target compartment or the translocation of the target molecule close to the plasma membrane.</td>
+                <td>Warning: this motif has been described to require a prerequisite phosphorylation for binding to its target. However, no suitable phosphorylation has been detected in the protein sequence. This might be due to the fact that the motif is a false positive match, or that the corresponding phosphorylation has not yet been incorporated into relevant databases.</td>
+                <td>Note: the following motif residue has been predicted as functional according to ConSurf based on their evolutionary conservation profile: T492.</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_INT_BRO1_short_204-210</td>
+                <td><a href="../ProteinPaint/Q8IZ08_INT_BRO1_short_204-210.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>3</td>
+                <td>5</td>
+                <td>1</td>
+                <td>N/A</td>
+                <td>204</td>
+                <td>210</td>
+                <td>ICL2</td>
+                <td>INT_BRO1_short</td>
+                <td>interaction</td>
+                <td>BRO1 domain binding motif - short</td>
+                <td>[ILM]..L..[FWY]</td>
+                <td>LISLDRY</td>
+                <td>A short motif is recognised by proteins containing BRO1 domain.</td>
+                <td>0.1295</td>
+                <td>0.9480</td>
+                <td>0.0536</td>
+                <td>56/150</td>
+                <td>97.30</td>
+                <td>-</td>
+                <td>enrichment</td>
+                <td>3.202e-01</td>
+                <td>not significant</td>
+                <td>depletion</td>
+                <td>3.414e-01</td>
+                <td>not significant</td>
+                <td>Warning: this motif has been described to occur primarily in the following subcellular compartments: endosomes. The interaction between the receptor and the target molecule might require translocation of the GPCR (either the full receptor or the cleaved fragment containing the motif) to the target compartment or the translocation of the target molecule close to the plasma membrane.</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_INT_BROMO_BET_483-486</td>
+                <td><a href="../ProteinPaint/Q8IZ08_INT_BROMO_BET_483-486.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>3</td>
+                <td>3</td>
+                <td>3</td>
+                <td>3</td>
+                <td>483</td>
+                <td>486</td>
+                <td>Cterm</td>
+                <td>INT_BROMO_BET</td>
+                <td>interaction</td>
+                <td>Diacetylation recognition motif for bromodomain of BET family</td>
+                <td>(K)[GILVMF]{0,1}[^MFYLW].(K)</td>
+                <td>KQPK</td>
+                <td>The crystal structure of BD1 bound to a diacetylated H4 tail shows how two acetyl-lysine residues cooperate to interact with one binding pocket. Structure-based mutagenesis that reduces the selectivity of BD1 towards diacetylated tails destabilizes the association of Brdt with acetylated chromatin in vivo. Structural analysis suggests that other chromatin-associated proteins may be capable of a similar mode of ligand recognition, including yeast Bdf1, human TAF1 and human CBP/p300 (also known as CREBBP and EP300, respectively).</td>
+                <td>0.1534</td>
+                <td>0.5248</td>
+                <td>-0.1003</td>
+                <td>60/150</td>
+                <td>90.60</td>
+                <td>K483 ubiquitination - Inhibition<br><br>K486 ubiquitination - Inhibition<br><br></td>
+                <td>depletion</td>
+                <td>3.056e-02</td>
+                <td>not significant</td>
+                <td>depletion</td>
+                <td>2.487e-01</td>
+                <td>not significant</td>
+                <td>Warning: this motif has been described to occur primarily in the following subcellular compartments: nucleus. The interaction between the receptor and the target molecule might require translocation of the GPCR (either the full receptor or the cleaved fragment containing the motif) to the target compartment or the translocation of the target molecule close to the plasma membrane.</td>
+                <td>Warning: this motif has been described to require prerequisite acetylations for binding to its target. However, none of the required acetylations has been detected in the protein sequence. This might be due to the fact that the motif is a false positive match, or that the corresponding acetylations have not yet been incorporated into relevant databases.</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_INT_CaM_1-5-8-14_314-327</td>
+                <td><a href="../ProteinPaint/Q8IZ08_INT_CaM_1-5-8-14_314-327.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>3</td>
+                <td>5</td>
+                <td>1</td>
+                <td>N/A</td>
+                <td>314</td>
+                <td>327</td>
+                <td>ICL3</td>
+                <td>INT_CaM_1-5-8-14</td>
+                <td>interaction</td>
+                <td>Helical calmodulin binding motifs (1-5-8-14)</td>
+                <td>[FILVW][^P]{3}[FAILVW][^P]{2}[FAILVW][^P]{5}[FILVW]</td>
+                <td>VNTYARVLRFFSEV</td>
+                <td>Many calmodulin (CaM) binding proteins interact with CaM by forming a short alpha-helix with a few key hydrophobic residues being displayed on the surface of the helix. This binding region binds into the central binding groove of CaM formed by the two Ca2+-binding lobes.</td>
+                <td>0.3783</td>
+                <td>0.8354</td>
+                <td>-0.0736</td>
+                <td>48/150</td>
+                <td>94.60</td>
+                <td>-</td>
+                <td>enrichment</td>
+                <td>4.294e-01</td>
+                <td>not significant</td>
+                <td>enrichment</td>
+                <td>3.976e-01</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_INT_CaM_1-8-14_314-327</td>
+                <td><a href="../ProteinPaint/Q8IZ08_INT_CaM_1-8-14_314-327.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>2</td>
+                <td>5</td>
+                <td>1</td>
+                <td>N/A</td>
+                <td>314</td>
+                <td>327</td>
+                <td>ICL3</td>
+                <td>INT_CaM_1-8-14</td>
+                <td>interaction</td>
+                <td>Helical calmodulin binding motifs (1-8-14)</td>
+                <td>[FILVW][^P]{6}[FAILVW][^P]{5}[FILVW]</td>
+                <td>VNTYARVLRFFSEV</td>
+                <td>Many calmodulin (CaM) binding proteins interact with CaM by forming a short alpha-helix with a few key hydrophobic residues being displayed on the surface of the helix. This binding region binds into the central binding groove of CaM formed by the two Ca2+-binding lobes.</td>
+                <td>0.7452</td>
+                <td>0.8354</td>
+                <td>-0.0736</td>
+                <td>55/150</td>
+                <td>91.90</td>
+                <td>-</td>
+                <td>enrichment</td>
+                <td>4.294e-01</td>
+                <td>not significant</td>
+                <td>enrichment</td>
+                <td>3.976e-01</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_INT_Clathrin_propel_arrestin_box_203-207</td>
+                <td><a href="../ProteinPaint/Q8IZ08_INT_Clathrin_propel_arrestin_box_203-207.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>3</td>
+                <td>5</td>
+                <td>1</td>
+                <td>N/A</td>
+                <td>203</td>
+                <td>207</td>
+                <td>ICL2</td>
+                <td>INT_Clathrin_propel_arrestin_box</td>
+                <td>interaction</td>
+                <td>Clathrin Propeller domain binding motif - arrestin box</td>
+                <td>(.L[LIP].[LM])|([LI][LI]G.L)</td>
+                <td>ALISL</td>
+                <td>The arrestin box motif is a short linear motif that binds to the Clathrin Propeller domain of clathrin heavy chain proteins, facilitating clathrin recruitment to membranes and promoting processes like receptor-mediated endocytosis. This motif, often found in clathrin-adaptor proteins, plays a crucial role in post-Golgi membrane transport.</td>
+                <td>0.2173</td>
+                <td>0.9294</td>
+                <td>0.0193</td>
+                <td>57/150</td>
+                <td>95.30</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>5.000e-01</td>
+                <td>not significant</td>
+                <td>none</td>
+                <td>1.000e+00</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_INT_Csm1_Box3_319-326</td>
+                <td><a href="../ProteinPaint/Q8IZ08_INT_Csm1_Box3_319-326.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>3</td>
+                <td>5</td>
+                <td>2</td>
+                <td>N/A</td>
+                <td>319</td>
+                <td>326</td>
+                <td>ICL3</td>
+                <td>INT_Csm1_Box3</td>
+                <td>interaction</td>
+                <td>Csm1 domain binding motif - Box 3</td>
+                <td>[KR]{1,2}.{0,1}[LMAVF]..F.{0,2}([DE]|([ST])){1,3}</td>
+                <td>RVLRFFSE</td>
+                <td>The Box 3 motif, recognized by proteins with the Csm1 domain, is crucial for the monopolin complex function in meiosis and proper chromosome segregation. It facilitates spindle microtubule attachment to the kinetochore. This motif has been shown to bind to several proteins including DSN1, DSE3, and CAGL0E00539g in yeast. [PMID:30252178, PMID:31037469]. The Csm1 domain binding motif - Box 3 is required for monopolin complex function in meiosis. [PMID:31037469] The motif is critical for the attachment of spindle microtubules to kinetochore involved in meiotic chromosome segregation. [PMID:31037469] The motif is localised in the kinetochore. The Csm1 domain binding motif - Box 3 is involved in the organisation of kinetochores, which are the structures that attach chromosomes to spindle microtubules during cell division. This motif is crucial for ensuring the proper segregation of chromosomes during meiosis, a process that produces gametes with half the number of chromosomes as the parent cell.</td>
+                <td>0.2175</td>
+                <td>0.8299</td>
+                <td>-0.0647</td>
+                <td>65/150</td>
+                <td>94.60</td>
+                <td>-</td>
+                <td>none</td>
+                <td>1.000e+00</td>
+                <td>not significant</td>
+                <td>none</td>
+                <td>1.000e+00</td>
+                <td>not significant</td>
+                <td>Warning: this motif has been described to occur primarily in the following subcellular compartments: nucleus, kinetochore. The interaction between the receptor and the target molecule might require translocation of the GPCR (either the full receptor or the cleaved fragment containing the motif) to the target compartment or the translocation of the target molecule close to the plasma membrane.</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_INT_Csm1_Box3_409-417</td>
+                <td><a href="../ProteinPaint/Q8IZ08_INT_Csm1_Box3_409-417.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>3</td>
+                <td>5</td>
+                <td>1</td>
+                <td>2</td>
+                <td>409</td>
+                <td>417</td>
+                <td>Cterm</td>
+                <td>INT_Csm1_Box3</td>
+                <td>interaction</td>
+                <td>Csm1 domain binding motif - Box 3</td>
+                <td>[KR]{1,2}.{0,1}[LMAVF]..F.{0,2}([DE]|([ST])){1,3}</td>
+                <td>RNVDAFLPS</td>
+                <td>The Box 3 motif, recognized by proteins with the Csm1 domain, is crucial for the monopolin complex function in meiosis and proper chromosome segregation. It facilitates spindle microtubule attachment to the kinetochore. This motif has been shown to bind to several proteins including DSN1, DSE3, and CAGL0E00539g in yeast. [PMID:30252178, PMID:31037469]. The Csm1 domain binding motif - Box 3 is required for monopolin complex function in meiosis. [PMID:31037469] The motif is critical for the attachment of spindle microtubules to kinetochore involved in meiotic chromosome segregation. [PMID:31037469] The motif is localised in the kinetochore. The Csm1 domain binding motif - Box 3 is involved in the organisation of kinetochores, which are the structures that attach chromosomes to spindle microtubules during cell division. This motif is crucial for ensuring the proper segregation of chromosomes during meiosis, a process that produces gametes with half the number of chromosomes as the parent cell.</td>
+                <td>0.2175</td>
+                <td>0.7551</td>
+                <td>0.0449</td>
+                <td>65/150</td>
+                <td>94.60</td>
+                <td>-</td>
+                <td>enrichment</td>
+                <td>2.650e-01</td>
+                <td>not significant</td>
+                <td>depletion</td>
+                <td>2.224e-01</td>
+                <td>not significant</td>
+                <td>Warning: this motif has been described to occur primarily in the following subcellular compartments: nucleus, kinetochore. The interaction between the receptor and the target molecule might require translocation of the GPCR (either the full receptor or the cleaved fragment containing the motif) to the target compartment or the translocation of the target molecule close to the plasma membrane.</td>
+                <td>Warning: this motif has been described to require prerequisite phosphorylations for binding to its target. However, none of the required phosphorylations has been detected in the protein sequence. This might be due to the fact that the motif is a false positive match, or that the corresponding phosphorylations have not yet been incorporated into relevant databases.</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_INT_DBF4_zfDBF_306-312</td>
+                <td><a href="../ProteinPaint/Q8IZ08_INT_DBF4_zfDBF_306-312.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>3</td>
+                <td>5</td>
+                <td>1</td>
+                <td>N/A</td>
+                <td>306</td>
+                <td>312</td>
+                <td>ICL3</td>
+                <td>INT_DBF4_zfDBF</td>
+                <td>interaction</td>
+                <td>DBF4 zf-DBF domain binding motif</td>
+                <td>L.[DS]...[RG]</td>
+                <td>LSDVRVR</td>
+                <td>DBF4 zf-DBF domain binding motif</td>
+                <td>0.2236</td>
+                <td>0.8661</td>
+                <td>0.0084</td>
+                <td>84/150</td>
+                <td>91.30</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>2.877e-01</td>
+                <td>not significant</td>
+                <td>enrichment</td>
+                <td>3.738e-01</td>
+                <td>not significant</td>
+                <td>Warning: this motif has been described to occur primarily in the following subcellular compartments: nucleus. The interaction between the receptor and the target molecule might require translocation of the GPCR (either the full receptor or the cleaved fragment containing the motif) to the target compartment or the translocation of the target molecule close to the plasma membrane.</td>
+                <td>-</td>
+                <td>Note: the following motif residue has been predicted as functional according to ConSurf based on their evolutionary conservation profile: D308.</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_INT_DBF4_zfDBF_415-421</td>
+                <td><a href="../ProteinPaint/Q8IZ08_INT_DBF4_zfDBF_415-421.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>3</td>
+                <td>3</td>
+                <td>3</td>
+                <td>N/A</td>
+                <td>415</td>
+                <td>421</td>
+                <td>Cterm</td>
+                <td>INT_DBF4_zfDBF</td>
+                <td>interaction</td>
+                <td>DBF4 zf-DBF domain binding motif</td>
+                <td>L.[DS]...[RG]</td>
+                <td>LPSQGPG</td>
+                <td>DBF4 zf-DBF domain binding motif</td>
+                <td>0.2236</td>
+                <td>0.6166</td>
+                <td>-0.1089</td>
+                <td>84/150</td>
+                <td>91.30</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>1.860e-02</td>
+                <td>not significant</td>
+                <td>none</td>
+                <td>1.000e+00</td>
+                <td>not significant</td>
+                <td>Warning: this motif has been described to occur primarily in the following subcellular compartments: nucleus. The interaction between the receptor and the target molecule might require translocation of the GPCR (either the full receptor or the cleaved fragment containing the motif) to the target compartment or the translocation of the target molecule close to the plasma membrane.</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_INT_FERM_MYOX_ITG_321-324</td>
+                <td><a href="../ProteinPaint/Q8IZ08_INT_FERM_MYOX_ITG_321-324.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>4</td>
+                <td>5</td>
+                <td>1</td>
+                <td>N/A</td>
+                <td>321</td>
+                <td>324</td>
+                <td>ICL3</td>
+                <td>INT_FERM_MYOX_ITG</td>
+                <td>interaction</td>
+                <td>MyoX FERM domain binding motif - ITG</td>
+                <td>L.[IF][IF]</td>
+                <td>LRFF</td>
+                <td>The ITG motif, recognized by the FERM_M domain found in proteins like MyoX, binds to myosin proteins and is experimentally validated in human integrins such as ITGB1, ITGA5, and ITGA2. This motif is crucial for integrin activation and participates in cellular processes like cell adhesion and response to stimuli.</td>
+                <td>0.0784</td>
+                <td>0.8065</td>
+                <td>-0.0806</td>
+                <td>54/150</td>
+                <td>96.60</td>
+                <td>-</td>
+                <td>enrichment</td>
+                <td>3.857e-01</td>
+                <td>not significant</td>
+                <td>depletion</td>
+                <td>5.000e-01</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_INT_Filamin_FLNA_323-329</td>
+                <td><a href="../ProteinPaint/Q8IZ08_INT_Filamin_FLNA_323-329.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>3</td>
+                <td>5</td>
+                <td>4</td>
+                <td>N/A</td>
+                <td>323</td>
+                <td>329</td>
+                <td>ICL3</td>
+                <td>INT_Filamin_FLNA</td>
+                <td>interaction</td>
+                <td>FLNA Filamin domain binding motif</td>
+                <td>[VFY].[STE].[ILVSTF].[ILVTF]</td>
+                <td>FFSEVRT</td>
+                <td>FLNA Filamin domain binding motifs mediate interactions between filamin proteins and transmembrane receptors or cytosolic signaling proteins. These motifs, recognized by Filamin/ABP280 repeat domains, are crucial for regulating integrin activation by modulating filamin binding.</td>
+                <td>0.3577</td>
+                <td>0.8741</td>
+                <td>-0.0023</td>
+                <td>75/150</td>
+                <td>91.30</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>3.936e-01</td>
+                <td>not significant</td>
+                <td>enrichment</td>
+                <td>3.738e-01</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>-</td>
+                <td>Note: the following motif residue has been predicted as functional according to ConSurf based on their evolutionary conservation profile: T329.</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_INT_H3_acetyl_other_459-467</td>
+                <td><a href="../ProteinPaint/Q8IZ08_INT_H3_acetyl_other_459-467.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>1</td>
+                <td>4</td>
+                <td>4</td>
+                <td>N/A</td>
+                <td>459</td>
+                <td>467</td>
+                <td>Cterm</td>
+                <td>INT_H3_acetyl_other</td>
+                <td>interaction</td>
+                <td>Unknown binding motif in H3C1,H3c1,H4C1,hht1</td>
+                <td>.{3}[KMR][MQK].{4}</td>
+                <td>MWARKNPVV</td>
+                <td>Unknown binding motif in H3C1,H3c1,H4C1,hht1</td>
+                <td>0.9450</td>
+                <td>0.8813</td>
+                <td>0.1528</td>
+                <td>150/150</td>
+                <td>100.00</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>4.381e-02</td>
+                <td>not significant</td>
+                <td>enrichment</td>
+                <td>1.414e-01</td>
+                <td>not significant</td>
+                <td>Warning: this motif has been described to occur primarily in the following subcellular compartments: nucleus. The interaction between the receptor and the target molecule might require translocation of the GPCR (either the full receptor or the cleaved fragment containing the motif) to the target compartment or the translocation of the target molecule close to the plasma membrane.</td>
+                <td>-</td>
+                <td>Note: the following motif residue has been predicted as functional according to ConSurf based on their evolutionary conservation profile: K463.</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_INT_HDAC_Hist_deacetyl_460-463</td>
+                <td><a href="../ProteinPaint/Q8IZ08_INT_HDAC_Hist_deacetyl_460-463.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>1</td>
+                <td>4</td>
+                <td>4</td>
+                <td>N/A</td>
+                <td>460</td>
+                <td>463</td>
+                <td>Cterm</td>
+                <td>INT_HDAC_Hist_deacetyl</td>
+                <td>interaction</td>
+                <td>HDAC Hist deacetyl domain binding motif</td>
+                <td>..[KPRH][EKQH]</td>
+                <td>WARK</td>
+                <td>HDAC Hist deacetyl domain binding motif</td>
+                <td>0.9964</td>
+                <td>0.8445</td>
+                <td>0.0515</td>
+                <td>150/150</td>
+                <td>100.00</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>1.078e-01</td>
+                <td>not significant</td>
+                <td>enrichment</td>
+                <td>2.911e-02</td>
+                <td>not significant</td>
+                <td>Warning: this motif has been described to occur primarily in the following subcellular compartments: nucleus. The interaction between the receptor and the target molecule might require translocation of the GPCR (either the full receptor or the cleaved fragment containing the motif) to the target compartment or the translocation of the target molecule close to the plasma membrane.</td>
+                <td>-</td>
+                <td>Note: the following motif residue has been predicted as functional according to ConSurf based on their evolutionary conservation profile: K463.</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_INT_HDAC_Hist_deacetyl_469-472</td>
+                <td><a href="../ProteinPaint/Q8IZ08_INT_HDAC_Hist_deacetyl_469-472.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>1</td>
+                <td>5</td>
+                <td>3</td>
+                <td>N/A</td>
+                <td>469</td>
+                <td>472</td>
+                <td>Cterm</td>
+                <td>INT_HDAC_Hist_deacetyl</td>
+                <td>interaction</td>
+                <td>HDAC Hist deacetyl domain binding motif</td>
+                <td>..[KPRH][EKQH]</td>
+                <td>FCRE</td>
+                <td>HDAC Hist deacetyl domain binding motif</td>
+                <td>0.9964</td>
+                <td>0.8912</td>
+                <td>0.1855</td>
+                <td>150/150</td>
+                <td>100.00</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>2.247e-01</td>
+                <td>not significant</td>
+                <td>enrichment</td>
+                <td>5.000e-01</td>
+                <td>not significant</td>
+                <td>Warning: this motif has been described to occur primarily in the following subcellular compartments: nucleus. The interaction between the receptor and the target molecule might require translocation of the GPCR (either the full receptor or the cleaved fragment containing the motif) to the target compartment or the translocation of the target molecule close to the plasma membrane.</td>
+                <td>-</td>
+                <td>Note: the following motif residue has been predicted as functional according to ConSurf based on their evolutionary conservation profile: E472.</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_INT_HP1_1_392-396</td>
+                <td><a href="../ProteinPaint/Q8IZ08_INT_HP1_1_392-396.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>3</td>
+                <td>5</td>
+                <td>1</td>
+                <td>N/A</td>
+                <td>392</td>
+                <td>396</td>
+                <td>Cterm</td>
+                <td>INT_HP1_1</td>
+                <td>interaction</td>
+                <td>HP1 Chromoshadow domain binding motif - PxVxL</td>
+                <td>P.{1,2}[VIM].[LIM]</td>
+                <td>PNISM</td>
+                <td>Motif in proteins that interact with the chromoshadow domain of Heterochromatin-binding protein 1. Motif is a ligand to an interface formed by dimerization of two chromoshadow domains in HP1 proteins.</td>
+                <td>0.4047</td>
+                <td>0.8904</td>
+                <td>0.0085</td>
+                <td>115/150</td>
+                <td>94.00</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>6.104e-02</td>
+                <td>not significant</td>
+                <td>none</td>
+                <td>1.000e+00</td>
+                <td>not significant</td>
+                <td>Warning: this motif has been described to occur primarily in the following subcellular compartments: nucleus. The interaction between the receptor and the target molecule might require translocation of the GPCR (either the full receptor or the cleaved fragment containing the motif) to the target compartment or the translocation of the target molecule close to the plasma membrane.</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_INT_HSPA8_SBD_430-433</td>
+                <td><a href="../ProteinPaint/Q8IZ08_INT_HSPA8_SBD_430-433.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>1</td>
+                <td>5</td>
+                <td>1</td>
+                <td>N/A</td>
+                <td>430</td>
+                <td>433</td>
+                <td>Cterm</td>
+                <td>INT_HSPA8_SBD</td>
+                <td>interaction</td>
+                <td>HSP70 binding motif - KFERQ-like</td>
+                <td>[LFI]..[KRQ]</td>
+                <td>LRNR</td>
+                <td>HSP70 binding motif - KFERQ-like</td>
+                <td>0.9985</td>
+                <td>0.8388</td>
+                <td>0.2404</td>
+                <td>150/150</td>
+                <td>100.00</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>3.621e-01</td>
+                <td>not significant</td>
+                <td>enrichment</td>
+                <td>8.486e-02</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>-</td>
+                <td>Note: the following motif residue has been predicted as functional according to ConSurf based on their evolutionary conservation profile: R433.</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_INT_PDZ_Class_1_489-494</td>
+                <td><a href="../ProteinPaint/Q8IZ08_INT_PDZ_Class_1_489-494.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>4</td>
+                <td>5</td>
+                <td>1</td>
+                <td>N/A</td>
+                <td>489</td>
+                <td>494</td>
+                <td>Cterm</td>
+                <td>INT_PDZ_Class_1</td>
+                <td>interaction</td>
+                <td>PDZ domain binding motif - C-terminal x[ST]x[LIV]$</td>
+                <td>...[ST].[ACVILFM]$</td>
+                <td>AGDTSL</td>
+                <td>The best characterised PDZ ligands (PBMs, PDZ-Binding Motifs) are short C-terminal peptides that bind in a surface groove of PDZ domains of proteins as a part of a variety of biological processes including cell signalling and synapse. Although there is a considerable literature on internal sequence peptide interactions, we are not currently representing internal PDZ-binding peptides in ELM. PDZ domains recognize short sequences at the carboxy terminus of target proteins. The terminal residue is apparently always hydrophobic with the -2 position being a strong determinant of specificity. The class 1 motif has a pattern such as (ST)X(VIL)*. We have made the terminal position more relaxed based on experimental binding data. However, probably not all PDZ domain instances can accept either A or F. Several less conserved positions in the motif may modulate affinity and specificity of the ligand domain interaction.</td>
+                <td>0.0465</td>
+                <td>0.8008</td>
+                <td>0.3184</td>
+                <td>125/150</td>
+                <td>87.20</td>
+                <td>-</td>
+                <td>enrichment</td>
+                <td>1.188e-03</td>
+                <td>significant</td>
+                <td>depletion</td>
+                <td>5.000e-01</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>-</td>
+                <td>Note: the following motif residue has been predicted as functional according to ConSurf based on their evolutionary conservation profile: T492.</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_INT_Phospholip_A2_1_468-472</td>
+                <td><a href="../ProteinPaint/Q8IZ08_INT_Phospholip_A2_1_468-472.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>1</td>
+                <td>5</td>
+                <td>2</td>
+                <td>N/A</td>
+                <td>468</td>
+                <td>472</td>
+                <td>Cterm</td>
+                <td>INT_Phospholip_A2_1</td>
+                <td>interaction</td>
+                <td>Phospholip A2 1 domain binding motif</td>
+                <td>[AVL][LAYSVFI].[SKR].</td>
+                <td>LFCRE</td>
+                <td>The Phospholip_A2_1 domain binding motif is recognized by proteins containing the Phospholipase A2 domain, facilitating the binding and inhibition of phospholipases A2 (PLA2) activity. This interaction plays a crucial role in regulating the production of pro-inflammatory eicosanoids.</td>
+                <td>0.9944</td>
+                <td>0.8958</td>
+                <td>0.1930</td>
+                <td>150/150</td>
+                <td>100.00</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>1.423e-01</td>
+                <td>not significant</td>
+                <td>none</td>
+                <td>1.000e+00</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_INT_RAB6_RAS_389-402</td>
+                <td><a href="../ProteinPaint/Q8IZ08_INT_RAB6_RAS_389-402.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>4</td>
+                <td>5</td>
+                <td>2</td>
+                <td>N/A</td>
+                <td>389</td>
+                <td>402</td>
+                <td>Cterm</td>
+                <td>INT_RAB6_RAS</td>
+                <td>interaction</td>
+                <td>Rab6/9 Ras domain binding motif</td>
+                <td>I.......L....R</td>
+                <td>IRNPNISMLLGRNR</td>
+                <td>Rab6/9 Ras domain binding motif</td>
+                <td>0.0719</td>
+                <td>0.8656</td>
+                <td>-0.0256</td>
+                <td>65/150</td>
+                <td>91.30</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>7.027e-02</td>
+                <td>not significant</td>
+                <td>enrichment</td>
+                <td>1.190e-01</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>-</td>
+                <td>Note: the following motif residue has been predicted as functional according to ConSurf based on their evolutionary conservation profile: R402.</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_INT_RHOA_ARHGEF18_PH_16_464-469</td>
+                <td><a href="../ProteinPaint/Q8IZ08_INT_RHOA_ARHGEF18_PH_16_464-469.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>1</td>
+                <td>5</td>
+                <td>4</td>
+                <td>N/A</td>
+                <td>464</td>
+                <td>469</td>
+                <td>Cterm</td>
+                <td>INT_RHOA_ARHGEF18_PH_16</td>
+                <td>interaction</td>
+                <td>PH domain binding motif</td>
+                <td>.[LFP]..[LIFYA].</td>
+                <td>NPVVLF</td>
+                <td>PH domain binding motif</td>
+                <td>0.9998</td>
+                <td>0.9300</td>
+                <td>0.1968</td>
+                <td>150/150</td>
+                <td>100.00</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>3.394e-02</td>
+                <td>not significant</td>
+                <td>depletion</td>
+                <td>3.106e-01</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>-</td>
+                <td>Note: the following motif residue has been predicted as functional according to ConSurf based on their evolutionary conservation profile: P465.</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_INT_SEC24D_IM_393-397</td>
+                <td><a href="../ProteinPaint/Q8IZ08_INT_SEC24D_IM_393-397.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>3</td>
+                <td>5</td>
+                <td>1</td>
+                <td>N/A</td>
+                <td>393</td>
+                <td>397</td>
+                <td>Cterm</td>
+                <td>INT_SEC24D_IM</td>
+                <td>interaction</td>
+                <td>SEC24D binding motif - IxM</td>
+                <td>.I.M.</td>
+                <td>NISML</td>
+                <td>The IxM motif is a short peptide sequence that binds to the Sec24D subunit of the COPII coat complex, facilitating cargo sorting and packaging into vesicles. The isoleucine and methionine residues within the IxM motif are essential for this interaction, as mutations abolish binding.</td>
+                <td>0.1985</td>
+                <td>0.8820</td>
+                <td>-0.0035</td>
+                <td>113/150</td>
+                <td>92.60</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>1.423e-01</td>
+                <td>not significant</td>
+                <td>none</td>
+                <td>1.000e+00</td>
+                <td>not significant</td>
+                <td>Warning: this motif has been described to occur primarily in the following subcellular compartments: endoplasmic reticulum, vesicles. The interaction between the receptor and the target molecule might require translocation of the GPCR (either the full receptor or the cleaved fragment containing the motif) to the target compartment or the translocation of the target molecule close to the plasma membrane.</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_INT_SH2_STAP1_317-321</td>
+                <td><a href="../ProteinPaint/Q8IZ08_INT_SH2_STAP1_317-321.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>3</td>
+                <td>5</td>
+                <td>1</td>
+                <td>1</td>
+                <td>317</td>
+                <td>321</td>
+                <td>ICL3</td>
+                <td>INT_SH2_STAP1</td>
+                <td>interaction</td>
+                <td>SH2 domain binding motif (STAP1)</td>
+                <td>(Y)[DESTA][^GP][^GP][ILVFMWYA]</td>
+                <td>YARVL</td>
+                <td>Src Homology 2 (SH2) domains are small modular domains found within a great number of proteins involved in different signalling pathways. They are able to bind specific motifs containing a phosphorylated tyrosine residue, propagating the signal downstream by promoting protein-protein interactions and/or modifying enzymatic activities. Different families of SH2 domains may have different binding specificity, which is usually determined by a few residues C-terminal with respect to the pY (positions +1 to +4). Non-phosphorylated peptides do not bind to the SH2 domains. Several different binding motifs are known, for example: pYEEI (Src-family SH2 domains), pY [IV].[VILP] (SH-PTP2, phospholipase C-gamma), pY.[N] (GRB2). The interaction between SH2 domains and their substrates is however dependent also on cooperative contacts of other surface regions. STAP1, Signal Adaptor Protein 1 (also known as STAP-1, BRDG1) is an adaptor protein with an SH2 and a PH class of lipid-binding domain. It is associated with autosomal dominant hypercholesterolaemia (Fouchier,2014). STAP1 is expressed in lymphoid cells and is phosphorylated by the Tec TK, which participates in B cell antigen receptor signaling (Ohya,1999).The STAP1 SH2 domain has been classified as a Class IIC SH2 domain together with the BKS, CBL, CBLB and CBLC domains which are unusual in having pY+4 as the strongest specificity determinant: SPOT arrays revealed that the strongest preference at +4 is for Leu or Ile (though Val and Phe are accepted) (Huang,2008).The structure of STAP1 bound to NTAL (3MAZ) shows that residues N-terminal to the pTyr are not strongly involved in binding (Kaneko,2010). The pTyr sits in the conserved pTyr pocket, establishing a network of hydrogen bond and van der Waals interactions with pocket-forming residues Arg184, Arg203, Ser212 and Lys228. The peptide is further stabilized by backbone hydrogen bonds from the +1 position to SH2 pocket residues His226, Glu239, and Lys228, similar to what is found for other SH2 domains. The +1 position has a preference for acidic or polar residues (Huang,2008) and the side chains of residues +1, +2 and +3 point towards solvent. +4 hydrophobic residues enter a deep hydrophobic pentagonally shaped pocket suited to accommodate these large side chains, with polar Tyr or smaller Ala residues being less favored. The +3 pocket in STAP1 is plugged by the EF loop residue Leu240, and the only requirement for +3 is the exclusion of Gly, Pro, and Trp. The BKS SH2 domain also has a "plugged" +3 pocket and shares a similar specificity to STAP1 (Kaneko,2010, Tinti,2013). Other Class IIC SH2 domains such as CBL have a shallower hydrophobic groove that preferentially accommodates a Pro residue at +4 (Kaneko,2010), and are not included in the current motif definition.</td>
+                <td>0.3876</td>
+                <td>0.8236</td>
+                <td>-0.0534</td>
+                <td>112/150</td>
+                <td>94.60</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>1.423e-01</td>
+                <td>not significant</td>
+                <td>depletion</td>
+                <td>5.000e-01</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>Warning: this motif has been described to require a prerequisite phosphorylation for binding to its target. However, no suitable phosphorylation has been detected in the protein sequence. This might be due to the fact that the motif is a false positive match, or that the corresponding phosphorylation has not yet been incorporated into relevant databases.</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_INT_SH3_1_471-477</td>
+                <td><a href="../ProteinPaint/Q8IZ08_INT_SH3_1_471-477.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>3</td>
+                <td>5</td>
+                <td>3</td>
+                <td>N/A</td>
+                <td>471</td>
+                <td>477</td>
+                <td>Cterm</td>
+                <td>INT_SH3_1</td>
+                <td>interaction</td>
+                <td>SH3 domain binding motif, type1</td>
+                <td>[RKY]..P..P</td>
+                <td>REGPPEP</td>
+                <td>The SH3 domain is one of the best characterized protein domains. SH3 domains are involved in a wide-range of important cellular processes including intracellular signaling, cytoskeletal rearrangements and cell movement, cell growth and immune responses. They bind to proline-rich sequences with moderate selectivity. Early studies identified "PxxP" as a core conserved sequence motif for SH3 binding. These motifs are referred to as canonical binders, among which class I and class II ligands are distinguished based on their orientation. Since then, SH3 domains recognizing partners with multiple atypical SH3 binding motifs have also been described. This is the motif recognized by class I SH3 domains</td>
+                <td>0.1219</td>
+                <td>0.7234</td>
+                <td>0.0452</td>
+                <td>40/150</td>
+                <td>90.60</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>1.906e-01</td>
+                <td>not significant</td>
+                <td>none</td>
+                <td>1.000e+00</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_INT_SUMO_SIM_par_1_203-208</td>
+                <td><a href="../ProteinPaint/Q8IZ08_INT_SUMO_SIM_par_1_203-208.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>3</td>
+                <td>5</td>
+                <td>1</td>
+                <td>N/A</td>
+                <td>203</td>
+                <td>208</td>
+                <td>ICL2</td>
+                <td>INT_SUMO_SIM_par_1</td>
+                <td>interaction</td>
+                <td>SUMO binding motif - SIM, parallel</td>
+                <td>([DE]|([ST])){0,5}.[VILPTM][VIL][DESTVILMA][VIL].{0,1}([DE]|([ST])){1,10}</td>
+                <td>ALISLD</td>
+                <td>Non-covalent binding to SUMO proteins is mediated via the SUMO-interacting motif (SIM). SUMO-interacting proteins predominantly function in the nucleus. The SIM is essential for a variety of cellular processes including transcriptional regulation, sub-nuclear localization, nuclear body assembly, and anti-viral response. Viral proteins are also known to utilize such processes via their SIMs upon host cell invasion. This SUMO interacting motif variant is for SIMs bound as a beta-augmented strand in the parallel orientation. The SIM peptide inserts into a groove on the SUMO surface so that the motif has a hydrophobic core of four residues (preference V, I or L), the 3rd position being more variable. At the variable 3rd position, in addition to hydrophobic residues, acidic residues (D or E) and the phosphorylatable residue serine are allowed. A stretch of 1 to 5 acidic or phosphorylatable residues is considered necessary C-terminally from the hydrophobic core. Another negative stretch N-terminal to the core appears more optional, though both are usually present. These acidic stretches complement positively-charged residues on the SUMO surface. The length of the acidic stretch may be involved in determining the orientation of binding. When the longer acidic stretch is C-terminal, the beta strand seems usually to be parallel. The two crystal structures of PIAS2 (2ASQ, Song,2005, O75928) and Daxx (2KQS, Chang,2011, O75928) support this theory: They both bind in parallel orientation and have a C-terminal acidic stretch. The crystal structure of RanBP2 (1Z5S, Reverter,2005, P49792) can be contrasted: It binds as an anti-parallel beta strand and has an N-terminal acidic patch. Because of the high similarity of the motif patterns for the parallel and antiparallel orientations, many SIMs will be detected by both of the motifs in ELM. Quite possibly, some SIM peptides may be able to bind to SUMO in both orientations.</td>
+                <td>0.3473</td>
+                <td>0.9373</td>
+                <td>0.0342</td>
+                <td>59/150</td>
+                <td>96.00</td>
+                <td>-</td>
+                <td>enrichment</td>
+                <td>2.358e-01</td>
+                <td>not significant</td>
+                <td>none</td>
+                <td>1.000e+00</td>
+                <td>not significant</td>
+                <td>Warning: this motif has been described to occur primarily in the following subcellular compartments: nucleus. The interaction between the receptor and the target molecule might require translocation of the GPCR (either the full receptor or the cleaved fragment containing the motif) to the target compartment or the translocation of the target molecule close to the plasma membrane.</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_INT_TAP_RRM_429-433</td>
+                <td><a href="../ProteinPaint/Q8IZ08_INT_TAP_RRM_429-433.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>2</td>
+                <td>5</td>
+                <td>4</td>
+                <td>N/A</td>
+                <td>429</td>
+                <td>433</td>
+                <td>Cterm</td>
+                <td>INT_TAP_RRM</td>
+                <td>interaction</td>
+                <td>TAP RRM domain binding motif</td>
+                <td>R.{0,1}R.R</td>
+                <td>RLRNR</td>
+                <td>TAP RRM domain binding motif</td>
+                <td>0.5823</td>
+                <td>0.8282</td>
+                <td>0.2403</td>
+                <td>98/150</td>
+                <td>85.90</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>2.517e-01</td>
+                <td>not significant</td>
+                <td>enrichment</td>
+                <td>1.067e-01</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>-</td>
+                <td>Note: the following motif residue has been predicted as functional according to ConSurf based on their evolutionary conservation profile: R433.</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_INT_TBL1X_131-134</td>
+                <td><a href="../ProteinPaint/Q8IZ08_INT_TBL1X_131-134.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>4</td>
+                <td>4</td>
+                <td>1</td>
+                <td>N/A</td>
+                <td>131</td>
+                <td>134</td>
+                <td>ICL1</td>
+                <td>INT_TBL1X</td>
+                <td>interaction</td>
+                <td>TBL1X NTD domain binding motif</td>
+                <td>HR.[LI]</td>
+                <td>HRQL</td>
+                <td>TBL1X NTD domain binding motif</td>
+                <td>0.0522</td>
+                <td>0.9187</td>
+                <td>0.0220</td>
+                <td>132/150</td>
+                <td>91.90</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>1.078e-01</td>
+                <td>not significant</td>
+                <td>depletion</td>
+                <td>5.000e-01</td>
+                <td>not significant</td>
+                <td>Warning: this motif has been described to occur primarily in the following subcellular compartments: nucleus. The interaction between the receptor and the target molecule might require translocation of the GPCR (either the full receptor or the cleaved fragment containing the motif) to the target compartment or the translocation of the target molecule close to the plasma membrane.</td>
+                <td>-</td>
+                <td>Note: the following motif residue has been predicted as functional according to ConSurf based on their evolutionary conservation profile: R132.</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_INT_TIFA_FHA_DxxT_326-329</td>
+                <td><a href="../ProteinPaint/Q8IZ08_INT_TIFA_FHA_DxxT_326-329.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>2</td>
+                <td>4</td>
+                <td>4</td>
+                <td>1</td>
+                <td>326</td>
+                <td>329</td>
+                <td>ICL3</td>
+                <td>INT_TIFA_FHA_DxxT</td>
+                <td>interaction</td>
+                <td>FHA domain binding phosphopeptide - [DE]xx(T)</td>
+                <td>[DEN]..(T)</td>
+                <td>EVRT</td>
+                <td>The [DE]xx(T) motif is a phosphorylated threonine-containing sequence recognized by FHA domains, crucial for protein interactions and downstream signaling pathways like NF-kappaB activation. Phosphorylation of the threonine residue within this motif is essential for FHA domain binding and subsequent biological functions.</td>
+                <td>0.7419</td>
+                <td>0.9260</td>
+                <td>0.0594</td>
+                <td>147/150</td>
+                <td>98.00</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>3.621e-01</td>
+                <td>not significant</td>
+                <td>enrichment</td>
+                <td>2.224e-01</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>Warning: this motif has been described to require a prerequisite phosphorylation for binding to its target. However, no suitable phosphorylation has been detected in the protein sequence. This might be due to the fact that the motif is a false positive match, or that the corresponding phosphorylation has not yet been incorporated into relevant databases.</td>
+                <td>Note: the following motif residues have been predicted as functional according to ConSurf based on their evolutionary conservation profile: E326, T329.</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_INT_TND_TIM_465-470</td>
+                <td><a href="../ProteinPaint/Q8IZ08_INT_TND_TIM_465-470.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>1</td>
+                <td>5</td>
+                <td>3</td>
+                <td>N/A</td>
+                <td>465</td>
+                <td>470</td>
+                <td>Cterm</td>
+                <td>INT_TND_TIM</td>
+                <td>interaction</td>
+                <td>TND binding motif</td>
+                <td>...[ILVMF][ILVMFY][DESTNGC]{1,12}</td>
+                <td>PVVLFC</td>
+                <td>The TIM motif is a protein-protein interaction motif recognized by the Med26 domain and is involved in diverse cellular processes like mRNA export and transcription regulation. It is found in proteins associated with transcription elongation, mediator, and Cdc73/Paf1 complexes.</td>
+                <td>0.9941</td>
+                <td>0.8992</td>
+                <td>0.1716</td>
+                <td>150/150</td>
+                <td>100.00</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>3.394e-02</td>
+                <td>not significant</td>
+                <td>depletion</td>
+                <td>3.106e-01</td>
+                <td>not significant</td>
+                <td>Warning: this motif has been described to occur primarily in the following subcellular compartments: nucleus. The interaction between the receptor and the target molecule might require translocation of the GPCR (either the full receptor or the cleaved fragment containing the motif) to the target compartment or the translocation of the target molecule close to the plasma membrane.</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_INT_TRAF4_MATH_1_429-433</td>
+                <td><a href="../ProteinPaint/Q8IZ08_INT_TRAF4_MATH_1_429-433.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>2</td>
+                <td>5</td>
+                <td>2</td>
+                <td>N/A</td>
+                <td>429</td>
+                <td>433</td>
+                <td>Cterm</td>
+                <td>INT_TRAF4_MATH_1</td>
+                <td>interaction</td>
+                <td>MATH domain binding motif - TRAF4</td>
+                <td>R[LV][^P].[RQ]</td>
+                <td>RLRNR</td>
+                <td>TRAF4 is considered unique among TRAF E3 ligase family members owing to differences in its domain organization and function. It was initially identified as a regulator of embryogenesis in mice and later found to be critical for cell migration, lipid binding and cancer progression. Unlike other TRAF family members, TRAF4 possesses nuclear localization signals (NLS) and does not interact with the canonical TRAF-binding receptors and hence is involved in different biological processes. The receptor-interacting surface residues in other TRAFs are not conserved in TRAF4 and account for its novel interaction mode. TRAF4-specific binding motifs have been identified in some platelet receptors. The TRAF4 MATH domain differs from other TRAF family members in primary sequence at the binding interface. So far, only two robust binding motifs have been defined in a pair of platelet receptors and a single structure solved in complex with a binding partner. So, there is uncertainty about the motif description. In the solved structure of the TRAF4/GPIbbeta peptide complex (5YC1), the receptor binding area is demarcated by two hydrophobic pockets, major and minor, on the surface of TRAF4. The major pocket binds a deeply inserted Leu. The residues F408, Y436, and F434 form the major pocket and the residues W414 and F434 form the minor pocket on TRAF4. The hydrophobic pockets are marked by the acidic patches on the surface of the TRAF4 MATH domain. Importantly, TRAF4 variants (F434R, S357E, Y366R, Y436R, E406R, N355R) with residues belonging to these pockets have been shown to either reduce or disrupt the binding with receptor peptides in quantitative binding assays using SPR and ITC (Kim,2017). The serine triad present in other TRAFs is absent in TRAF4, and the region is replaced by W414 in TRAF4. The main interaction is between the conserved Leucine at the second position of the GPIbbeta peptide and the major hydrophobic pocket. The alanine residue at the fourth position makes a non-covalent interaction with the minor hydrophobic pocket which likely fine-tunes the binding affinity. Alanine can be replaced with other residues, such as H or G, with reduced binding affinity. The arginine residues at the first (+1) and fifth (+5) positions form hydrogen bonds with the E406 and N355 side chains on TRAF4, respectively. Pro is excluded at the +3 and +5 positions due to beta-augmentation H-bonding requirements.</td>
+                <td>0.5057</td>
+                <td>0.8282</td>
+                <td>0.2403</td>
+                <td>60/150</td>
+                <td>89.30</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>2.517e-01</td>
+                <td>not significant</td>
+                <td>enrichment</td>
+                <td>1.067e-01</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>-</td>
+                <td>Note: the following motif residue has been predicted as functional according to ConSurf based on their evolutionary conservation profile: R433.</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_INT_TRIM39_SPRY_463-467</td>
+                <td><a href="../ProteinPaint/Q8IZ08_INT_TRIM39_SPRY_463-467.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>2</td>
+                <td>5</td>
+                <td>2</td>
+                <td>N/A</td>
+                <td>463</td>
+                <td>467</td>
+                <td>Cterm</td>
+                <td>INT_TRIM39_SPRY</td>
+                <td>interaction</td>
+                <td>TRIM39 binding motif</td>
+                <td>K...[IV]</td>
+                <td>KNPVV</td>
+                <td>TRIM39 binding motif</td>
+                <td>0.5496</td>
+                <td>0.9118</td>
+                <td>0.1493</td>
+                <td>126/150</td>
+                <td>89.30</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>6.104e-02</td>
+                <td>not significant</td>
+                <td>depletion</td>
+                <td>3.106e-01</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>-</td>
+                <td>Note: the following motif residue has been predicted as functional according to ConSurf based on their evolutionary conservation profile: K463.</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_INT_TUSC_OST_468-472</td>
+                <td><a href="../ProteinPaint/Q8IZ08_INT_TUSC_OST_468-472.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>2</td>
+                <td>5</td>
+                <td>2</td>
+                <td>N/A</td>
+                <td>468</td>
+                <td>472</td>
+                <td>Cterm</td>
+                <td>INT_TUSC_OST</td>
+                <td>interaction</td>
+                <td>TUSC OST domain binding motif</td>
+                <td>([LF].C..)|(..C.[LF])</td>
+                <td>LFCRE</td>
+                <td>The TUSC OST domain binding motif, characterized in humans and found in proteins like CRBN and IL1RAPL1, interacts with the OST3_OST6 domain of proteins such as TUSC3 via its ([LF]xCxx)|(xxCx[LF]) sequence, often adopting a disordered conformation upon binding. TUSC3, a tumor suppressor candidate linked to mental retardation, recognizes this motif.</td>
+                <td>0.7259</td>
+                <td>0.8958</td>
+                <td>0.1930</td>
+                <td>122/150</td>
+                <td>91.30</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>1.423e-01</td>
+                <td>not significant</td>
+                <td>none</td>
+                <td>1.000e+00</td>
+                <td>not significant</td>
+                <td>Warning: this motif has been described to occur primarily in the following subcellular compartments: endoplasmic reticulum. The interaction between the receptor and the target molecule might require translocation of the GPCR (either the full receptor or the cleaved fragment containing the motif) to the target compartment or the translocation of the target molecule close to the plasma membrane.</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_INT_WW_3_215-219</td>
+                <td><a href="../ProteinPaint/Q8IZ08_INT_WW_3_215-219.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>4</td>
+                <td>5</td>
+                <td>1</td>
+                <td>N/A</td>
+                <td>215</td>
+                <td>219</td>
+                <td>ICL2</td>
+                <td>INT_WW_3</td>
+                <td>interaction</td>
+                <td>WW domain binding canonical motif - PPR</td>
+                <td>.PPR.</td>
+                <td>RPPRE</td>
+                <td>WW Domains are small but abundant domains found in diverse regulatory situations. The binding peptide motifs appear always to involve proline residues. Specific motifs vary for different WW domains and in some cases must be phosphorylated on a serine or threonine. WW domain of group III binding motif</td>
+                <td>0.0884</td>
+                <td>0.8504</td>
+                <td>-0.0200</td>
+                <td>51/150</td>
+                <td>97.30</td>
+                <td>-</td>
+                <td>enrichment</td>
+                <td>3.573e-02</td>
+                <td>not significant</td>
+                <td>depletion</td>
+                <td>3.106e-01</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>-</td>
+                <td>Note: the following motif residue has been predicted as functional according to ConSurf based on their evolutionary conservation profile: P216.</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_INT_WW_phosphoCXCR4_445-448</td>
+                <td><a href="../ProteinPaint/Q8IZ08_INT_WW_phosphoCXCR4_445-448.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>2</td>
+                <td>5</td>
+                <td>2</td>
+                <td>3</td>
+                <td>445</td>
+                <td>448</td>
+                <td>Cterm</td>
+                <td>INT_WW_phosphoCXCR4</td>
+                <td>interaction</td>
+                <td>Non-canonical motif phospho-dependent WW domain binding</td>
+                <td>[^P](S)(S)[^P]</td>
+                <td>SSSN</td>
+                <td>The E3 ubiquitin ligase atrophin interacting protein 4 (AIP4) mediates ubiquitination and down-regulation of the chemokine receptor CXCR4. AIP4 belongs to the Nedd4-like homologous to E6-AP carboxy terminus domain family of E3 ubiquitin ligases, which typically bind proline-rich motifs within target proteins via the WW domains. The intracellular domains of CXCR4 lack canonical WW domain binding motifs but AIP4 can interact directly with CXCR4 via a novel noncanonical WW domain-mediated interaction involving serine residues 324 and 325 within the carboxy-terminal tail of CXCR4 in the absence of any proline residues. These serine residues are critical for mediating agonist-promoted binding of AIP4 and subsequent ubiquitination and degradation of CXCR4. These residues are phosphorylated upon agonist activation and phosphomimetic mutants show enhanced binding to AIP4, suggesting a mechanism whereby phosphorylation mediates the interaction between CXCR4 and AIP4.</td>
+                <td>0.5054</td>
+                <td>0.8582</td>
+                <td>0.1995</td>
+                <td>127/150</td>
+                <td>87.90</td>
+                <td>S447 phosphorylation - Prerequisite for binding<br><br>S446 phosphorylation - Prerequisite for binding<br><br></td>
+                <td>depletion</td>
+                <td>1.078e-01</td>
+                <td>not significant</td>
+                <td>depletion</td>
+                <td>5.000e-01</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>-</td>
+                <td>Note: the following motif residue has been predicted as functional according to ConSurf based on their evolutionary conservation profile: S447.</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_INT_armadillo_GASP1-2_429-432</td>
+                <td><a href="../ProteinPaint/Q8IZ08_INT_armadillo_GASP1-2_429-432.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>1</td>
+                <td>4</td>
+                <td>4</td>
+                <td>N/A</td>
+                <td>429</td>
+                <td>432</td>
+                <td>Cterm</td>
+                <td>INT_armadillo_GASP1-2</td>
+                <td>interaction</td>
+                <td>Motif recognized by the armadillo domain of GASP1 (GPRASP1)</td>
+                <td>.[FLV][RK].</td>
+                <td>RLRN</td>
+                <td>G protein-coupled receptor associated sorting protein (GASP-1) interacts with the delta opioid receptor and other opioid receptors and the interaction domain in these receptors is restricted to a small portion of the carboxyl-terminal tail, corresponding to helix 8 in the three-dimensional structure of rhodopsin. GASP-1 interacts with COOH-terminus of several other GPCRs from subfamilies A and B and two conserved residues within the putative helix 8 of these receptors are critical for the interaction with GASP-1. In situ hybridization and northern blot analysis indicate that GASP-1 mRNA is mainly distributed throughout the central nervous system, consistent with a potential interaction with numerous GPCRs in vivo. A close homologue of GASP-1, GASP-2, has been shown to interact with Smoothened (another GPCR) via a similar motif with W as the hydrophobic residue. However, it is likely that the two proteins recognize similar but different motifs, and this entry represents only GASP-1 interactors, as there is insufficient data for defining a GASP-2 motif. It is likely that other, non-trivial sequence determinants close to the two residues defined in the motif are important for selectivity, as various GPCR C-terminal tails that all harbour the motif have different binding strength to GASP-1.</td>
+                <td>0.9994</td>
+                <td>0.8118</td>
+                <td>0.2109</td>
+                <td>149/150</td>
+                <td>99.30</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>1.078e-01</td>
+                <td>not significant</td>
+                <td>enrichment</td>
+                <td>1.395e-01</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_INT_eIF4E_YxxxxL_406-412</td>
+                <td><a href="../ProteinPaint/Q8IZ08_INT_eIF4E_YxxxxL_406-412.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>1</td>
+                <td>5</td>
+                <td>1</td>
+                <td>N/A</td>
+                <td>406</td>
+                <td>412</td>
+                <td>Cterm</td>
+                <td>INT_eIF4E_YxxxxL</td>
+                <td>interaction</td>
+                <td>eIF4E binding motif - YxxxxL</td>
+                <td>[YFM]....[LIMV][VILMFYWRKD]</td>
+                <td>YRTRNVD</td>
+                <td>Variant YxxxxL motifs that mediate binding to the dorsal surface of eIF4E through interactions with the Tryptophan at position 73 (in human and mouse). eIF4E is a key regulator of eukaryotic cap-dependent translation and these motifs play a role in both translation initiation, via interactions with eIF4G, and repression, via binding of eIF4E inhibitory proteins. A conserved YxxxxL&#981; motif mediates binding of key regulatory proteins to the dorsal surface of eIF4E through interactions with the Tryptophan at position 73 (in human and mouse). This interaction plays a crucial role in eukaryotic cap-dependent translation initiation, recruiting the scaffold eIF4G to the cap-binding eIF4E protein as part of the eIF4F complex. eIF4G, recruits the ribosome to the bound mRNA through additional interactions with the ribosome-associated factor eIF3. The same region is also targeted by a group of "eIF4E inhibitory proteins", which competitively bind and sequester the available eIF4E and preventing eIF4F complex formation. These inhibitory proteins play a key role in important cellular processes, including cell cycle progression and metabolism. Although the motif is defined in the literature as YxxxxL&#981;, it should be noted that there are variants that do not have a Y at position 1 and/or have a positively charged residue in the final position.</td>
+                <td>0.8503</td>
+                <td>0.8394</td>
+                <td>0.1040</td>
+                <td>72/150</td>
+                <td>90.60</td>
+                <td>-</td>
+                <td>enrichment</td>
+                <td>2.267e-02</td>
+                <td>not significant</td>
+                <td>none</td>
+                <td>1.000e+00</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>-</td>
+                <td>Note: the following motif residue has been predicted as functional according to ConSurf based on their evolutionary conservation profile: Y406.</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_MOD_O-GlcNAcyl_OGT_392-395</td>
+                <td><a href="../ProteinPaint/Q8IZ08_MOD_O-GlcNAcyl_OGT_392-395.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>1</td>
+                <td>4</td>
+                <td>4</td>
+                <td>1</td>
+                <td>392</td>
+                <td>395</td>
+                <td>Cterm</td>
+                <td>MOD_O-GlcNAcyl_OGT</td>
+                <td>modification</td>
+                <td>O-GlcNAcylation motif - OGT</td>
+                <td>[GCVASTP]..([ST])</td>
+                <td>PNIS</td>
+                <td>The O-GlcNAcylation motif is a short peptide sequence recognized by OGT enzyme, which adds N-acetylglucosamine (GlcNAc) to serine and threonine residues of target proteins, regulating diverse cellular processes. OGT-mediated glycosylation is a key post-translational modification crucial for cellular signaling pathways, transcription, and protein stability.</td>
+                <td>1.0000</td>
+                <td>0.9073</td>
+                <td>0.0293</td>
+                <td>150/150</td>
+                <td>100.00</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>3.056e-02</td>
+                <td>not significant</td>
+                <td>enrichment</td>
+                <td>5.000e-01</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>Warning: the binding of this motif should result in the O-GlcNAcylation of the motif region. However, no suitable O-GlcNAcylation has been detected in the correct position. This might be due to the fact that the motif is a false positive match, or that the corresponding O-GlcNAcylation has not yet been incorporated into relevant databases.</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_MOD_O-GlcNAcyl_OGT_490-493</td>
+                <td><a href="../ProteinPaint/Q8IZ08_MOD_O-GlcNAcyl_OGT_490-493.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>1</td>
+                <td>5</td>
+                <td>2</td>
+                <td>1</td>
+                <td>490</td>
+                <td>493</td>
+                <td>Cterm</td>
+                <td>MOD_O-GlcNAcyl_OGT</td>
+                <td>modification</td>
+                <td>O-GlcNAcylation motif - OGT</td>
+                <td>[GCVASTP]..([ST])</td>
+                <td>GDTS</td>
+                <td>The O-GlcNAcylation motif is a short peptide sequence recognized by OGT enzyme, which adds N-acetylglucosamine (GlcNAc) to serine and threonine residues of target proteins, regulating diverse cellular processes. OGT-mediated glycosylation is a key post-translational modification crucial for cellular signaling pathways, transcription, and protein stability.</td>
+                <td>1.0000</td>
+                <td>0.8293</td>
+                <td>0.3040</td>
+                <td>150/150</td>
+                <td>100.00</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>1.078e-01</td>
+                <td>not significant</td>
+                <td>none</td>
+                <td>1.000e+00</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>Warning: the binding of this motif should result in the O-GlcNAcylation of the motif region. However, no suitable O-GlcNAcylation has been detected in the correct position. This might be due to the fact that the motif is a false positive match, or that the corresponding O-GlcNAcylation has not yet been incorporated into relevant databases.</td>
+                <td>Note: the following motif residue has been predicted as functional according to ConSurf based on their evolutionary conservation profile: S493.</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_MOD_Phospho_Plk_1_491-494</td>
+                <td><a href="../ProteinPaint/Q8IZ08_MOD_Phospho_Plk_1_491-494.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>1</td>
+                <td>5</td>
+                <td>1</td>
+                <td>1</td>
+                <td>491</td>
+                <td>494</td>
+                <td>Cterm</td>
+                <td>MOD_Phospho_Plk_1</td>
+                <td>modification</td>
+                <td>Phosphorylation motif - PLK canonical</td>
+                <td>[DEN].{0,2}([ST])[FYILMVW]</td>
+                <td>DTSL</td>
+                <td>The members of the Polo subfamily of the Ser/Thr protein kinases, Plks, play key roles during multiple stages of mitosis including prophase, metaphase, anaphase, and cytokinesis. They are spatially restricted to structures such as the centrosome, central spindle and kinetochores. Plk C-terminal regions have conserved polo box domains (PBD) that are critical for localization and function. The PBD recognizes the pS/pT docking motif on a substrate which has already been phosphorylated either by a self-priming mechanism e.g. by Plk1 itself, or by non-self priming by Pro-directed kinases such as CDKs. The C-terminal polo box domain (PBD) of the Plks acts as the pS/pT-binding module. The phosphorylation-dependent binding of the PBD to its ligands also activates the kinase domain by relieving an intramolecular inhibitory interaction, together with activating phosphorylations at one or more sites. Based on the sequence specificity around the pS or pT, three different motif variants have been categorized for the Plks. Plks (polo-like kinases) are regarded as acidophilic kinases. The sites of phosphorylation are characterised by negatively charged and hydrophobic residues at specific positions around the phosphoacceptor S/T residue. Plk1 can phosphorylate the substrate protein directly bound to its PBD or an alternative substrate that is scaffolded by the PBD-bound protein. Plk1 phosphorylates Ser/Thr residues with a strong preference for Asp, Glu, or Asn in the -2 position and typically a Phe, or other aromatic or bulky hydrophobic amino acid in the +1 position (Alexander,2011; Kettenbach,2012; Franchin,2014). Pro (which is also hydrophobic) is strictly forbidden at +1 because it blocks the required backbone H-bond. The +2 position also has a preference for hydrophobic residues but this does not seem to be absolutely required. However, some sites appear to use +2 as the main hydrophobic position so long as disfavoured residues (DEKNP) are avoided at the +1 position. There is no strict amino acid preference observed in the -1 position although the peptides containing either Gly or Pro in this position were poorly phosphorylated, so they are excluded from the motif pattern in ELM.</td>
+                <td>0.9121</td>
+                <td>0.8852</td>
+                <td>0.3787</td>
+                <td>146/150</td>
+                <td>97.30</td>
+                <td>-</td>
+                <td>enrichment</td>
+                <td>3.147e-04</td>
+                <td>significant</td>
+                <td>none</td>
+                <td>1.000e+00</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>Warning: the binding of this motif should result in the phosphorylation of the motif region. However, no suitable phosphorylation has been detected in the correct position. This might be due to the fact that the motif is a false positive match, or that the corresponding phosphorylation has not yet been incorporated into relevant databases.</td>
+                <td>Note: the following motif residues have been predicted as functional according to ConSurf based on their evolutionary conservation profile: D491, S493.</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_MOD_Phospho_TGFBR1_443-446</td>
+                <td><a href="../ProteinPaint/Q8IZ08_MOD_Phospho_TGFBR1_443-446.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>2</td>
+                <td>2</td>
+                <td>2</td>
+                <td>5</td>
+                <td>443</td>
+                <td>446</td>
+                <td>Cterm</td>
+                <td>MOD_Phospho_TGFBR1</td>
+                <td>modification</td>
+                <td>Phosphorylation motif - TGFBR1</td>
+                <td>[RG].[DST]([STY])</td>
+                <td>RMSS</td>
+                <td>Phosphorylation motif - TGFBR1</td>
+                <td>0.5806</td>
+                <td>0.6910</td>
+                <td>0.0030</td>
+                <td>123/150</td>
+                <td>85.20</td>
+                <td>S446 phosphorylation - Result of binding to target<br><br>S445 phosphorylation - Inhibition<br><br></td>
+                <td>depletion</td>
+                <td>1.078e-01</td>
+                <td>not significant</td>
+                <td>depletion</td>
+                <td>2.487e-01</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>-</td>
+                <td>Note: the following motif residue has been predicted as functional according to ConSurf based on their evolutionary conservation profile: S445.</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_MOD_Phospho_TGFBR1_490-493</td>
+                <td><a href="../ProteinPaint/Q8IZ08_MOD_Phospho_TGFBR1_490-493.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>2</td>
+                <td>5</td>
+                <td>3</td>
+                <td>1</td>
+                <td>490</td>
+                <td>493</td>
+                <td>Cterm</td>
+                <td>MOD_Phospho_TGFBR1</td>
+                <td>modification</td>
+                <td>Phosphorylation motif - TGFBR1</td>
+                <td>[RG].[DST]([STY])</td>
+                <td>GDTS</td>
+                <td>Phosphorylation motif - TGFBR1</td>
+                <td>0.5806</td>
+                <td>0.8293</td>
+                <td>0.3040</td>
+                <td>123/150</td>
+                <td>85.20</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>1.078e-01</td>
+                <td>not significant</td>
+                <td>none</td>
+                <td>1.000e+00</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>Warning: the binding of this motif should result in the phosphorylation of the motif region. However, no suitable phosphorylation has been detected in the correct position. This might be due to the fact that the motif is a false positive match, or that the corresponding phosphorylation has not yet been incorporated into relevant databases.</td>
+                <td>Note: the following motif residues have been predicted as functional according to ConSurf based on their evolutionary conservation profile: T492, S493.</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_MOD_deacetyl_SIRT2_SIR2_461-465</td>
+                <td><a href="../ProteinPaint/Q8IZ08_MOD_deacetyl_SIRT2_SIR2_461-465.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>3</td>
+                <td>5</td>
+                <td>3</td>
+                <td>1</td>
+                <td>461</td>
+                <td>465</td>
+                <td>Cterm</td>
+                <td>MOD_deacetyl_SIRT2_SIR2</td>
+                <td>modification</td>
+                <td>SIR2 deacetylase motif - SIRT2</td>
+                <td>(([PAE][KR](K)[^KR].)|(.[PAE](K)[KR].))</td>
+                <td>ARKNP</td>
+                <td>The SIR2 deacetylase motif is a sequence recognized by the Sir2 family of deacetylases, particularly SIRT2, which targets lysine residues for deacetylation and plays a role in cellular processes like gene silencing and DNA repair. This motif, defined by a consensus sequence, binds to the Sir2 domain as a disordered peptide, facilitating lysine deacetylation and subsequent regulation of various cellular functions.</td>
+                <td>0.2653</td>
+                <td>0.9050</td>
+                <td>0.1489</td>
+                <td>57/150</td>
+                <td>91.90</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>1.423e-01</td>
+                <td>not significant</td>
+                <td>enrichment</td>
+                <td>6.688e-02</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>Warning: the binding of this motif should result in the acetylation of the motif region. However, no suitable acetylation has been detected in the correct position. This might be due to the fact that the motif is a false positive match, or that the corresponding acetylation has not yet been incorporated into relevant databases.</td>
+                <td>Note: the following motif residue has been predicted as functional according to ConSurf based on their evolutionary conservation profile: K463.</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_MOD_deacetyl_SIRT5_SIR2_461-465</td>
+                <td><a href="../ProteinPaint/Q8IZ08_MOD_deacetyl_SIRT5_SIR2_461-465.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>1</td>
+                <td>5</td>
+                <td>2</td>
+                <td>1</td>
+                <td>461</td>
+                <td>465</td>
+                <td>Cterm</td>
+                <td>MOD_deacetyl_SIRT5_SIR2</td>
+                <td>modification</td>
+                <td>SIR2 deacetylase motif - SIRT5</td>
+                <td>[LVMAF].(K)..</td>
+                <td>ARKNP</td>
+                <td>The SIR2 deacetylase motif - SIRT5 is a modification motif recognized by the Sirt5 enzyme that mediates lysine deacetylation within the [LVMAF]x(K)xx consensus sequence and is crucial for protein localization to chromosome processes. Sirt5 binds this motif as a disordered peptide, adopting a 3/10-helix orientation within the SIRT active site, as seen in the CPS1-sirt5 complex.</td>
+                <td>0.8666</td>
+                <td>0.9050</td>
+                <td>0.1489</td>
+                <td>140/150</td>
+                <td>95.30</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>1.423e-01</td>
+                <td>not significant</td>
+                <td>enrichment</td>
+                <td>6.688e-02</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>Warning: the binding of this motif should result in the acetylation of the motif region. However, no suitable acetylation has been detected in the correct position. This might be due to the fact that the motif is a false positive match, or that the corresponding acetylation has not yet been incorporated into relevant databases.</td>
+                <td>Note: the following motif residue has been predicted as functional according to ConSurf based on their evolutionary conservation profile: K463.</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_MOD_depalm_APT1_207-215</td>
+                <td><a href="../ProteinPaint/Q8IZ08_MOD_depalm_APT1_207-215.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>2</td>
+                <td>5</td>
+                <td>1</td>
+                <td>N/A</td>
+                <td>207</td>
+                <td>215</td>
+                <td>ICL2</td>
+                <td>MOD_depalm_APT1</td>
+                <td>modification</td>
+                <td>Depalmitoylation motif - APT1</td>
+                <td>[LST]...(C)....</td>
+                <td>LDRYCAIVR</td>
+                <td>Depalmitoylation motif - APT1</td>
+                <td>0.6821</td>
+                <td>0.9204</td>
+                <td>0.0382</td>
+                <td>76/150</td>
+                <td>91.90</td>
+                <td>-</td>
+                <td>enrichment</td>
+                <td>4.375e-02</td>
+                <td>not significant</td>
+                <td>depletion</td>
+                <td>5.000e-01</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>Warning: the binding of this motif should result in the palmitoylation of the motif region. However, this kind of modification is not currently cataloged in the GPCR motif portal. Thus, we cannot use the presence or absence of this modification to assess the likelihood of the motif.</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_MOD_meth_PRMT7_RxR_429-431</td>
+                <td><a href="../ProteinPaint/Q8IZ08_MOD_meth_PRMT7_RxR_429-431.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>1</td>
+                <td>4</td>
+                <td>4</td>
+                <td>1</td>
+                <td>429</td>
+                <td>431</td>
+                <td>Cterm</td>
+                <td>MOD_meth_PRMT7_RxR</td>
+                <td>modification</td>
+                <td>Methylation motif - PRMT7 RxR</td>
+                <td>(R)[^KR]R</td>
+                <td>RLR</td>
+                <td>Methylation motif - PRMT7 RxR</td>
+                <td>0.9681</td>
+                <td>0.7803</td>
+                <td>0.1708</td>
+                <td>148/150</td>
+                <td>98.70</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>3.117e-01</td>
+                <td>not significant</td>
+                <td>enrichment</td>
+                <td>1.395e-01</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>Warning: the binding of this motif should result in the methylation of the motif region. However, no suitable methylation has been detected in the correct position. This might be due to the fact that the motif is a false positive match, or that the corresponding methylation has not yet been incorporated into relevant databases.</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_MOD_meth_PRMT7_RxR_431-433</td>
+                <td><a href="../ProteinPaint/Q8IZ08_MOD_meth_PRMT7_RxR_431-433.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>1</td>
+                <td>5</td>
+                <td>4</td>
+                <td>1</td>
+                <td>431</td>
+                <td>433</td>
+                <td>Cterm</td>
+                <td>MOD_meth_PRMT7_RxR</td>
+                <td>modification</td>
+                <td>Methylation motif - PRMT7 RxR</td>
+                <td>(R)[^KR]R</td>
+                <td>RNR</td>
+                <td>Methylation motif - PRMT7 RxR</td>
+                <td>0.9681</td>
+                <td>0.8643</td>
+                <td>0.2527</td>
+                <td>148/150</td>
+                <td>98.70</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>5.000e-01</td>
+                <td>not significant</td>
+                <td>enrichment</td>
+                <td>8.486e-02</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>Warning: the binding of this motif should result in the methylation of the motif region. However, no suitable methylation has been detected in the correct position. This might be due to the fact that the motif is a false positive match, or that the corresponding methylation has not yet been incorporated into relevant databases.</td>
+                <td>Note: the following motif residue has been predicted as functional according to ConSurf based on their evolutionary conservation profile: R433.</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_MOL_ATP_kinase_419-424</td>
+                <td><a href="../ProteinPaint/Q8IZ08_MOL_ATP_kinase_419-424.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>4</td>
+                <td>2</td>
+                <td>4</td>
+                <td>N/A</td>
+                <td>419</td>
+                <td>424</td>
+                <td>Cterm</td>
+                <td>MOL_ATP_kinase</td>
+                <td>small_molecule</td>
+                <td>ATP binding loop found embedded in kinase domains</td>
+                <td>G.G..[GA]</td>
+                <td>GPGLQA</td>
+                <td>The conserved GxGxxG motif of protein kinases forms a beta turn at the tip of the flexible glycine-rich loop and creates much of the ATP pocket binding surface. It is unclear with what efficiency this motif could bind ATP outside of the kinase fold context.</td>
+                <td>0.0692</td>
+                <td>0.5118</td>
+                <td>-0.2094</td>
+                <td>62/150</td>
+                <td>85.20</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>3.394e-02</td>
+                <td>not significant</td>
+                <td>enrichment</td>
+                <td>5.000e-01</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_STR_GPCR_DRY_208-210</td>
+                <td><a href="../ProteinPaint/Q8IZ08_STR_GPCR_DRY_208-210.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>4</td>
+                <td>5</td>
+                <td>1</td>
+                <td>N/A</td>
+                <td>208</td>
+                <td>210</td>
+                <td>ICL2</td>
+                <td>STR_GPCR_DRY</td>
+                <td>structural_signature</td>
+                <td>DRY motif in class A GPCRs</td>
+                <td>[ED]RY</td>
+                <td>DRY</td>
+                <td>The DRY motif (Asp-Arg-Tyr) is a highly conserved sequence at the cytoplasmic end of the third transmembrane helix (TM3) of G protein-coupled receptors (GPCRs), crucial for receptor function and activation, as mutations within it can disrupt function. The DRY motif plays a role in receptor activation by interacting with other parts of the receptor, particularly the cytoplasmic end of TM6.  Maintaining the receptor's resting state: The aspartate and arginine residues in the DRY motif are thought to participate in an "ionic lock" with glutamate residues in transmembrane helix 6 (TM6), helping to stabilize the inactive state of the receptor.</td>
+                <td>0.0534</td>
+                <td>0.9780</td>
+                <td>0.0787</td>
+                <td>145/150</td>
+                <td>96.60</td>
+                <td>-</td>
+                <td>enrichment</td>
+                <td>7.030e-02</td>
+                <td>not significant</td>
+                <td>depletion</td>
+                <td>5.000e-01</td>
+                <td>not significant</td>
+                <td>Warning: this motif has been described to occur primarily in the following subcellular compartments: plasma membrane. The interaction between the receptor and the target molecule might require translocation of the GPCR (either the full receptor or the cleaved fragment containing the motif) to the target compartment or the translocation of the target molecule close to the plasma membrane.</td>
+                <td>-</td>
+                <td>Note: the following motif residue has been predicted as functional according to ConSurf based on their evolutionary conservation profile: R209.</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_TRG_ER_diArg_1_429-431</td>
+                <td><a href="../ProteinPaint/Q8IZ08_TRG_ER_diArg_1_429-431.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>1</td>
+                <td>4</td>
+                <td>4</td>
+                <td>N/A</td>
+                <td>429</td>
+                <td>431</td>
+                <td>Cterm</td>
+                <td>TRG_ER_diArg_1</td>
+                <td>targeting</td>
+                <td>ER retrieval signal - di Arginine</td>
+                <td>R[^YFWDE]{0,1}R</td>
+                <td>RLR</td>
+                <td>The di-Arg ER retrieval and retention motif is present on membrane proteins where it serves for ER localisation. A variety of membrane proteins (some multimeric) possess this di-Arg motif. Here the motif functions as a quality control mechanism for correct folding and protein complex assembly governing the ER exit. The functional motif needs to be exposed within a cytosolic region of the membrane protein and requires a distinct proximity to the transmembrane region. Heteromerization, as well as the interaction with 14-3-3 proteins or PDZ domain containing proteins can render some di-Arg retention signals inactive, whereas the interaction with Coat protein complex I (COPI) supports ER retrieval. Finally, some di-Arg based ER-retention signals may be negatively regulated by phosphorylation of nearby residues. The di-Arg motif is present on the cytosolic side of many transmembrane proteins and serves as an ER-retrieval and retention motif. It is defined by two arginine residues, either next to each other or spaced by a single unconserved (RR, RXR). Longer insertions have been reported such as RXXR but we chose not to extend the motif in ELM due to the limited literature (Boulaflous,2009, Uemura,2009). Either before or after the Arg pair, there is a hydrophobic residue or a third Arg (Michelsen,2005). This implies that the motif may have two binding orientations, though this is not yet known. A combinatorial screening approach for the RXR sequence revealed that negatively charged or small, non-polar residues surrounding the arginines negatively affect the motif activity, whereas three or more arginines provide a strong ER-retention efficiency (Zerangue,2001). It is likely that the motif must be linked to one or more transmembrane regions and the distance from the transmembrane region to the di-Arg motif may be important (Zhang,2008, Michelsen,2005). Any di-Arg motif matches in non-membrane proteins should be disregarded.</td>
+                <td>0.9997</td>
+                <td>0.7803</td>
+                <td>0.1708</td>
+                <td>149/150</td>
+                <td>99.30</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>3.117e-01</td>
+                <td>not significant</td>
+                <td>enrichment</td>
+                <td>1.395e-01</td>
+                <td>not significant</td>
+                <td>Warning: this motif has been described to occur primarily in the following subcellular compartments: endoplasmic reticulum (ER). The interaction between the receptor and the target molecule might require translocation of the GPCR (either the full receptor or the cleaved fragment containing the motif) to the target compartment or the translocation of the target molecule close to the plasma membrane.</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>Q8IZ08_TRG_ER_diArg_1_431-433</td>
+                <td><a href="../ProteinPaint/Q8IZ08_TRG_ER_diArg_1_431-433.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>1</td>
+                <td>5</td>
+                <td>4</td>
+                <td>N/A</td>
+                <td>431</td>
+                <td>433</td>
+                <td>Cterm</td>
+                <td>TRG_ER_diArg_1</td>
+                <td>targeting</td>
+                <td>ER retrieval signal - di Arginine</td>
+                <td>R[^YFWDE]{0,1}R</td>
+                <td>RNR</td>
+                <td>The di-Arg ER retrieval and retention motif is present on membrane proteins where it serves for ER localisation. A variety of membrane proteins (some multimeric) possess this di-Arg motif. Here the motif functions as a quality control mechanism for correct folding and protein complex assembly governing the ER exit. The functional motif needs to be exposed within a cytosolic region of the membrane protein and requires a distinct proximity to the transmembrane region. Heteromerization, as well as the interaction with 14-3-3 proteins or PDZ domain containing proteins can render some di-Arg retention signals inactive, whereas the interaction with Coat protein complex I (COPI) supports ER retrieval. Finally, some di-Arg based ER-retention signals may be negatively regulated by phosphorylation of nearby residues. The di-Arg motif is present on the cytosolic side of many transmembrane proteins and serves as an ER-retrieval and retention motif. It is defined by two arginine residues, either next to each other or spaced by a single unconserved (RR, RXR). Longer insertions have been reported such as RXXR but we chose not to extend the motif in ELM due to the limited literature (Boulaflous,2009, Uemura,2009). Either before or after the Arg pair, there is a hydrophobic residue or a third Arg (Michelsen,2005). This implies that the motif may have two binding orientations, though this is not yet known. A combinatorial screening approach for the RXR sequence revealed that negatively charged or small, non-polar residues surrounding the arginines negatively affect the motif activity, whereas three or more arginines provide a strong ER-retention efficiency (Zerangue,2001). It is likely that the motif must be linked to one or more transmembrane regions and the distance from the transmembrane region to the di-Arg motif may be important (Zhang,2008, Michelsen,2005). Any di-Arg motif matches in non-membrane proteins should be disregarded.</td>
+                <td>0.9997</td>
+                <td>0.8643</td>
+                <td>0.2527</td>
+                <td>149/150</td>
+                <td>99.30</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>5.000e-01</td>
+                <td>not significant</td>
+                <td>enrichment</td>
+                <td>8.486e-02</td>
+                <td>not significant</td>
+                <td>Warning: this motif has been described to occur primarily in the following subcellular compartments: endoplasmic reticulum (ER). The interaction between the receptor and the target molecule might require translocation of the GPCR (either the full receptor or the cleaved fragment containing the motif) to the target compartment or the translocation of the target molecule close to the plasma membrane.</td>
+                <td>-</td>
+                <td>Note: the following motif residue has been predicted as functional according to ConSurf based on their evolutionary conservation profile: R433.</td>
+            </tr>
+        </tbody>
+    </table>
+</main>
+
+<footer><div data-v-3a12db53="" class="footercontainer"><div data-v-3a12db53="" class="row"><div class="d-flex align-items-center justify-content-center mt-3" data-v-3a12db53=""><div class="d-flex flex-wrap justify-content-center gap-2" data-v-3a12db53=""><span class="col-auto text-center copyright-text" data-v-3a12db53=""><a href="https://www.stjude.org/legal/u-s-privacy-policy-statement.html" target="_blank" rel="noopener noreferrer" data-v-3a12db53=""> U.S. Privacy Notice </a></span><span class="col-auto text-center copyright-text" data-v-3a12db53=""><a href="https://www.stjude.org/legal.html" target="_blank" rel="noopener noreferrer" data-v-3a12db53=""> Disclaimer / Registration / Copyright Statement </a></span><span class="col-auto text-center copyright-text" data-v-3a12db53=""><a href="https://www.stjude.org/legal/linking-policy.html" target="_blank" rel="noopener noreferrer" data-v-3a12db53=""> Linking Policy </a></span><span class="col-auto text-center copyright-text" data-v-3a12db53=""><a href="https://www.stjude.org/legal/notice-of-privacy-practices.html" target="_blank" rel="noopener noreferrer" data-v-3a12db53=""> Notice of Privacy Practices (HIPAA) </a></span><span class="col-auto text-center copyright-text" data-v-3a12db53=""><a href="https://www.stjude.org/legal/notice-of-non-discrimination.html" target="_blank" rel="noopener noreferrer" data-v-3a12db53=""> Notice of Non-Discrimination </a></span><span class="col-auto text-center copyright-text" data-v-3a12db53=""></span></div></div><div class="d-flex align-items-center justify-content-center mt-1" data-v-3a12db53=""><hr class="border-white custom-hr" data-v-3a12db53=""></div><div data-v-3a12db53="" class="d-flex flex-wrap justify-content-center gap-2"><span data-v-3a12db53="" class="col-auto text-center copyright-text"><a data-v-3a12db53="" href="mailto:gpcrmotifs@stjude.org">Contact Us (gpcrmotifs@stjude.org)</a></span><span data-v-3a12db53="" class="col-auto text-center copyright-text"> © Copyright 2026. St. Jude Children's Research Hospital, a not for profit, Section 501 (c)(3) <span data-v-3a12db53=""><a data-v-3a12db53="" href="/release-notes" style="text-decoration: none; color: rgba(255, 255, 255, 0.9);" target="_blank">Current Version: 1.2.0</a></span></span></div></div></div></footer>
+
+<script>
+    function sortTable(n) {
+        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+        table = document.getElementById("gpcrTable");
+        switching = true;
+        dir = "asc"; 
+        
+        while (switching) {
+            switching = false;
+            rows = table.rows;
+            
+            for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("TD")[n];
+                y = rows[i + 1].getElementsByTagName("TD")[n];
+                
+                if (dir == "asc") {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else if (dir == "desc") {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+            }
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+                switchcount ++;
+            } else {
+                if (switchcount == 0 && dir == "asc") {
+                    dir = "desc";
+                    switching = true;
+                }
+            }
+        }
+    }
+</script>
+
+</body>
+</html>

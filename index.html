@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motifs with variant viewer for GPCRs of interest - Pawel Kozielewicz lab</title>
+    <style>
+        :root {
+            --primary-blue: #004b87;
+            --secondary-blue: #0072ce;
+            --text-dark: #333333;
+            --bg-light: #f8f9fa;
+            --border-color: #dee2e6;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--text-dark);
+            background-color: #ffffff;
+        }
+        header {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 1.5rem 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 400;
+        }
+        main {
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .intro-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            color: #555;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+        th {
+            background-color: var(--bg-light);
+            font-weight: 600;
+            color: var(--primary-blue);
+            position: sticky;
+            top: 0;
+        }
+        tr:hover {
+            background-color: #f1f5f9;
+        }
+        a {
+            color: var(--secondary-blue);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        a:hover {
+            text-decoration: underline;
+            color: var(--primary-blue);
+        }
+        footer {
+            background-color: var(--bg-light);
+            color: #666;
+            text-align: center;
+            padding: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+  <img src="./images/SJlogo.png" alt="St Jude Logo" class="header-logo" width="200" height="auto" style="float: left; margin-right: 15px;">
+  <h1 style="text-align: right;">GPCR variant and motif viewer | Pawel Kozielewicz and Babu lab collaboration</h1>
+  <div style="clear: both;"></div>
+</header>
+
+
+
+<main>
+    <div class="intro-text">
+        <p>This page provides an overview of the high confidence motif predictions for GPCRs of interest for the Pawel Kozielewicz lab. Click on the column headers to sort the table. Click on the links to explore external HGNC and UniProt records, explore the motifs for each GPCR, and view detailed variant data for each motif on the subsequent pages.</p>
+    </div>
+
+    <table id="gpcrTable">
+        <thead>
+            <tr>
+                <th onclick="sortTable(0)">GPCR classification</th>
+                <th onclick="sortTable(1)">Gene</th>
+                <th onclick="sortTable(2)">UniProt</th>
+                <th onclick="sortTable(3)">UniProt name</th>
+                <th onclick="sortTable(4)">Length</th>
+                <th onclick="sortTable(5)">High-confidence motifs</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Class A / Lipid binding / GPR18, GPR55 and GPR119</td>
+                <td><a href="https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/HGNC:4472" target="_blank">GPR18</a></td>
+                <td><a href="https://www.uniprot.org/uniprotkb/Q14330/entry" target="_blank">Q14330</a></td>
+                <td>N-arachidonyl glycine receptor (NAGly receptor) (G-protein coupled receptor 18)</td>
+                <td>331</td>
+                <td><a href="./pages/GPR18.html" target="_blank">motif list</a></td>
+            </tr>
+            <tr>
+                <td>Class A / Class A Orphans / Orphan receptors</td>
+                <td><a href="https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/HGNC:4473" target="_blank">GPR19</a></td>
+                <td><a href="https://www.uniprot.org/uniprotkb/Q15760/entry" target="_blank">Q15760</a></td>
+                <td>Probable G-protein coupled receptor 19 (GPR-NGA)</td>
+                <td>415</td>
+                <td><a href="./pages/GPR19.html" target="_blank">motif list</a></td>
+            </tr>
+            <tr>
+                <td>Class A / Class A Orphans / Orphan receptors</td>
+                <td><a href="https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/HGNC:4481" target="_blank">GPR26</a></td>
+                <td><a href="https://www.uniprot.org/uniprotkb/Q8NDV2/entry" target="_blank">Q8NDV2</a></td>
+                <td>G-protein coupled receptor 26</td>
+                <td>337</td>
+                <td><a href="./pages/GPR26.html" target="_blank">motif list</a></td>
+            </tr>
+            <tr>
+                <td>Class A / Class A Orphans / Orphan receptors</td>
+                <td><a href="https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/HGNC:13300" target="_blank">GPR61</a></td>
+                <td><a href="https://www.uniprot.org/uniprotkb/Q9BZJ8/entry" target="_blank">Q9BZJ8</a></td>
+                <td>G-protein coupled receptor 61 (Biogenic amine receptor-like G-protein coupled receptor)</td>
+                <td>451</td>
+                <td><a href="./pages/GPR61.html" target="_blank">motif list</a></td>
+            </tr>
+            <tr>
+                <td>Class A / Class A Orphans / Orphan receptors</td>
+                <td><a href="https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/HGNC:4536" target="_blank">GPR85</a></td>
+                <td><a href="https://www.uniprot.org/uniprotkb/P60893/entry" target="_blank">P60893</a></td>
+                <td>Probable G-protein coupled receptor 85 (Super conserved receptor expressed in brain 2)</td>
+                <td>370</td>
+                <td><a href="./pages/GPR85.html" target="_blank">motif list</a></td>
+            </tr>
+            <tr>
+                <td>Class A / Class A Orphans / Orphan receptors</td>
+                <td><a href="https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/HGNC:19991" target="_blank">GPR135</a></td>
+                <td><a href="https://www.uniprot.org/uniprotkb/Q8IZ08/entry" target="_blank">Q8IZ08</a></td>
+                <td>G-protein coupled receptor 135</td>
+                <td>494</td>
+                <td><a href="./pages/GPR135.html" target="_blank">motif list</a></td>
+            </tr>
+            <tr>
+                <td>Class A / Class A Orphans / Orphan receptors</td>
+                <td><a href="https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/HGNC:23627" target="_blank">GPR149</a></td>
+                <td><a href="https://www.uniprot.org/uniprotkb/Q86SP6/entry" target="_blank">Q86SP6</a></td>
+                <td>Probable G-protein coupled receptor 149 (G-protein coupled receptor PGR10)</td>
+                <td>731</td>
+                <td><a href="./pages/GPR149.html" target="_blank">motif list</a></td>
+            </tr>
+            <tr>
+                <td>Class A / Class A Orphans / Orphan receptors</td>
+                <td><a href="https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/HGNC:23618" target="_blank">GPR153</a></td>
+                <td><a href="https://www.uniprot.org/uniprotkb/Q6NV75/entry" target="_blank">Q6NV75</a></td>
+                <td>Probable G-protein coupled receptor 153 (G-protein coupled receptor PGR1)</td>
+                <td>609</td>
+                <td><a href="./pages/GPR153.html" target="_blank">motif list</a></td>
+            </tr>
+            <tr>
+                <td>Class A / Class A Orphans / Orphan receptors</td>
+                <td><a href="https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/HGNC:16693" target="_blank">GPR162</a></td>
+                <td><a href="https://www.uniprot.org/uniprotkb/Q16538/entry" target="_blank">Q16538</a></td>
+                <td>Probable G-protein coupled receptor 162 (Gene-rich cluster gene A protein)</td>
+                <td>588</td>
+                <td><a href="./pages/GPR162.html" target="_blank">motif list</a></td>
+            </tr>
+            <tr>
+                <td>Class A / Class A Orphans / Orphan receptors</td>
+                <td><a href="https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/HGNC:30057" target="_blank">GPR171</a></td>
+                <td><a href="https://www.uniprot.org/uniprotkb/O14626/entry" target="_blank">O14626</a></td>
+                <td>G-protein coupled receptor 171 (G-protein coupled receptor H963)</td>
+                <td>319</td>
+                <td><a href="./pages/GPR171.html" target="_blank">motif list</a></td>
+            </tr>
+            <tr>
+                <td>Class A / Class A Orphans / Orphan receptors</td>
+                <td><a href="https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/HGNC:18186" target="_blank">GPR173</a></td>
+                <td><a href="https://www.uniprot.org/uniprotkb/Q9NS66/entry" target="_blank">Q9NS66</a></td>
+                <td>Probable G-protein coupled receptor 173 (Super conserved receptor expressed in brain 3)</td>
+                <td>373</td>
+                <td><a href="./pages/GPR173.html" target="_blank">motif list</a></td>
+            </tr>
+            <tr>
+                <td>Class A / Class A Orphans / Orphan receptors</td>
+                <td><a href="https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/HGNC:13708" target="_blank">GPR182</a></td>
+                <td><a href="https://www.uniprot.org/uniprotkb/O15218/entry" target="_blank">O15218</a></td>
+                <td>G-protein coupled receptor 182</td>
+                <td>404</td>
+                <td><a href="./pages/GPR182.html" target="_blank">motif list</a></td>
+            </tr>
+            <tr>
+                <td>Class A / Class A Orphans / Orphan receptors</td>
+                <td><a href="https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/HGNC:3128" target="_blank">GPR183</a></td>
+                <td><a href="https://www.uniprot.org/uniprotkb/P32249/entry" target="_blank">P32249</a></td>
+                <td>G-protein coupled receptor 183 (Epstein-Barr virus-induced G-protein coupled receptor 2) (EBI2) (EBV-induced G-protein coupled receptor 2) (hEBI2)</td>
+                <td>361</td>
+                <td><a href="./pages/GPR183.html" target="_blank">motif list</a></td>
+            </tr>
+            <tr>
+                <td>Class A / Class A Orphans / Orphan receptors</td>
+                <td><a href="https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/HGNC:30694" target="_blank">MRGPRE</a></td>
+                <td><a href="https://www.uniprot.org/uniprotkb/Q86SM8/entry" target="_blank">Q86SM8</a></td>
+                <td>Mas-related G-protein coupled receptor member E (G-protein coupled receptor 167)</td>
+                <td>312</td>
+                <td><a href="./pages/MRGPRE.html" target="_blank">motif list</a></td>
+            </tr>
+            <tr>
+                <td>Class A / Class A Orphans / Orphan receptors</td>
+                <td><a href="https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/HGNC:24828" target="_blank">MRGPRF</a></td>
+                <td><a href="https://www.uniprot.org/uniprotkb/Q96AM1/entry" target="_blank">Q96AM1</a></td>
+                <td>Mas-related G-protein coupled receptor member F (Mas-related gene F protein) (G-protein coupled receptor 140) (G-protein coupled receptor 168)</td>
+                <td>343</td>
+                <td><a href="./pages/MRGPRF.html" target="_blank">motif list</a></td>
+            </tr>
+        </tbody>
+    </table>
+</main>
+
+<footer><div data-v-3a12db53="" class="footercontainer"><div data-v-3a12db53="" class="row"><div class="d-flex align-items-center justify-content-center mt-3" data-v-3a12db53=""><div class="d-flex flex-wrap justify-content-center gap-2" data-v-3a12db53=""><span class="col-auto text-center copyright-text" data-v-3a12db53=""><a href="https://www.stjude.org/legal/u-s-privacy-policy-statement.html" target="_blank" rel="noopener noreferrer" data-v-3a12db53=""> U.S. Privacy Notice </a></span><span class="col-auto text-center copyright-text" data-v-3a12db53=""><a href="https://www.stjude.org/legal.html" target="_blank" rel="noopener noreferrer" data-v-3a12db53=""> Disclaimer / Registration / Copyright Statement </a></span><span class="col-auto text-center copyright-text" data-v-3a12db53=""><a href="https://www.stjude.org/legal/linking-policy.html" target="_blank" rel="noopener noreferrer" data-v-3a12db53=""> Linking Policy </a></span><span class="col-auto text-center copyright-text" data-v-3a12db53=""><a href="https://www.stjude.org/legal/notice-of-privacy-practices.html" target="_blank" rel="noopener noreferrer" data-v-3a12db53=""> Notice of Privacy Practices (HIPAA) </a></span><span class="col-auto text-center copyright-text" data-v-3a12db53=""><a href="https://www.stjude.org/legal/notice-of-non-discrimination.html" target="_blank" rel="noopener noreferrer" data-v-3a12db53=""> Notice of Non-Discrimination </a></span><span class="col-auto text-center copyright-text" data-v-3a12db53=""></span></div></div><div class="d-flex align-items-center justify-content-center mt-1" data-v-3a12db53=""><hr class="border-white custom-hr" data-v-3a12db53=""></div><div data-v-3a12db53="" class="d-flex flex-wrap justify-content-center gap-2"><span data-v-3a12db53="" class="col-auto text-center copyright-text"><a data-v-3a12db53="" href="mailto:gpcrmotifs@stjude.org">Contact Us (gpcrmotifs@stjude.org)</a></span><span data-v-3a12db53="" class="col-auto text-center copyright-text"> © Copyright 2026. St. Jude Children's Research Hospital, a not for profit, Section 501 (c)(3) <span data-v-3a12db53=""><a data-v-3a12db53="" href="/release-notes" style="text-decoration: none; color: rgba(255, 255, 255, 0.9);" target="_blank">Current Version: 1.2.0</a></span></span></div></div></div></footer>
+
+<script>
+    // Simple table sorting function
+    function sortTable(n) {
+        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+        table = document.getElementById("gpcrTable");
+        switching = true;
+        dir = "asc"; 
+        
+        while (switching) {
+            switching = false;
+            rows = table.rows;
+            
+            for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("TD")[n];
+                y = rows[i + 1].getElementsByTagName("TD")[n];
+                
+                if (dir == "asc") {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else if (dir == "desc") {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+            }
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+                switchcount ++;
+            } else {
+                if (switchcount == 0 && dir == "asc") {
+                    dir = "desc";
+                    switching = true;
+                }
+            }
+        }
+    }
+</script>
+
+</body>
+</html>

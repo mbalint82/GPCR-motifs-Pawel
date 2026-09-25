@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motifs with variant viewer for GPCRs of interest - Pawel Kozielewicz lab</title>
+    <style>
+        :root {
+            --primary-blue: #004b87;
+            --secondary-blue: #0072ce;
+            --text-dark: #333333;
+            --bg-light: #f8f9fa;
+            --border-color: #dee2e6;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--text-dark);
+            background-color: #ffffff;
+        }
+        header {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 1.5rem 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 400;
+        }
+        main {
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .intro-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            color: #555;
+        }
+        
+        /* Table Scroll Container */
+        .table-container {
+            width: 100%;
+            height: 1000px;
+            overflow-x: auto;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed; /* Enables strict column width control */
+            font-size: 0.88rem;
+            background-color: #ffffff;
+        }
+
+        th, td {
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border-color);
+            border-right: 1px solid #f1f3f5;
+            overflow: hidden;
+            word-wrap: break-word;
+        }
+
+        th {
+            background-color: var(--bg-light);
+            font-weight: 600;
+            color: var(--primary-blue);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            text-align: center;
+        }
+
+        /* Zebra striping for better row legibility */
+        tbody tr:nth-child(even) {
+            background-color: #fafbfc;
+        }
+        tr:hover {
+            background-color: #f1f5f9;
+        }
+
+        a {
+            color: var(--secondary-blue);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        a:hover {
+            text-decoration: underline;
+            color: var(--primary-blue);
+        }
+
+        /* --- Custom Column Widths & Alignments --- */
+        /* Short numbers / codes / indicators (Center aligned, narrow) */
+        th:nth-child(n+3):nth-child(-n+9),
+        td:nth-child(n+3):nth-child(-n+9),
+        th:nth-child(17), td:nth-child(17),
+        th:nth-child(18), td:nth-child(18),
+        th:nth-child(19), td:nth-child(19),
+        th:nth-child(20), td:nth-child(20),
+        th:nth-child(21), td:nth-child(21),
+        th:nth-child(23), td:nth-child(23),
+        th:nth-child(24), td:nth-child(24),
+        th:nth-child(25), td:nth-child(25),
+        th:nth-child(26), td:nth-child(26),
+        th:nth-child(27), td:nth-child(27),
+        th:nth-child(28), td:nth-child(28) {
+            text-align: center;
+            width: 90px;
+        }
+
+        /* Medium width columns */
+        th:nth-child(1), td:nth-child(1) { width: 180px; text-align: left; } /* Motif instance ID */
+        th:nth-child(2), td:nth-child(2) { width: 110px; text-align: center; } /* Variant viewer */
+        th:nth-child(10), td:nth-child(10) { width: 110px; text-align: center; } /* Location */
+        th:nth-child(11), td:nth-child(11) { width: 140px; text-align: left; } /* Motif ID */
+        th:nth-child(12), td:nth-child(12) { width: 100px; text-align: center; } /* Type */
+        th:nth-child(13), td:nth-child(13) { width: 160px; text-align: left; } /* Motif name */
+        th:nth-child(14), td:nth-child(14) { width: 140px; text-align: left; font-family: monospace; } /* Regex */
+        th:nth-child(15), td:nth-child(15) { width: 120px; text-align: left; font-family: monospace; } /* Matched sequence */
+        th:nth-child(22), td:nth-child(22) { width: 150px; text-align: left; } /* PTMs */
+        th:nth-child(23), td:nth-child(23) { width: 110px; text-align: center; } /* Enrichment gnomAD */
+
+        /* Long text columns (Left aligned, wide) */
+        th:nth-child(29), td:nth-child(29), /* Warning subcellular */
+        th:nth-child(30), td:nth-child(30), /* Warning missing PTMs */
+        th:nth-child(31), td:nth-child(31)  /* Note functional residues */ {
+            text-align: left;
+            width: 400px;
+        }
+
+        /* Extra long text column (Left aligned, wide) */
+        th:nth-child(16), td:nth-child(16) /* Description */ {
+            text-align: left;
+            width: 1000px;
+        }
+
+        footer {
+            background-color: var(--bg-light);
+            color: #666;
+            text-align: center;
+            padding: 1.5rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+  <img src="../images/SJlogo.png" alt="St Jude Logo" class="header-logo" width="200" height="auto" style="float: left; margin-right: 15px;">
+  <h1 style="text-align: right;">GPCR variant and motif viewer | Pawel Kozielewicz and Babu lab collaboration</h1>
+  <div style="clear: both;"></div>
+</header>
+
+
+
+<main>
+    <div class="intro-text">
+        <p>This page provides an overview of the high confidence motif predictions for GPCRs of interest for the Pawel Kozielewicz lab. Click on the column headers to sort the table. Click on the links to explore external HGNC and UniProt records, explore the motifs for each GPCR, and view detailed variant data for each motif on the subsequent pages.</p>
+    </div>
+
+    <!-- Wrapped table in a container for smooth horizontal scrolling -->
+    <div class="table-container">
+        <table id="gpcrTable">
+            <thead>
+                <tr>
+                    <th onclick="sortTable(0)">Motif instance ID</th>
+                    <th onclick="sortTable(1)">Variant viewer</th>
+                    <th onclick="sortTable(2)">Confidence (overall) [1:5]</th>
+                    <th onclick="sortTable(3)">Confidence (information content) [1:5]</th>
+                    <th onclick="sortTable(4)">Confidence (evolution) [1:5]</th>
+                    <th onclick="sortTable(5)">Confidence (mutation) [1:5]</th>
+                    <th onclick="sortTable(6)">Confidence (regulation) [1:5]</th>
+                    <th onclick="sortTable(7)">Motif start</th>
+                    <th onclick="sortTable(8)">Motif end</th>
+                    <th onclick="sortTable(9)">Motif location</th>
+                    <th onclick="sortTable(10)">Motif ID</th>
+                    <th onclick="sortTable(11)">Motif type</th>
+                    <th onclick="sortTable(12)">Motif name</th>
+                    <th onclick="sortTable(13)">Regex</th>
+                    <th onclick="sortTable(14)">Matched sequence</th>
+                    <th onclick="sortTable(15)">Motif description</th>
+                    <th onclick="sortTable(16)">Probability of random occurrence [0:1]</th>
+                    <th onclick="sortTable(17)">Average conservation [0:1]</th>
+                    <th onclick="sortTable(18)">Relative local conservation [-1:1]</th>
+                    <th onclick="sortTable(19)">Orthologs with motif / Orthologs total number</th>
+                    <th onclick="sortTable(20)">Overall parsimony %</th>
+                    <th onclick="sortTable(21)">PTMs</th>
+                    <th onclick="sortTable(22)">Enrichment gnomAD</th>
+                    <th onclick="sortTable(23)">Enrichment gnomAD p-value</th>
+                    <th onclick="sortTable(24)">Enrichment gnomAD significance</th>
+                    <th onclick="sortTable(25)">Enrichment COSMIC</th>
+                    <th onclick="sortTable(26)">Enrichment COSMIC p-value</th>
+                    <th onclick="sortTable(27)">Enrichment COSMIC significance</th>
+                    <th onclick="sortTable(28)">Warning subcellular localization</th>
+                    <th onclick="sortTable(29)">Warning missing PTMs</th>
+                    <th onclick="sortTable(30)">Note functional residues</th>
+                </tr>
+            </thead>
+        <tbody>
+            <tr>
+                <td>O14626_INT_Arc_Nlobe_1_127-131</td>
+                <td><a href="../ProteinPaint/O14626_INT_Arc_Nlobe_1_127-131.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>3</td>
+                <td>5</td>
+                <td>2</td>
+                <td>N/A</td>
+                <td>127</td>
+                <td>131</td>
+                <td>ICL2</td>
+                <td>INT_Arc_Nlobe_1</td>
+                <td>interaction</td>
+                <td>Arc N-lobe domain binding motif</td>
+                <td>[^P][P]G{0,1}[^P][YFH][^P]</td>
+                <td>EPGFA</td>
+                <td>The activity-regulated cytoskeleton-associated protein (Arc) has a retrotransposon origin and has been domesticated for synaptic functions in higher vertebrates. The Arc C-terminal domain consists of repeated 4-helix bundle domains that are homologous to the capsid domains. In the monomeric form, the first helical bundle, termed N-lobe (Arc-NL) is capable of binding peptides with variations of a PxY motif found in proteins with distinct roles in the postsynaptic densities. The motif peptide binds Arc in an unusual conformation as the middle strand of a 3-stranded beta-sheet. The key structural determinants in the N-lobe are the hydrophobic pocket and a groove formed by a beta-strand. The peptides bind to the Arc N-lobe by beta-augmentation. A long beta-strand conformation of the peptide is required as a minimal peptide of PSY fails to bind (Zhang,2015). Mutational analysis identified two key resides: Pro in P2 and Tyr in P4 (Hallin,2021). Phe can also be accepted in the P4 position (4X3I; 6TNQ). It is likely that the Pro residue in P2 is essential to keep the peptide in an extended conformation, moreover, it stabilizes binding by interacting with the aromatic ring of Tyr227 deep in the hydrophobic groove. Other stabilizing amino acids are the above Tyr/Phe which also enters a hydrophobic pocket and makes additional C-H...pi interactions with Phe220 and Phe271 in Arc (6TNQ; 6TNO). P2 with Arg instead of Pro was reportedly crystallised with Arc (4X3I) although a much lower binding affinity and is unlikely to be valid for the motif. In pull-down experiments, it was shown that Pro at P3 prevents binding (Zhang,2015) as expected due to disruption of the beta-strand H bonding. A similar result was obtained by the phosphomimetic mutation of Ser in P3, which seems to either radically reduce the affinity or completely abolish the interaction. However, in other experiments, the same mutation on Ser did not affect the affinity of the binding (Hallin,2021).One of the Arc-interacting proteins (DLGP1) has a second binding motif with a Gly added in position after the Pro/Arg (6TQ0). The additional Gly residue might provide backbone flexibility that allows the alternate motif to bind with a beta-bulge conformation. The requirement for backbone H bonds excludes Pro at P1, P3, and P5.Conflicting results have been obtained for His in the P+4 Tyr/Phe position (Nielsen,2019; Zhang,2015): currently, His is included in the motif but it appears to be weaker than P+4 Tyr/Phe.</td>
+                <td>0.2206</td>
+                <td>0.8352</td>
+                <td>0.0986</td>
+                <td>130/188</td>
+                <td>95.70</td>
+                <td>-</td>
+                <td>enrichment</td>
+                <td>1.323e-01</td>
+                <td>not significant</td>
+                <td>enrichment</td>
+                <td>1.013e-01</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>O14626_INT_EED_WD40_218-222</td>
+                <td><a href="../ProteinPaint/O14626_INT_EED_WD40_218-222.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>1</td>
+                <td>5</td>
+                <td>2</td>
+                <td>1</td>
+                <td>218</td>
+                <td>222</td>
+                <td>ICL3</td>
+                <td>INT_EED_WD40</td>
+                <td>interaction</td>
+                <td>EED WD40 domain binding motif</td>
+                <td> (A.(K)..)|(..(K)[^FWY]L)|(..(K)[FWY].)</td>
+                <td>VKKAL</td>
+                <td>The EED WD40 domain binding motif is a short, tri-methylation-dependent peptide sequence recognized by the EED protein's WD40 domain, a key interaction for PRC2 catalytic activity and H3K27me3 deposition. This motif, containing tri-methylated lysine residues, is essential for EED to bind and regulate gene silencing.</td>
+                <td>0.8280</td>
+                <td>0.7096</td>
+                <td>0.0769</td>
+                <td>140/188</td>
+                <td>90.90</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>2.470e-01</td>
+                <td>not significant</td>
+                <td>depletion</td>
+                <td>5.000e-01</td>
+                <td>not significant</td>
+                <td>Warning: this motif has been described to occur primarily in the following subcellular compartments: nucleus. The interaction between the receptor and the target molecule might require translocation of the GPCR (either the full receptor or the cleaved fragment containing the motif) to the target compartment or the translocation of the target molecule close to the plasma membrane.</td>
+                <td>Warning: this motif has been described to require a prerequisite methylation for binding to its target. However, no suitable methylation has been detected in the protein sequence. This might be due to the fact that the motif is a false positive match, or that the corresponding methylation has not yet been incorporated into relevant databases.</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>O14626_INT_LYR_HSC20_206-208</td>
+                <td><a href="../ProteinPaint/O14626_INT_LYR_HSC20_206-208.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>4</td>
+                <td>4</td>
+                <td>2</td>
+                <td>N/A</td>
+                <td>206</td>
+                <td>208</td>
+                <td>ICL3</td>
+                <td>INT_LYR_HSC20</td>
+                <td>interaction</td>
+                <td>Mitochondrial co-chaperone binding motif</td>
+                <td>LYR</td>
+                <td>LYR</td>
+                <td>Iron sulfur (Fe-S) clusters, preassembled on the ISCU scaffold, are transferred to target proteins or to intermediate scaffolds by a dedicated chaperone-cochaperone system. However, the molecular mechanisms that underlie substrate discrimination and guide delivery of nascent clusters to specific subsets of Fe-S recipients are poorly understood. The interacting partners of the cochaperone HSC20 were identified showing that LYR motifs are molecular signatures of specific recipient Fe-S proteins or accessory factors that assist Fe-S cluster delivery. In succinate dehydrogenase B, two LYR motifs engage the ISCU-HSC20-HSPA9 complex to aid incorporation of three Fe-S clusters within the final structure of complex II. Moreover, members of the LYR motif family which assist assembly of complexes II or III, SDHAF1 and LYRM7, respectively, are HSC20 binding partners. LYR motifs in LYR-motif-containing proteins are typically embedded in a structured context, but the specific structure surrounding the motif is highly variable and thus, the motif can be hypothesized to be funcitonal in a disordered cotnext as well.</td>
+                <td>0.0237</td>
+                <td>0.7037</td>
+                <td>0.0288</td>
+                <td>106/188</td>
+                <td>92.00</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>5.000e-01</td>
+                <td>not significant</td>
+                <td>depletion</td>
+                <td>2.477e-01</td>
+                <td>not significant</td>
+                <td>Warning: this motif has been described to occur primarily in the following subcellular compartments: mitochondrion. The interaction between the receptor and the target molecule might require translocation of the GPCR (either the full receptor or the cleaved fragment containing the motif) to the target compartment or the translocation of the target molecule close to the plasma membrane.</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>O14626_INT_MEF2B_SRF-TF_218-227</td>
+                <td><a href="../ProteinPaint/O14626_INT_MEF2B_SRF-TF_218-227.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>4</td>
+                <td>4</td>
+                <td>2</td>
+                <td>N/A</td>
+                <td>218</td>
+                <td>227</td>
+                <td>ICL3</td>
+                <td>INT_MEF2B_SRF-TF</td>
+                <td>interaction</td>
+                <td>MEF2B MADS-box domain binding motif</td>
+                <td>[VT]K..L...[VIL].</td>
+                <td>VKKALINILL</td>
+                <td>The MEF2B MADS-box domain binding motif, recognized by proteins with an SRF-TF domain, facilitates co-repressor recruitment to promoters and is crucial for processes like muscle development and histone deacetylase binding. This interaction involves a hydrophobic groove within the SRF-TF domain, forming a triple-helical structure.</td>
+                <td>0.0151</td>
+                <td>0.6927</td>
+                <td>0.0193</td>
+                <td>98/188</td>
+                <td>93.60</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>3.379e-01</td>
+                <td>not significant</td>
+                <td>depletion</td>
+                <td>5.000e-01</td>
+                <td>not significant</td>
+                <td>Warning: this motif has been described to occur primarily in the following subcellular compartments: nucleus. The interaction between the receptor and the target molecule might require translocation of the GPCR (either the full receptor or the cleaved fragment containing the motif) to the target compartment or the translocation of the target molecule close to the plasma membrane.</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>O14626_INT_MUNC18_SEC1_Snare_111-116</td>
+                <td><a href="../ProteinPaint/O14626_INT_MUNC18_SEC1_Snare_111-116.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>4</td>
+                <td>5</td>
+                <td>1</td>
+                <td>N/A</td>
+                <td>111</td>
+                <td>116</td>
+                <td>ICL2</td>
+                <td>INT_MUNC18_SEC1_Snare</td>
+                <td>interaction</td>
+                <td>Munc18/Sec1-binding motif</td>
+                <td>D[RL].{3,4}[FL]</td>
+                <td>DRCLQL</td>
+                <td>Conserved Munc18/Sec1-binding peptide present in N-terminal region of eukaryotic SNARE proteins, e.g. vertebrate syntaxin 5, yeast Sed5 and Ufe1, and arabidopsis SYP121.</td>
+                <td>0.0531</td>
+                <td>0.8993</td>
+                <td>0.0983</td>
+                <td>132/188</td>
+                <td>92.00</td>
+                <td>-</td>
+                <td>none</td>
+                <td>1.000e+00</td>
+                <td>not significant</td>
+                <td>enrichment</td>
+                <td>3.581e-01</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>-</td>
+                <td>Note: the following motif residues have been predicted as functional according to ConSurf based on their evolutionary conservation profile: D111, R112, L116.</td>
+            </tr>
+            <tr>
+                <td>O14626_INT_SH2_IC_207-209</td>
+                <td><a href="../ProteinPaint/O14626_INT_SH2_IC_207-209.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>3</td>
+                <td>5</td>
+                <td>2</td>
+                <td>1</td>
+                <td>207</td>
+                <td>209</td>
+                <td>ICL3</td>
+                <td>INT_SH2_IC</td>
+                <td>interaction</td>
+                <td>SH2 domain binding motif (subgroup IC)</td>
+                <td>(Y).N</td>
+                <td>YRN</td>
+                <td>Phospho-tyrosine-dependent motif recognized by SH2 domains. Subgroup IC, identifiable by a strong proclivity for an Asn residue at P+2, forms the second largest subgroup within group I with 18 members. It includes not only the GRB2/GRAP/GADS family but also the GRB7/10/14 family, the tensin family, and the Fes/Fer family.</td>
+                <td>0.2973</td>
+                <td>0.6680</td>
+                <td>-0.0085</td>
+                <td>121/188</td>
+                <td>96.80</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>5.000e-01</td>
+                <td>not significant</td>
+                <td>depletion</td>
+                <td>2.477e-01</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>Warning: this motif has been described to require a prerequisite phosphorylation for binding to its target. However, no suitable phosphorylation has been detected in the protein sequence. This might be due to the fact that the motif is a false positive match, or that the corresponding phosphorylation has not yet been incorporated into relevant databases.</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>O14626_INT_SH2_STAT3_123-126</td>
+                <td><a href="../ProteinPaint/O14626_INT_SH2_STAT3_123-126.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>3</td>
+                <td>5</td>
+                <td>2</td>
+                <td>1</td>
+                <td>123</td>
+                <td>126</td>
+                <td>ICL2</td>
+                <td>INT_SH2_STAT3</td>
+                <td>interaction</td>
+                <td>SH2 domain binding motif (STAT3)</td>
+                <td>(Y)..Q</td>
+                <td>YRIQ</td>
+                <td>Src Homology 2 (SH2) domains are small modular domains found within a great number of proteins involved in different signalling pathways. They are able to bind specific motifs containing a phosphorylated tyrosine residue, propagating the signal downstream by promoting protein-protein interactions and/or modifying enzymatic activities. Different families of SH2 domains may have different binding specificity, which is usually determined by a few residues C-terminal with respect to the pY (positions +1 to +4). Non-phosphorylated peptides do not bind to the SH2 domains. Several different binding motifs are known, for example: pYEEI (Src-family SH2 domains), pY [IV].[VILP] (SH-PTP2, phospholipase C-gamma), pY.[N] (GRB2). The interaction between SH2 domains and their substrates is however dependent also on cooperative contacts of other surface regions. YXXQ motif found in the cytoplasmic region of cytokine receptors that bind STAT3 SH2 domain; a cytokine receptor might contain more YXXQ motif in its cytoplasmic region.</td>
+                <td>0.1726</td>
+                <td>0.8147</td>
+                <td>0.0518</td>
+                <td>118/188</td>
+                <td>96.30</td>
+                <td>-</td>
+                <td>none</td>
+                <td>1.000e+00</td>
+                <td>not significant</td>
+                <td>enrichment</td>
+                <td>8.086e-02</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>Warning: this motif has been described to require a prerequisite phosphorylation for binding to its target. However, no suitable phosphorylation has been detected in the protein sequence. This might be due to the fact that the motif is a false positive match, or that the corresponding phosphorylation has not yet been incorporated into relevant databases.</td>
+                <td>Note: the following motif residue has been predicted as functional according to ConSurf based on their evolutionary conservation profile: Q126.</td>
+            </tr>
+            <tr>
+                <td>O14626_INT_YPXnL_215-222</td>
+                <td><a href="../ProteinPaint/O14626_INT_YPXnL_215-222.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>4</td>
+                <td>4</td>
+                <td>2</td>
+                <td>N/A</td>
+                <td>215</td>
+                <td>222</td>
+                <td>ICL3</td>
+                <td>INT_YPXnL</td>
+                <td>interaction</td>
+                <td>Lysosomal sorting motif via ALIX</td>
+                <td>YP.{1,5}L</td>
+                <td>YPNVKKAL</td>
+                <td>The sorting of signaling receptors to lysosomes is an essential regulatory process in mammalian cells. During degradation, receptors are modified with ubiquitin and sorted by endosomal sorting complex required for transport (ESCRT)-0, -I, -II, and -III complexes into intraluminal vesicles (ILVs) of multivesicular bodies (MVBs). However, it remains unclear whether a single universal mechanism mediates MVB sorting of all receptors. PAR1, a G protein-coupled receptor (GPCR) for thrombin, is internalized after activation and sorted to lysosomes independent of ubiquitination and the ubiquitin-binding ESCRT components hepatocyte growth factor-regulated tyrosine kinase substrate and Tsg101. PAR1 sorted to ILVs of MVBs through an ESCRT-III-dependent pathway independent of ubiquitination. ALIX, a charged MVB protein 4-ESCRT-III interacting protein, bound to a YPX(3)L motif of PAR1 via its central V domain to mediate lysosomal degradation.</td>
+                <td>0.0374</td>
+                <td>0.5680</td>
+                <td>-0.1336</td>
+                <td>76/188</td>
+                <td>95.70</td>
+                <td>-</td>
+                <td>depletion</td>
+                <td>3.079e-01</td>
+                <td>not significant</td>
+                <td>depletion</td>
+                <td>5.000e-01</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>O14626_MOL_acetylCoA_126-131</td>
+                <td><a href="../ProteinPaint/O14626_MOL_acetylCoA_126-131.html" target="_blank">variant viewer</a></td>
+                <td>4</td>
+                <td>5</td>
+                <td>4</td>
+                <td>2</td>
+                <td>N/A</td>
+                <td>126</td>
+                <td>131</td>
+                <td>ICL2</td>
+                <td>MOL_acetylCoA</td>
+                <td>small_molecule</td>
+                <td>Acetyl coenzyme A binding motif</td>
+                <td>[QR]..G.[GA]</td>
+                <td>QEPGFA</td>
+                <td>Conserved core motif responsible for acetyl coenzyme A binding as found in all members of the GNAT superfamily of N-acetyltransferases.</td>
+                <td>0.0064</td>
+                <td>0.8492</td>
+                <td>0.1123</td>
+                <td>158/188</td>
+                <td>92.00</td>
+                <td>-</td>
+                <td>enrichment</td>
+                <td>1.323e-01</td>
+                <td>not significant</td>
+                <td>enrichment</td>
+                <td>1.013e-01</td>
+                <td>not significant</td>
+                <td>-</td>
+                <td>-</td>
+                <td>Note: the following motif residue has been predicted as functional according to ConSurf based on their evolutionary conservation profile: Q126.</td>
+            </tr>
+        </tbody>
+    </table>
+</main>
+
+<footer><div data-v-3a12db53="" class="footercontainer"><div data-v-3a12db53="" class="row"><div class="d-flex align-items-center justify-content-center mt-3" data-v-3a12db53=""><div class="d-flex flex-wrap justify-content-center gap-2" data-v-3a12db53=""><span class="col-auto text-center copyright-text" data-v-3a12db53=""><a href="https://www.stjude.org/legal/u-s-privacy-policy-statement.html" target="_blank" rel="noopener noreferrer" data-v-3a12db53=""> U.S. Privacy Notice </a></span><span class="col-auto text-center copyright-text" data-v-3a12db53=""><a href="https://www.stjude.org/legal.html" target="_blank" rel="noopener noreferrer" data-v-3a12db53=""> Disclaimer / Registration / Copyright Statement </a></span><span class="col-auto text-center copyright-text" data-v-3a12db53=""><a href="https://www.stjude.org/legal/linking-policy.html" target="_blank" rel="noopener noreferrer" data-v-3a12db53=""> Linking Policy </a></span><span class="col-auto text-center copyright-text" data-v-3a12db53=""><a href="https://www.stjude.org/legal/notice-of-privacy-practices.html" target="_blank" rel="noopener noreferrer" data-v-3a12db53=""> Notice of Privacy Practices (HIPAA) </a></span><span class="col-auto text-center copyright-text" data-v-3a12db53=""><a href="https://www.stjude.org/legal/notice-of-non-discrimination.html" target="_blank" rel="noopener noreferrer" data-v-3a12db53=""> Notice of Non-Discrimination </a></span><span class="col-auto text-center copyright-text" data-v-3a12db53=""></span></div></div><div class="d-flex align-items-center justify-content-center mt-1" data-v-3a12db53=""><hr class="border-white custom-hr" data-v-3a12db53=""></div><div data-v-3a12db53="" class="d-flex flex-wrap justify-content-center gap-2"><span data-v-3a12db53="" class="col-auto text-center copyright-text"><a data-v-3a12db53="" href="mailto:gpcrmotifs@stjude.org">Contact Us (gpcrmotifs@stjude.org)</a></span><span data-v-3a12db53="" class="col-auto text-center copyright-text"> © Copyright 2026. St. Jude Children's Research Hospital, a not for profit, Section 501 (c)(3) <span data-v-3a12db53=""><a data-v-3a12db53="" href="/release-notes" style="text-decoration: none; color: rgba(255, 255, 255, 0.9);" target="_blank">Current Version: 1.2.0</a></span></span></div></div></div></footer>
+
+<script>
+    function sortTable(n) {
+        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+        table = document.getElementById("gpcrTable");
+        switching = true;
+        dir = "asc"; 
+        
+        while (switching) {
+            switching = false;
+            rows = table.rows;
+            
+            for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("TD")[n];
+                y = rows[i + 1].getElementsByTagName("TD")[n];
+                
+                if (dir == "asc") {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else if (dir == "desc") {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+            }
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+                switchcount ++;
+            } else {
+                if (switchcount == 0 && dir == "asc") {
+                    dir = "desc";
+                    switching = true;
+                }
+            }
+        }
+    }
+</script>
+
+</body>
+</html>

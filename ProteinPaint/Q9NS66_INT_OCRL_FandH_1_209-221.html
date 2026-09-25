@@ -1,0 +1,6759 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>GPR173 missense variants in disease cohorts and in gnomAD</title>
+    <meta charset="UTF-8" />
+    <script src="https://proteinpaint.stjude.org/bin/proteinpaint.js" charset="utf-8"></script>
+</head>
+
+<body>
+    <div id="pp-container" style="margin:10px; height: 500px;"></div>
+    <script>
+
+        runproteinpaint({
+            host: "https://proteinpaint.stjude.org",
+            holder: document.getElementById('pp-container'),
+            parseurl: true,
+            noheader: true,
+            nobox: true,
+            genome: "hg38",
+            gene: "GPR173",
+            gmmode: "protein",
+            aarange:[159,271],
+            hidePdomain:true,
+            hide_dsHandles:true,
+            "geneDomains": {
+                
+                "NM_018969": [
+                    { "start": 209, "stop": 221, "name": "OCRL RhoGAP domain binding motif - F and H (INT_OCRL_FandH_1, .F[^P][^P][KRIL]H[^P][^P][YLMFH][^P]...)", "color": "blue" },
+                    { "start": 27, "stop": 47, "name": "Transmembrane helix", "color": "gray" },
+                    { "start": 60, "stop": 80, "name": "Transmembrane helix", "color": "gray" },
+                    { "start": 98, "stop": 118, "name": "Transmembrane helix", "color": "gray" },
+                    { "start": 140, "stop": 156, "name": "Transmembrane helix", "color": "gray" },
+                    { "start": 189, "stop": 208, "name": "Transmembrane helix", "color": "gray" },
+                    { "start": 288, "stop": 307, "name": "Transmembrane helix", "color": "gray" },
+                    { "start": 323, "stop": 342, "name": "Transmembrane helix", "color": "gray" }
+                ]
+
+            },
+            "mclassOverride": {
+                
+                "className": "My Mutation Classes",
+                "classes": {
+                    "S": {
+                        "color": "purple",
+                        "label": "Adult somatic cancer-associated variants",
+                        "desc": "Somatic variants identified in adult cancer patients."
+                    },
+                    "N": {
+                        "color": "#DD88DD",
+                        "label": "Pediatric somatic cancer-associated variants",
+                        "desc": "Somatic variants identified in pediatric cancer patients."
+                    },
+                    "F": {
+                        "color": "green",
+                        "label": "Germline variants from disease cohorts",
+                        "desc": "Germline variants identified in patients of various disease cohorts."
+                    },
+                    "D": {
+                        "color": "red",
+                        "label": "Expert curated disease-associated variants from ClinVar and UniProt/OMIM",
+                        "desc": "Variants annotated by experts to be pathogenic, likely pathogenic, a risk factor, or to alter drug response in both ClinVar and UniProt/OMIM."
+                    },
+                    "P": {
+                        "color": "#FF99CC",
+                        "label": "Expert curated disease-associated variants from ClinVar",
+                        "desc": "Variants annotated by experts to be pathogenic, likely pathogenic, a risk factor, or to alter drug response in ClinVar."
+                    },
+                    "X": {
+                        "color": "#FFCC99",
+                        "label": "Expert curated disease-associated variants from UniProt/OMIM",
+                        "desc": "Variants annotated by experts to be pathogenic or likely pathogenic in UniProt/OMIM."
+                    },
+                    "E": {
+                        "color": "orange",
+                        "label": "GWAS variants",
+                        "desc": "Variants identified in GWAS studies with a significance of at least p=$p_value_cutoff_for_GWAS."
+                    },
+                    "M": {
+                        "color": "lightblue",
+                        "label": "Germline variants in the general population (gnomAD)",
+                        "desc": "Germline variants identified in the general population."
+                    },
+                    "I": {
+                        "color": "blue",
+                        "label": "Motif-disrupting variants",
+                        "desc": "Variants that abolish the motif, inhibiting binding to the partner protein."
+                    },
+                    "L": {
+                        "color": "gray",
+                        "label": "Variants not affecting the motif",
+                        "desc": "Variants that do not abolish the motif, and therefore are not expected to disrupt the binding to the partner protein."
+                    }
+                }
+
+            },
+            tracks: [                {
+                    type: "mds3",
+                    name: "Adult and pediatric somatic cancer mutations",
+                    skewerModes: [
+                        {
+                            type: "skewer",
+                            inuse: true,
+                            axisheight: 150,
+                        }
+                    ],
+                    custom_variants: [
+						{
+							chr: "chrX",
+							pos: 53077450 - 1,
+							mname: "E277K",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 1.7670e-05,
+							"AFgnomAD_log10": -4.75276345049324,
+							info: {
+								"Disease/phenotype": "Skin Basal Cell Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV105247831",
+								"Allele frequency in gnomAD": 1.7670e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077040 - 1,
+							mname: "C140Y",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 2,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Colorectal Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60235298",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077690 - 1,
+							mname: "C357S",
+							class: "S",
+							dt: 1,
+							ref: "T",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Clear Cell Renal Cell Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV100212285",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077492 - 1,
+							mname: "I291F",
+							class: "S",
+							dt: 1,
+							ref: "A",
+							alt: "T",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Lung Small Cell Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV100212407",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077705 - 1,
+							mname: "G362C",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "T",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Gastric Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV100212465",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077429 - 1,
+							mname: "R270W",
+							class: "S",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							occurrence: 1,
+							"AFgnomAD": 4.1439e-06,
+							"AFgnomAD_log10": -5.38259073346847,
+							info: {
+								"Disease/phenotype": "Bile Duct Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60237079",
+								"Allele frequency in gnomAD": 4.1439e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077633 - 1,
+							mname: "I338V",
+							class: "S",
+							dt: 1,
+							ref: "A",
+							alt: "G",
+							occurrence: 1,
+							"AFgnomAD": 1.4887e-05,
+							"AFgnomAD_log10": -4.82719281163091,
+							info: {
+								"Disease/phenotype": "Cecum Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV100212010",
+								"Allele frequency in gnomAD": 1.4887e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076908 - 1,
+							mname: "C96F",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "T",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Ovarian Serous Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60236910",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077045 - 1,
+							mname: "A142P",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "C",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Lung Squamous Cell Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV100212248",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076948 - 1,
+							mname: "H109Q",
+							class: "S",
+							dt: 1,
+							ref: "T",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Chronic Lymphocytic Leukemia/Small Lymphocytic Lymphoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60237055",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077446 - 1,
+							mname: "M275I",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "T",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Lung Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV100211951",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077195 - 1,
+							mname: "M192L",
+							class: "S",
+							dt: 1,
+							ref: "A",
+							alt: "C",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Papillary Renal Cell Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV100212139",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077202 - 1,
+							mname: "A194D",
+							class: "S",
+							dt: 1,
+							ref: "C",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Endometrial Endometrioid Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Variant of unknown origin",
+								"Cross-references": "COSMIC variant ID:COSV60237960",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076894 - 1,
+							mname: "F91L",
+							class: "S",
+							dt: 1,
+							ref: "C",
+							alt: "G",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Cervical Squamous Cell Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60233750",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077360 - 1,
+							mname: "A247T",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 1.8480e-06,
+							"AFgnomAD_log10": -5.73329803311591,
+							info: {
+								"Disease/phenotype": "Colorectal Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60235098",
+								"Allele frequency in gnomAD": 1.8480e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077360 - 1,
+							mname: "A247T",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 1.8480e-06,
+							"AFgnomAD_log10": -5.73329803311591,
+							info: {
+								"Disease/phenotype": "Colon Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60235098",
+								"Allele frequency in gnomAD": 1.8480e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077505 - 1,
+							mname: "F295S",
+							class: "S",
+							dt: 1,
+							ref: "T",
+							alt: "C",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Clear Cell Renal Cell Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60233633",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077442 - 1,
+							mname: "G274V",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "T",
+							occurrence: 1,
+							"AFgnomAD": 9.1314e-07,
+							"AFgnomAD_log10": -6.03946263257929,
+							info: {
+								"Disease/phenotype": "Kidney Oncocytoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60234128",
+								"Allele frequency in gnomAD": 9.1314e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077684 - 1,
+							mname: "A355S",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "T",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Lung Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV100212065",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076973 - 1,
+							mname: "S118G",
+							class: "S",
+							dt: 1,
+							ref: "A",
+							alt: "G",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Gastric Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60233086",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077477 - 1,
+							mname: "R286C",
+							class: "S",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							occurrence: 1,
+							"AFgnomAD": 2.7348e-06,
+							"AFgnomAD_log10": -5.563074428772,
+							info: {
+								"Disease/phenotype": "Nasopharyngeal Non-Keratinizing Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV105247819",
+								"Allele frequency in gnomAD": 2.7348e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077489 - 1,
+							mname: "A290T",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 4.5439e-05,
+							"AFgnomAD_log10": -4.34257123493922,
+							info: {
+								"Disease/phenotype": "Lung Squamous Cell Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Variant of unknown origin",
+								"Cross-references": "COSMIC variant ID:COSV60236768",
+								"Allele frequency in gnomAD": 4.5439e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076952 - 1,
+							mname: "A111P",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "C",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Lung Small Cell Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Variant of unknown origin",
+								"Cross-references": "COSMIC variant ID:COSV60237353",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077049 - 1,
+							mname: "V143A",
+							class: "S",
+							dt: 1,
+							ref: "T",
+							alt: "C",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Colon Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV109653354",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077105 - 1,
+							mname: "V162M",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 5.7877e-06,
+							"AFgnomAD_log10": -5.23749398821665,
+							info: {
+								"Disease/phenotype": "Endometrial Endometrioid Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Variant of unknown origin",
+								"Cross-references": "COSMIC variant ID:COSV60234667",
+								"Allele frequency in gnomAD": 5.7877e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077105 - 1,
+							mname: "V162M",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 5.7877e-06,
+							"AFgnomAD_log10": -5.23749398821665,
+							info: {
+								"Disease/phenotype": "Ewing Sarcoma/Peripheral Primitive Neuroectodermal Tumor of Bone",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Variant of unknown origin",
+								"Cross-references": "COSMIC variant ID:COSV60234667",
+								"Allele frequency in gnomAD": 5.7877e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077372 - 1,
+							mname: "R251C",
+							class: "S",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Endometrial Endometrioid Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV100212194",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076854 - 1,
+							mname: "F78Y",
+							class: "S",
+							dt: 1,
+							ref: "T",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Colorectal Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60238107",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077397 - 1,
+							mname: "L259P",
+							class: "S",
+							dt: 1,
+							ref: "T",
+							alt: "C",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Lung Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV99080963",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076982 - 1,
+							mname: "R121S",
+							class: "S",
+							dt: 1,
+							ref: "C",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Cutaneous Melanoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV100212452",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077583 - 1,
+							mname: "Y321C",
+							class: "S",
+							dt: 1,
+							ref: "A",
+							alt: "G",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Gastric Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV100212417",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076823 - 1,
+							mname: "D68N",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 1.8258e-06,
+							"AFgnomAD_log10": -5.73854679725819,
+							info: {
+								"Disease/phenotype": "Head and Neck Squamous Cell Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV100212279",
+								"Allele frequency in gnomAD": 1.8258e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077697 - 1,
+							mname: "G359D",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 1.8268e-06,
+							"AFgnomAD_log10": -5.73830899706504,
+							info: {
+								"Disease/phenotype": "Colorectal Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60236818",
+								"Allele frequency in gnomAD": 1.8268e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077336 - 1,
+							mname: "G239S",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 8.3660e-06,
+							"AFgnomAD_log10": -5.07748213975539,
+							info: {
+								"Disease/phenotype": "Lung Small Cell Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV100212289",
+								"Allele frequency in gnomAD": 8.3660e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076658 - 1,
+							mname: "G13S",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 1.8376e-05,
+							"AFgnomAD_log10": -4.73574901781303,
+							info: {
+								"Disease/phenotype": "Gastric Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV100212137",
+								"Allele frequency in gnomAD": 1.8376e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077648 - 1,
+							mname: "L343V",
+							class: "S",
+							dt: 1,
+							ref: "C",
+							alt: "G",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Cervical Large Cell Neuroendocrine Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV109653343",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077547 - 1,
+							mname: "R309L",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "T",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Lung Squamous Cell Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV100212325",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077624 - 1,
+							mname: "V335I",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 1.4878e-05,
+							"AFgnomAD_log10": -4.82745544562764,
+							info: {
+								"Disease/phenotype": "Bile Duct Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60233793",
+								"Allele frequency in gnomAD": 1.4878e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077624 - 1,
+							mname: "V335I",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 1.4878e-05,
+							"AFgnomAD_log10": -4.82745544562764,
+							info: {
+								"Disease/phenotype": "Cervical Squamous Cell Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60233793",
+								"Allele frequency in gnomAD": 1.4878e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077624 - 1,
+							mname: "V335I",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 1.4878e-05,
+							"AFgnomAD_log10": -4.82745544562764,
+							info: {
+								"Disease/phenotype": "Rectal Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60233793",
+								"Allele frequency in gnomAD": 1.4878e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077580 - 1,
+							mname: "R320H",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 4.0491e-05,
+							"AFgnomAD_log10": -4.39264149739511,
+							info: {
+								"Disease/phenotype": "Colorectal Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60237594",
+								"Allele frequency in gnomAD": 4.0491e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077580 - 1,
+							mname: "R320H",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 4.0491e-05,
+							"AFgnomAD_log10": -4.39264149739511,
+							info: {
+								"Disease/phenotype": "Prostate Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60237594",
+								"Allele frequency in gnomAD": 4.0491e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077045 - 1,
+							mname: "A142T",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 9.1388e-07,
+							"AFgnomAD_log10": -6.03911082697871,
+							info: {
+								"Disease/phenotype": "Endometrial Endometrioid Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV100212193",
+								"Allele frequency in gnomAD": 9.1388e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077430 - 1,
+							mname: "R270Q",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 8.2305e-06,
+							"AFgnomAD_log10": -5.08457378074824,
+							info: {
+								"Disease/phenotype": "Colorectal Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60234702",
+								"Allele frequency in gnomAD": 8.2305e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077705 - 1,
+							mname: "G362S",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 2.6567e-05,
+							"AFgnomAD_log10": -4.57565748424253,
+							info: {
+								"Disease/phenotype": "Lung Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV100212157",
+								"Allele frequency in gnomAD": 2.6567e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077072 - 1,
+							mname: "S151P",
+							class: "S",
+							dt: 1,
+							ref: "T",
+							alt: "C",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Lung Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV100212394",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077019 - 1,
+							mname: "K133T",
+							class: "S",
+							dt: 1,
+							ref: "A",
+							alt: "C",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Gastric Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV109653342",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077337 - 1,
+							mname: "G239D",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Skin Basal Cell Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV105247841",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077414 - 1,
+							mname: "G265W",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "T",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Cutaneous Melanoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV100212355",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076832 - 1,
+							mname: "R71C",
+							class: "S",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "B Acute Lymphoblastic Leukemia",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV106468004",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076881 - 1,
+							mname: "S87F",
+							class: "S",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Cutaneous Melanoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV104653032",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076884 - 1,
+							mname: "S88L",
+							class: "S",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Thyroid Gland Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60237760",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076991 - 1,
+							mname: "A124T",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Gastric Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60234969",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077321 - 1,
+							mname: "G234S",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Cutaneous Melanoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV104653034",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077363 - 1,
+							mname: "G248S",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 1.8444e-06,
+							"AFgnomAD_log10": -5.73414488645263,
+							info: {
+								"Disease/phenotype": "Brain Glioblastoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV108126846",
+								"Allele frequency in gnomAD": 1.8444e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077084 - 1,
+							mname: "A155T",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Lung Squamous Cell Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Variant of unknown origin",
+								"Cross-references": "COSMIC variant ID:COSV106060604",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077691 - 1,
+							mname: "C357S",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "C",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Lung Acinar Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60238081",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077289 - 1,
+							mname: "V223A",
+							class: "S",
+							dt: 1,
+							ref: "T",
+							alt: "C",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Hepatocellular Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60234771",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077477 - 1,
+							mname: "R286S",
+							class: "S",
+							dt: 1,
+							ref: "C",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Breast Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60237675",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077264 - 1,
+							mname: "R215C",
+							class: "S",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							occurrence: 1,
+							"AFgnomAD": 1.8686e-06,
+							"AFgnomAD_log10": -5.72848365548837,
+							info: {
+								"Disease/phenotype": "Female Breast Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60238287",
+								"Allele frequency in gnomAD": 1.8686e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077223 - 1,
+							mname: "H201R",
+							class: "S",
+							dt: 1,
+							ref: "A",
+							alt: "G",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Endometrial Endometrioid Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV100212446",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076742 - 1,
+							mname: "A41T",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 8.2655e-06,
+							"AFgnomAD_log10": -5.08273086977881,
+							info: {
+								"Disease/phenotype": "Gastric Intestinal-Type Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60238004",
+								"Allele frequency in gnomAD": 8.2655e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076742 - 1,
+							mname: "A41T",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 8.2655e-06,
+							"AFgnomAD_log10": -5.08273086977881,
+							info: {
+								"Disease/phenotype": "Glioma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60238004",
+								"Allele frequency in gnomAD": 8.2655e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076896 - 1,
+							mname: "S92I",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "T",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Cecum Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60234518",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077478 - 1,
+							mname: "R286H",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 2.5534e-05,
+							"AFgnomAD_log10": -4.59288114595358,
+							info: {
+								"Disease/phenotype": "Colorectal Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60238194",
+								"Allele frequency in gnomAD": 2.5534e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077127 - 1,
+							mname: "R169L",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "T",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Lung Squamous Cell Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV100212334",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076871 - 1,
+							mname: "R84C",
+							class: "S",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							occurrence: 1,
+							"AFgnomAD": 4.9640e-06,
+							"AFgnomAD_log10": -5.30416822717331,
+							info: {
+								"Disease/phenotype": "Colorectal Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60237281",
+								"Allele frequency in gnomAD": 4.9640e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077585 - 1,
+							mname: "L322V",
+							class: "S",
+							dt: 1,
+							ref: "C",
+							alt: "G",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Lung Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60237023",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077118 - 1,
+							mname: "K166T",
+							class: "S",
+							dt: 1,
+							ref: "A",
+							alt: "C",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Endometrial Endometrioid Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV100212242",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076833 - 1,
+							mname: "R71L",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "T",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Gastric Adenoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV100212124",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077681 - 1,
+							mname: "H354Y",
+							class: "S",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Oral Cavity Squamous Cell Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60233726",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077681 - 1,
+							mname: "H354Y",
+							class: "S",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Oral Cavity Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60233726",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077480 - 1,
+							mname: "M287V",
+							class: "S",
+							dt: 1,
+							ref: "A",
+							alt: "G",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Bile Duct Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV100212122",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077685 - 1,
+							mname: "A355D",
+							class: "S",
+							dt: 1,
+							ref: "C",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Cecum Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV105247837",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077121 - 1,
+							mname: "F167C",
+							class: "S",
+							dt: 1,
+							ref: "T",
+							alt: "G",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Clear Cell Renal Cell Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60236803",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076823 - 1,
+							mname: "D68Y",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "T",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Lung Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Variant of unknown origin",
+								"Cross-references": "COSMIC variant ID:COSV60234943",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076823 - 1,
+							mname: "D68Y",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "T",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Prostate Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Variant of unknown origin",
+								"Cross-references": "COSMIC variant ID:COSV60234943",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077490 - 1,
+							mname: "A290V",
+							class: "S",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							occurrence: 1,
+							"AFgnomAD": 4.1309e-05,
+							"AFgnomAD_log10": -4.38395531821002,
+							info: {
+								"Disease/phenotype": "Pancreatic Ductal Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60236976",
+								"Allele frequency in gnomAD": 4.1309e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076634 - 1,
+							mname: "T5A",
+							class: "S",
+							dt: 1,
+							ref: "A",
+							alt: "G",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Colon Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60237491",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077711 - 1,
+							mname: "P364T",
+							class: "S",
+							dt: 1,
+							ref: "C",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Lung Non-Small Cell Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV107406463",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076679 - 1,
+							mname: "A20T",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 4.6451e-05,
+							"AFgnomAD_log10": -4.33300493205124,
+							info: {
+								"Disease/phenotype": "Cervical Squamous Cell Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV100212269",
+								"Allele frequency in gnomAD": 4.6451e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076934 - 1,
+							mname: "L105F",
+							class: "S",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Colon Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Variant of unknown origin",
+								"Cross-references": "COSMIC variant ID:COSV60237536",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077051 - 1,
+							mname: "I144V",
+							class: "S",
+							dt: 1,
+							ref: "A",
+							alt: "G",
+							occurrence: 1,
+							"AFgnomAD": 2.7393e-06,
+							"AFgnomAD_log10": -5.56236040249963,
+							info: {
+								"Disease/phenotype": "Gastric Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV100212424",
+								"Allele frequency in gnomAD": 2.7393e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077373 - 1,
+							mname: "R251H",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 1.6695e-05,
+							"AFgnomAD_log10": -4.77741357660961,
+							info: {
+								"Disease/phenotype": "Lung Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60233102",
+								"Allele frequency in gnomAD": 1.6695e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077373 - 1,
+							mname: "R251H",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 1.6695e-05,
+							"AFgnomAD_log10": -4.77741357660961,
+							info: {
+								"Disease/phenotype": "Gastric Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60233102",
+								"Allele frequency in gnomAD": 1.6695e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076700 - 1,
+							mname: "V27L",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "C",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Ovarian Serous Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV100212293",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077258 - 1,
+							mname: "R213C",
+							class: "S",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							occurrence: 1,
+							"AFgnomAD": 8.8225e-06,
+							"AFgnomAD_log10": -5.05440833296799,
+							info: {
+								"Disease/phenotype": "Endometrial Endometrioid Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Variant of unknown origin",
+								"Cross-references": "COSMIC variant ID:COSV60234395",
+								"Allele frequency in gnomAD": 8.8225e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076850 - 1,
+							mname: "P77S",
+							class: "S",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							occurrence: 2,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Cutaneous Melanoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60236930",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076734 - 1,
+							mname: "A38V",
+							class: "S",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							occurrence: 1,
+							"AFgnomAD": 8.2099e-06,
+							"AFgnomAD_log10": -5.08566213273594,
+							info: {
+								"Disease/phenotype": "Colorectal Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60233135",
+								"Allele frequency in gnomAD": 8.2099e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076734 - 1,
+							mname: "A38V",
+							class: "S",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							occurrence: 1,
+							"AFgnomAD": 8.2099e-06,
+							"AFgnomAD_log10": -5.08566213273594,
+							info: {
+								"Disease/phenotype": "Colon Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60233135",
+								"Allele frequency in gnomAD": 8.2099e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077690 - 1,
+							mname: "C357R",
+							class: "S",
+							dt: 1,
+							ref: "T",
+							alt: "C",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Lung Acinar Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60238062",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077531 - 1,
+							mname: "V304M",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 1.0030e-05,
+							"AFgnomAD_log10": -4.99869906697958,
+							info: {
+								"Disease/phenotype": "Colon Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60238960",
+								"Allele frequency in gnomAD": 1.0030e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077099 - 1,
+							mname: "F160L",
+							class: "S",
+							dt: 1,
+							ref: "T",
+							alt: "C",
+							occurrence: 2,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Thyroid Gland Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60234618",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076866 - 1,
+							mname: "S82C",
+							class: "S",
+							dt: 1,
+							ref: "C",
+							alt: "G",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Bladder Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60234798",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076976 - 1,
+							mname: "V119I",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 8.0245e-05,
+							"AFgnomAD_log10": -4.0955820186123,
+							info: {
+								"Disease/phenotype": "Vestibular Schwannoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV107406444",
+								"Allele frequency in gnomAD": 8.0245e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077057 - 1,
+							mname: "M146L",
+							class: "S",
+							dt: 1,
+							ref: "A",
+							alt: "C",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Thyroid Gland Neoplasm",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60236660",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077663 - 1,
+							mname: "K348Q",
+							class: "S",
+							dt: 1,
+							ref: "A",
+							alt: "C",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Lung Small Cell Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV107406435",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077387 - 1,
+							mname: "P256S",
+							class: "S",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							occurrence: 1,
+							"AFgnomAD": 8.8103e-06,
+							"AFgnomAD_log10": -5.05500930315137,
+							info: {
+								"Disease/phenotype": "Brain Glioblastoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV100212043",
+								"Allele frequency in gnomAD": 8.8103e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077387 - 1,
+							mname: "P256S",
+							class: "S",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							occurrence: 1,
+							"AFgnomAD": 8.8103e-06,
+							"AFgnomAD_log10": -5.05500930315137,
+							info: {
+								"Disease/phenotype": "Breast Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV100212043",
+								"Allele frequency in gnomAD": 8.8103e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077195 - 1,
+							mname: "M192L",
+							class: "S",
+							dt: 1,
+							ref: "A",
+							alt: "T",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Cervical Squamous Cell Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV100212439",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076778 - 1,
+							mname: "L53M",
+							class: "S",
+							dt: 1,
+							ref: "C",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Breast Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60234878",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077129 - 1,
+							mname: "E170K",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Lung Squamous Cell Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60236401",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076929 - 1,
+							mname: "A103V",
+							class: "S",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Colon Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60238936",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077657 - 1,
+							mname: "D346N",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Cutaneous Nodular Melanoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV105247844",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077265 - 1,
+							mname: "R215H",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 9.3519e-07,
+							"AFgnomAD_log10": -6.02910014573847,
+							info: {
+								"Disease/phenotype": "Central Nervous System Embryonal Tumor, Not Otherwise Specified",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV108126850",
+								"Allele frequency in gnomAD": 9.3519e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077045 - 1,
+							mname: "A142S",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "T",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Lung Squamous Cell Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV100212429",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077600 - 1,
+							mname: "W327G",
+							class: "S",
+							dt: 1,
+							ref: "T",
+							alt: "G",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Lung Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Variant of unknown origin",
+								"Cross-references": "COSMIC variant ID:COSV60234374",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077126 - 1,
+							mname: "R169W",
+							class: "S",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							occurrence: 2,
+							"AFgnomAD": 5.4750e-06,
+							"AFgnomAD_log10": -5.26161587648784,
+							info: {
+								"Disease/phenotype": "Brain Glioblastoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV108126845",
+								"Allele frequency in gnomAD": 5.4750e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077156 - 1,
+							mname: "R179C",
+							class: "S",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							occurrence: 1,
+							"AFgnomAD": 1.8285e-06,
+							"AFgnomAD_log10": -5.73790503532594,
+							info: {
+								"Disease/phenotype": "Skin Basal Cell Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60233590",
+								"Allele frequency in gnomAD": 1.8285e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077156 - 1,
+							mname: "R179C",
+							class: "S",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							occurrence: 1,
+							"AFgnomAD": 1.8285e-06,
+							"AFgnomAD_log10": -5.73790503532594,
+							info: {
+								"Disease/phenotype": "Cervical Squamous Cell Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60233590",
+								"Allele frequency in gnomAD": 1.8285e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077026 - 1,
+							mname: "M135I",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Esophageal Squamous Cell Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60235212",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076801 - 1,
+							mname: "F60L",
+							class: "S",
+							dt: 1,
+							ref: "C",
+							alt: "G",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Breast Ductal Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60233160",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076801 - 1,
+							mname: "F60L",
+							class: "S",
+							dt: 1,
+							ref: "C",
+							alt: "G",
+							occurrence: 2,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "HER2-Positive Breast Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60233160",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077271 - 1,
+							mname: "M217T",
+							class: "S",
+							dt: 1,
+							ref: "T",
+							alt: "C",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Hepatocellular Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60238262",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076992 - 1,
+							mname: "A124V",
+							class: "S",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Gastric Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60238515",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077127 - 1,
+							mname: "R169Q",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 1.8244e-05,
+							"AFgnomAD_log10": -4.7388799364311,
+							info: {
+								"Disease/phenotype": "Duodenal Adenoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60239026",
+								"Allele frequency in gnomAD": 1.8244e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077648 - 1,
+							mname: "L343F",
+							class: "S",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Endometrial Endometrioid Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV100212295",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077142 - 1,
+							mname: "C174Y",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Colon Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV100212270",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077169 - 1,
+							mname: "A183G",
+							class: "S",
+							dt: 1,
+							ref: "C",
+							alt: "G",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Melanoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60238430",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076877 - 1,
+							mname: "G86S",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 1.9166e-05,
+							"AFgnomAD_log10": -4.71746851618777,
+							info: {
+								"Disease/phenotype": "Cervical Squamous Cell Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60238576",
+								"Allele frequency in gnomAD": 1.9166e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076877 - 1,
+							mname: "G86S",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 1.9166e-05,
+							"AFgnomAD_log10": -4.71746851618777,
+							info: {
+								"Disease/phenotype": "Endometrial Endometrioid Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Reported in another cancer sample as somatic",
+								"Cross-references": "COSMIC variant ID:COSV60238576",
+								"Allele frequency in gnomAD": 1.9166e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076771 - 1,
+							mname: "E50D",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "C",
+							occurrence: 1,
+							"AFgnomAD": 9.1133e-07,
+							"AFgnomAD_log10": -6.04032433298558,
+							info: {
+								"Disease/phenotype": "Rectal Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV100212257",
+								"Allele frequency in gnomAD": 9.1133e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077405 - 1,
+							mname: "R262W",
+							class: "S",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							occurrence: 2,
+							"AFgnomAD": 1.6625e-05,
+							"AFgnomAD_log10": -4.77923834602486,
+							info: {
+								"Disease/phenotype": "Gastric Intestinal-Type Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV109653347",
+								"Allele frequency in gnomAD": 1.6625e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077132 - 1,
+							mname: "E171K",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Skin Basal Cell Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV105247823",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077376 - 1,
+							mname: "G252E",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Hepatocellular Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60237700",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076949 - 1,
+							mname: "A110T",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Breast Lobular Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV108847024",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076997 - 1,
+							mname: "A126T",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 9.1255e-07,
+							"AFgnomAD_log10": -6.03974333056552,
+							info: {
+								"Disease/phenotype": "Gastric Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV100212272",
+								"Allele frequency in gnomAD": 9.1255e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076997 - 1,
+							mname: "A126T",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 9.1255e-07,
+							"AFgnomAD_log10": -6.03974333056552,
+							info: {
+								"Disease/phenotype": "Pancreatic Ductal Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV100212272",
+								"Allele frequency in gnomAD": 9.1255e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076689 - 1,
+							mname: "Y23C",
+							class: "S",
+							dt: 1,
+							ref: "A",
+							alt: "G",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Oral Cavity Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60236688",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077015 - 1,
+							mname: "A132T",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 5.4743e-06,
+							"AFgnomAD_log10": -5.2616714062729,
+							info: {
+								"Disease/phenotype": "Endometrial Endometrioid Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60236715",
+								"Allele frequency in gnomAD": 5.4743e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077015 - 1,
+							mname: "A132T",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 5.4743e-06,
+							"AFgnomAD_log10": -5.2616714062729,
+							info: {
+								"Disease/phenotype": "Gastric Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60236715",
+								"Allele frequency in gnomAD": 5.4743e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077157 - 1,
+							mname: "R179H",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 1.6578e-06,
+							"AFgnomAD_log10": -5.78046786469984,
+							info: {
+								"Disease/phenotype": "Lung Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV108126844",
+								"Allele frequency in gnomAD": 1.6578e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076968 - 1,
+							mname: "C116Y",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Lung Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Variant of unknown origin",
+								"Cross-references": "COSMIC variant ID:COSV60238407",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076841 - 1,
+							mname: "V74I",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 7.4453e-05,
+							"AFgnomAD_log10": -4.12811779815094,
+							info: {
+								"Disease/phenotype": "Colorectal Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60233229",
+								"Allele frequency in gnomAD": 7.4453e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076950 - 1,
+							mname: "A110V",
+							class: "S",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							occurrence: 1,
+							"AFgnomAD": 3.3109e-06,
+							"AFgnomAD_log10": -5.48005393616247,
+							info: {
+								"Disease/phenotype": "Rectal Adenocarcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60236142",
+								"Allele frequency in gnomAD": 3.3109e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077322 - 1,
+							mname: "G234D",
+							class: "S",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Hepatocellular Carcinoma",
+								"Source": "COSMIC genomic screens (adult cancer)",
+								"Category": "Confirmed somatic variant",
+								"Cross-references": "COSMIC variant ID:COSV60238558",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077547 - 1,
+							mname: "R309Q",
+							class: "N",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFDiseaseCohort": 4.85437e-03,
+							"AFDiseaseCohort_log10": -2.31386712482438,
+							"AFgnomAD": 2.4794e-06,
+							"AFgnomAD_log10": -5.60565340313169,
+							info: {
+								"Disease/phenotype": "High-grade glioma",
+								"Source": "Pediatric somatic cancer mutations from St Jude datasets",
+								"Allele frequency in disease cohort": 4.85437e-03,
+								"Allele frequency in gnomAD": 2.4794e-06
+							}
+						}
+                    ]
+                },
+                {
+                    type: "mds3",
+                    name: "GWAS variants",
+                    skewerModes: [
+                        {
+                            type: "skewer",
+                            inuse: true,
+                            axisheight: 150,
+                        }
+                    ],
+                    custom_variants: [
+						{
+							chr: "chrX",
+							pos: 53076652 - 1,
+							mname: "V11M",
+							class: "E",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 8.9055e-06,
+							"AFgnomAD_log10": -5.05034169201826,
+							info: {
+								"Disease/phenotype": "Haemorrhage in early pregnancy (clinical_c_O20)",
+								"Source": "GWAS catalog",
+								"p-value": 4.4042e-18,
+								"Effect size": 1.1322e+00,
+								"Cross-references": "dbSNP ID:rs200429357",
+								"Allele frequency in gnomAD": 8.9055e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076652 - 1,
+							mname: "V11M",
+							class: "E",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 8.9055e-06,
+							"AFgnomAD_log10": -5.05034169201826,
+							info: {
+								"Disease/phenotype": "Maternal care for other known or suspected foetal problems (clinical_c_O36)",
+								"Source": "GWAS catalog",
+								"p-value": 1.7687e-09,
+								"Effect size": 1.1086e+00,
+								"Cross-references": "dbSNP ID:rs200429357",
+								"Allele frequency in gnomAD": 8.9055e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077217 - 1,
+							mname: "A199G",
+							class: "E",
+							dt: 1,
+							ref: "C",
+							alt: "G",
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Connective tissue disorder (selfReported_n_1416)",
+								"Source": "GWAS catalog",
+								"p-value": 8.7334e-22,
+								"Effect size": 1.0474e+00,
+								"Cross-references": "dbSNP ID:rs782618109",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076652 - 1,
+							mname: "V11M",
+							class: "E",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 8.9055e-06,
+							"AFgnomAD_log10": -5.05034169201826,
+							info: {
+								"Disease/phenotype": "False labour (clinical_c_O47)",
+								"Source": "GWAS catalog",
+								"p-value": 1.8622e-15,
+								"Effect size": 1.1085e+00,
+								"Cross-references": "dbSNP ID:rs200429357",
+								"Allele frequency in gnomAD": 8.9055e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077217 - 1,
+							mname: "A199G",
+							class: "E",
+							dt: 1,
+							ref: "C",
+							alt: "G",
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Other diseases of spinal cord (clinical_c_G95)",
+								"Source": "GWAS catalog",
+								"p-value": 1.7052e-11,
+								"Effect size": 3.9916e-01,
+								"Cross-references": "dbSNP ID:rs782618109",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076976 - 1,
+							mname: "V119I",
+							class: "E",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 8.0245e-05,
+							"AFgnomAD_log10": -4.0955820186123,
+							info: {
+								"Disease/phenotype": "Rheumatic fever (selfReported_n_1542)",
+								"Source": "GWAS catalog",
+								"p-value": 8.6328e-18,
+								"Effect size": 1.5798e-01,
+								"Cross-references": "dbSNP ID:rs183977087",
+								"Allele frequency in gnomAD": 8.0245e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077490 - 1,
+							mname: "A290V",
+							class: "E",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							"AFgnomAD": 4.1309e-05,
+							"AFgnomAD_log10": -4.38395531821002,
+							info: {
+								"Disease/phenotype": "Antepartum haemorrhage, not elsewhere classified (clinical_c_O46)",
+								"Source": "GWAS catalog",
+								"p-value": 1.9837e-13,
+								"Effect size": 4.4007e-01,
+								"Cross-references": "dbSNP ID:rs782690590",
+								"Allele frequency in gnomAD": 4.1309e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076874 - 1,
+							mname: "H85Y",
+							class: "E",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							"AFgnomAD": 7.4442e-05,
+							"AFgnomAD_log10": -4.12818196738845,
+							info: {
+								"Disease/phenotype": "Bladder problem (not cancer) (selfReported_n_1222)",
+								"Source": "GWAS catalog",
+								"p-value": 1.1085e-13,
+								"Effect size": 1.0130e+00,
+								"Cross-references": "dbSNP ID:rs148073358",
+								"Allele frequency in gnomAD": 7.4442e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077021 - 1,
+							mname: "R134C",
+							class: "E",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							"AFgnomAD": 4.1354e-06,
+							"AFgnomAD_log10": -5.3834824765852,
+							info: {
+								"Disease/phenotype": "Chronic obstructive airways disease/copd (selfReported_n_1131)",
+								"Source": "GWAS catalog",
+								"p-value": 1.0508e-14,
+								"Effect size": 5.7073e+00,
+								"Cross-references": "dbSNP ID:rs192022345",
+								"Allele frequency in gnomAD": 4.1354e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076652 - 1,
+							mname: "V11M",
+							class: "E",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 8.9055e-06,
+							"AFgnomAD_log10": -5.05034169201826,
+							info: {
+								"Disease/phenotype": "Prolonged pregnancy (clinical_c_O48)",
+								"Source": "GWAS catalog",
+								"p-value": 1.3438e-13,
+								"Effect size": 1.0978e+00,
+								"Cross-references": "dbSNP ID:rs200429357",
+								"Allele frequency in gnomAD": 8.9055e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077217 - 1,
+							mname: "A199G",
+							class: "E",
+							dt: 1,
+							ref: "C",
+							alt: "G",
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Other dorsopathies, not elsewhere classified (clinical_c_M53)",
+								"Source": "GWAS catalog",
+								"p-value": 1.9744e-48,
+								"Effect size": 7.2059e-01,
+								"Cross-references": "dbSNP ID:rs782618109",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076652 - 1,
+							mname: "V11M",
+							class: "E",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 8.9055e-06,
+							"AFgnomAD_log10": -5.05034169201826,
+							info: {
+								"Disease/phenotype": "Maternal care for known or suspected abnormality of pelvic organs (clinical_c_O34)",
+								"Source": "GWAS catalog",
+								"p-value": 2.9185e-11,
+								"Effect size": 1.1065e+00,
+								"Cross-references": "dbSNP ID:rs200429357",
+								"Allele frequency in gnomAD": 8.9055e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076652 - 1,
+							mname: "V11M",
+							class: "E",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 8.9055e-06,
+							"AFgnomAD_log10": -5.05034169201826,
+							info: {
+								"Disease/phenotype": "Other complications of labour and delivery, not elsewhere classified (clinical_c_O75)",
+								"Source": "GWAS catalog",
+								"p-value": 2.7357e-21,
+								"Effect size": 1.1300e+00,
+								"Cross-references": "dbSNP ID:rs200429357",
+								"Allele frequency in gnomAD": 8.9055e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076841 - 1,
+							mname: "V74I",
+							class: "E",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 7.4453e-05,
+							"AFgnomAD_log10": -4.12811779815094,
+							info: {
+								"Disease/phenotype": "Other systemic involvement of connective tissue (clinical_c_M35)",
+								"Source": "GWAS catalog",
+								"p-value": 1.1987e-10,
+								"Effect size": 4.0246e-02,
+								"Cross-references": "dbSNP ID:rs782090682",
+								"Allele frequency in gnomAD": 7.4453e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077217 - 1,
+							mname: "A199G",
+							class: "E",
+							dt: 1,
+							ref: "C",
+							alt: "G",
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Other disorders of muscle (clinical_c_M62)",
+								"Source": "GWAS catalog",
+								"p-value": 1.0533e-09,
+								"Effect size": 4.5882e-01,
+								"Cross-references": "dbSNP ID:rs782618109",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077217 - 1,
+							mname: "A199G",
+							class: "E",
+							dt: 1,
+							ref: "C",
+							alt: "G",
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Decubitus ulcer (clinical_c_L89)",
+								"Source": "GWAS catalog",
+								"p-value": 6.2741e-11,
+								"Effect size": 4.0860e-01,
+								"Cross-references": "dbSNP ID:rs782618109",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077217 - 1,
+							mname: "A199G",
+							class: "E",
+							dt: 1,
+							ref: "C",
+							alt: "G",
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Vasculitis (selfReported_n_1415)",
+								"Source": "GWAS catalog",
+								"p-value": 4.8728e-33,
+								"Effect size": 9.5897e-01,
+								"Cross-references": "dbSNP ID:rs782618109",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077021 - 1,
+							mname: "R134C",
+							class: "E",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							"AFgnomAD": 4.1354e-06,
+							"AFgnomAD_log10": -5.3834824765852,
+							info: {
+								"Disease/phenotype": "Other dermatitis (clinical_c_L30)",
+								"Source": "GWAS catalog",
+								"p-value": 2.6916e-14,
+								"Effect size": 5.7579e+00,
+								"Cross-references": "dbSNP ID:rs192022345",
+								"Allele frequency in gnomAD": 4.1354e-06
+							}
+						}
+                    ]
+                },
+                {
+                    type: "mds3",
+                    name: "ALS germline variants",
+                    skewerModes: [
+                        {
+                            type: "numeric",
+                            byAttribute: "AFDiseaseCohort_log10",
+                            label: "log10(allele frequency)",
+                            axisheight: 100
+                        }
+                    ],
+                    custom_variants: [
+						{
+							chr: "chrX",
+							pos: 53077040 - 1,
+							mname: "C140Y",
+							class: "F",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFDiseaseCohort": 6.0400e-04,
+							"AFDiseaseCohort_log10": -3.21896306137887,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "ALS",
+								"Source": "CReATe",
+								"Allele frequency in disease cohort": 6.0400e-04,
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077279 - 1,
+							mname: "V220M",
+							class: "F",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFDiseaseCohort": 5.7700e-04,
+							"AFDiseaseCohort_log10": -3.23882418684427,
+							"AFgnomAD": 3.7926e-04,
+							"AFgnomAD_log10": -3.42106295928859,
+							info: {
+								"Disease/phenotype": "ALS",
+								"Source": "AnswerALS",
+								"Allele frequency in disease cohort": 5.7700e-04,
+								"Allele frequency in gnomAD": 3.7926e-04
+							}
+						}
+                    ]
+                },
+                {
+                    type: "mds3",
+                    name: "Schizophrenia germline variants",
+                    skewerModes: [
+                        {
+                            type: "numeric",
+                            byAttribute: "AFDiseaseCohort_log10",
+                            label: "log10(allele frequency)",
+                            axisheight: 100
+                        }
+                    ],
+                    custom_variants: [
+						{
+							chr: "chrX",
+							pos: 53077259 - 1,
+							mname: "R213H",
+							class: "F",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFDiseaseCohort": 4.7300e-04,
+							"AFDiseaseCohort_log10": -3.32513885926219,
+							"AFgnomAD": 6.0004e-05,
+							"AFgnomAD_log10": -4.22181979761595,
+							info: {
+								"Disease/phenotype": "Schizophrenia-associated disease in 22q11.2 deletion syndrome",
+								"Source": "SCZ_chr22q11DS",
+								"Allele frequency in disease cohort": 4.7300e-04,
+								"Allele frequency in gnomAD": 6.0004e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077279 - 1,
+							mname: "V220M",
+							class: "F",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFDiseaseCohort": 9.4610e-04,
+							"AFDiseaseCohort_log10": -3.02406295751689,
+							"AFgnomAD": 3.7926e-04,
+							"AFgnomAD_log10": -3.42106295928859,
+							info: {
+								"Disease/phenotype": "Schizophrenia-associated disease in 22q11.2 deletion syndrome",
+								"Source": "SCZ_chr22q11DS",
+								"Allele frequency in disease cohort": 9.4610e-04,
+								"Allele frequency in gnomAD": 3.7926e-04
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077433 - 1,
+							mname: "R271Q",
+							class: "F",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFDiseaseCohort": 4.7300e-04,
+							"AFDiseaseCohort_log10": -3.32513885926219,
+							"AFgnomAD": 2.6499e-05,
+							"AFgnomAD_log10": -4.57677051484343,
+							info: {
+								"Disease/phenotype": "Schizophrenia-associated disease in 22q11.2 deletion syndrome",
+								"Source": "SCZ_chr22q11DS",
+								"Allele frequency in disease cohort": 4.7300e-04,
+								"Allele frequency in gnomAD": 2.6499e-05
+							}
+						}
+                    ]
+                },
+                {
+                    type: "mds3",
+                    name: "Benign germline variants (gnomAD)",
+                    skewerModes: [
+                        {
+                            type: "numeric",
+                            byAttribute: "AFgnomAD_log10",
+                            label: "log10(allele frequency)",
+                            axisheight: 100
+                        }
+                    ],
+                    custom_variants: [
+						{
+							chr: "chrX",
+							pos: 53076625 - 1,
+							mname: "A2T",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 2.6212e-05,
+							"AFgnomAD_log10": -4.5814998407159,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 2.6212e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076632 - 1,
+							mname: "T4N",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "A",
+							"AFgnomAD": 1.8626e-06,
+							"AFgnomAD_log10": -5.7298804013811,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.8626e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076632 - 1,
+							mname: "T4S",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "G",
+							"AFgnomAD": 9.3129e-07,
+							"AFgnomAD_log10": -6.03091506038464,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.3129e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076637 - 1,
+							mname: "G6R",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 1.1149e-05,
+							"AFgnomAD_log10": -4.95276408454032,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.1149e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076638 - 1,
+							mname: "G6V",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "T",
+							"AFgnomAD": 8.9154e-06,
+							"AFgnomAD_log10": -5.04985916691424,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 8.9154e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076640 - 1,
+							mname: "E7K",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 9.2811e-07,
+							"AFgnomAD_log10": -6.03240054796013,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.2811e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076643 - 1,
+							mname: "P8S",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							"AFgnomAD": 9.2577e-07,
+							"AFgnomAD_log10": -6.03349689683638,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.2577e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076650 - 1,
+							mname: "E10G",
+							class: "M",
+							dt: 1,
+							ref: "A",
+							alt: "G",
+							"AFgnomAD": 1.3867e-05,
+							"AFgnomAD_log10": -4.8580174844472,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.3867e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076652 - 1,
+							mname: "V11M",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 8.9055e-06,
+							"AFgnomAD_log10": -5.05034169201826,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 8.9055e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076653 - 1,
+							mname: "V11A",
+							class: "M",
+							dt: 1,
+							ref: "T",
+							alt: "C",
+							"AFgnomAD": 9.2407e-07,
+							"AFgnomAD_log10": -6.03429512892897,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.2407e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076657 - 1,
+							mname: "S12R",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "A",
+							"AFgnomAD": 9.2250e-07,
+							"AFgnomAD_log10": -6.0350336251689,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.2250e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076658 - 1,
+							mname: "G13S",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 1.8376e-05,
+							"AFgnomAD_log10": -4.73574901781303,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.8376e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076661 - 1,
+							mname: "A14T",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 8.3353e-06,
+							"AFgnomAD_log10": -5.07907876464223,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 8.3353e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076661 - 1,
+							mname: "A14P",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "C",
+							"AFgnomAD": 3.6781e-06,
+							"AFgnomAD_log10": -5.43437646736064,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 3.6781e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076662 - 1,
+							mname: "A14G",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "G",
+							"AFgnomAD": 9.1906e-07,
+							"AFgnomAD_log10": -6.03665613516631,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1906e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076665 - 1,
+							mname: "L15P",
+							class: "M",
+							dt: 1,
+							ref: "T",
+							alt: "C",
+							"AFgnomAD": 9.1835e-07,
+							"AFgnomAD_log10": -6.03699176967086,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1835e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076667 - 1,
+							mname: "S16T",
+							class: "M",
+							dt: 1,
+							ref: "T",
+							alt: "A",
+							"AFgnomAD": 9.1749e-07,
+							"AFgnomAD_log10": -6.03739866055651,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1749e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076667 - 1,
+							mname: "S16P",
+							class: "M",
+							dt: 1,
+							ref: "T",
+							alt: "C",
+							"AFgnomAD": 8.9152e-06,
+							"AFgnomAD_log10": -5.04986890959215,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 8.9152e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076668 - 1,
+							mname: "S16F",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							"AFgnomAD": 1.6642e-06,
+							"AFgnomAD_log10": -5.778794482326,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.6642e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076673 - 1,
+							mname: "P18S",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							"AFgnomAD": 3.6668e-06,
+							"AFgnomAD_log10": -5.43571277732195,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 3.6668e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076674 - 1,
+							mname: "P18L",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							"AFgnomAD": 3.7400e-05,
+							"AFgnomAD_log10": -4.42712839779952,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 3.7400e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076679 - 1,
+							mname: "A20T",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 4.6451e-05,
+							"AFgnomAD_log10": -4.33300493205124,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 4.6451e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076679 - 1,
+							mname: "A20P",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "C",
+							"AFgnomAD": 1.6590e-06,
+							"AFgnomAD_log10": -5.78015361397564,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.6590e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076686 - 1,
+							mname: "A22G",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "G",
+							"AFgnomAD": 9.1362e-07,
+							"AFgnomAD_log10": -6.03923440188001,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1362e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076691 - 1,
+							mname: "V24M",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 9.1584e-07,
+							"AFgnomAD_log10": -6.03818039225634,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1584e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076692 - 1,
+							mname: "V24E",
+							class: "M",
+							dt: 1,
+							ref: "T",
+							alt: "A",
+							"AFgnomAD": 9.1587e-07,
+							"AFgnomAD_log10": -6.03816616638602,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1587e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076701 - 1,
+							mname: "V27A",
+							class: "M",
+							dt: 1,
+							ref: "T",
+							alt: "C",
+							"AFgnomAD": 9.1286e-07,
+							"AFgnomAD_log10": -6.03959582256383,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1286e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076724 - 1,
+							mname: "V35M",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 3.3064e-05,
+							"AFgnomAD_log10": -4.48064460772635,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 3.3064e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076724 - 1,
+							mname: "V35L",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "T",
+							"AFgnomAD": 9.1161e-07,
+							"AFgnomAD_log10": -6.04019091942738,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1161e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076730 - 1,
+							mname: "L37V",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "G",
+							"AFgnomAD": 4.5584e-06,
+							"AFgnomAD_log10": -5.3411875681046,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 4.5584e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076734 - 1,
+							mname: "A38V",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							"AFgnomAD": 8.2099e-06,
+							"AFgnomAD_log10": -5.08566213273594,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 8.2099e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076742 - 1,
+							mname: "A41T",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 8.2655e-06,
+							"AFgnomAD_log10": -5.08273086977881,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 8.2655e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076747 - 1,
+							mname: "I42M",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "G",
+							"AFgnomAD": 9.1154e-07,
+							"AFgnomAD_log10": -6.04022426897486,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1154e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076760 - 1,
+							mname: "V47L",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "T",
+							"AFgnomAD": 9.1121e-07,
+							"AFgnomAD_log10": -6.04038152277335,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1121e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076766 - 1,
+							mname: "K49Q",
+							class: "M",
+							dt: 1,
+							ref: "A",
+							alt: "C",
+							"AFgnomAD": 9.0894e-06,
+							"AFgnomAD_log10": -5.04146478402659,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.0894e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076767 - 1,
+							mname: "K49R",
+							class: "M",
+							dt: 1,
+							ref: "A",
+							alt: "G",
+							"AFgnomAD": 1.6525e-06,
+							"AFgnomAD_log10": -5.78185853184232,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.6525e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076771 - 1,
+							mname: "E50D",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "C",
+							"AFgnomAD": 9.1133e-07,
+							"AFgnomAD_log10": -6.04032433298558,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1133e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076772 - 1,
+							mname: "R51C",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							"AFgnomAD": 9.1160e-07,
+							"AFgnomAD_log10": -6.04019568349166,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1160e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076773 - 1,
+							mname: "R51H",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 3.1418e-05,
+							"AFgnomAD_log10": -4.50282146463689,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 3.1418e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076785 - 1,
+							mname: "K55R",
+							class: "M",
+							dt: 1,
+							ref: "A",
+							alt: "G",
+							"AFgnomAD": 3.6467e-06,
+							"AFgnomAD_log10": -5.43809996295537,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 3.6467e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076786 - 1,
+							mname: "K55N",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "T",
+							"AFgnomAD": 9.1217e-07,
+							"AFgnomAD_log10": -6.03992421520043,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1217e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076787 - 1,
+							mname: "A56S",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "T",
+							"AFgnomAD": 1.6533e-06,
+							"AFgnomAD_log10": -5.78164833425487,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.6533e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076788 - 1,
+							mname: "A56V",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							"AFgnomAD": 1.8245e-06,
+							"AFgnomAD_log10": -5.73885613229933,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.8245e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076797 - 1,
+							mname: "Y59F",
+							class: "M",
+							dt: 1,
+							ref: "A",
+							alt: "T",
+							"AFgnomAD": 9.1210e-07,
+							"AFgnomAD_log10": -6.03995754427316,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1210e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076812 - 1,
+							mname: "L64R",
+							class: "M",
+							dt: 1,
+							ref: "T",
+							alt: "G",
+							"AFgnomAD": 9.1257e-07,
+							"AFgnomAD_log10": -6.03973381240821,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1257e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076823 - 1,
+							mname: "D68N",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 1.8258e-06,
+							"AFgnomAD_log10": -5.73854679725819,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.8258e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076829 - 1,
+							mname: "I70V",
+							class: "M",
+							dt: 1,
+							ref: "A",
+							alt: "G",
+							"AFgnomAD": 9.1229e-07,
+							"AFgnomAD_log10": -6.03986708559726,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1229e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076833 - 1,
+							mname: "R71H",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 9.1289e-07,
+							"AFgnomAD_log10": -6.03958155025441,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1289e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076835 - 1,
+							mname: "S72P",
+							class: "M",
+							dt: 1,
+							ref: "T",
+							alt: "C",
+							"AFgnomAD": 9.1283e-07,
+							"AFgnomAD_log10": -6.0396100953423,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1283e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076838 - 1,
+							mname: "A73T",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 9.1283e-07,
+							"AFgnomAD_log10": -6.0396100953423,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1283e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076841 - 1,
+							mname: "V74I",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 7.4453e-05,
+							"AFgnomAD_log10": -4.12811779815094,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 7.4453e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076862 - 1,
+							mname: "A81S",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "T",
+							"AFgnomAD": 9.1260e-07,
+							"AFgnomAD_log10": -6.03971953556336,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1260e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076863 - 1,
+							mname: "A81V",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							"AFgnomAD": 1.8251e-06,
+							"AFgnomAD_log10": -5.73871333490154,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.8251e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076865 - 1,
+							mname: "S82A",
+							class: "M",
+							dt: 1,
+							ref: "T",
+							alt: "G",
+							"AFgnomAD": 6.6157e-06,
+							"AFgnomAD_log10": -5.17942419681987,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 6.6157e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076871 - 1,
+							mname: "R84S",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "A",
+							"AFgnomAD": 2.4820e-05,
+							"AFgnomAD_log10": -4.60519822283729,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 2.4820e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076871 - 1,
+							mname: "R84C",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							"AFgnomAD": 4.9640e-06,
+							"AFgnomAD_log10": -5.30416822717331,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 4.9640e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076872 - 1,
+							mname: "R84H",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 3.7229e-05,
+							"AFgnomAD_log10": -4.42911862911372,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 3.7229e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076872 - 1,
+							mname: "R84L",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "T",
+							"AFgnomAD": 9.1269e-07,
+							"AFgnomAD_log10": -6.03967670784458,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1269e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076874 - 1,
+							mname: "H85Y",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							"AFgnomAD": 7.4442e-05,
+							"AFgnomAD_log10": -4.12818196738845,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 7.4442e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076877 - 1,
+							mname: "G86S",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 1.9166e-05,
+							"AFgnomAD_log10": -4.71746851618777,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.9166e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076877 - 1,
+							mname: "G86R",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "C",
+							"AFgnomAD": 9.1269e-07,
+							"AFgnomAD_log10": -6.03967670784458,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1269e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076901 - 1,
+							mname: "L94V",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "G",
+							"AFgnomAD": 1.8254e-06,
+							"AFgnomAD_log10": -5.73864195380588,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.8254e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076914 - 1,
+							mname: "I98T",
+							class: "M",
+							dt: 1,
+							ref: "T",
+							alt: "C",
+							"AFgnomAD": 1.8256e-06,
+							"AFgnomAD_log10": -5.73859437292586,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.8256e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076916 - 1,
+							mname: "V99L",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "T",
+							"AFgnomAD": 9.1278e-07,
+							"AFgnomAD_log10": -6.03963388434882,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1278e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076917 - 1,
+							mname: "V99A",
+							class: "M",
+							dt: 1,
+							ref: "T",
+							alt: "C",
+							"AFgnomAD": 9.1337e-07,
+							"AFgnomAD_log10": -6.03935325706931,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1337e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076927 - 1,
+							mname: "M102I",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 2.7386e-06,
+							"AFgnomAD_log10": -5.56247139617932,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 2.7386e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076931 - 1,
+							mname: "V104M",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 4.5677e-06,
+							"AFgnomAD_log10": -5.34030242766568,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 4.5677e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076932 - 1,
+							mname: "V104A",
+							class: "M",
+							dt: 1,
+							ref: "T",
+							alt: "C",
+							"AFgnomAD": 9.1342e-07,
+							"AFgnomAD_log10": -6.0393294834291,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1342e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076935 - 1,
+							mname: "L105P",
+							class: "M",
+							dt: 1,
+							ref: "T",
+							alt: "C",
+							"AFgnomAD": 1.8257e-06,
+							"AFgnomAD_log10": -5.73857058444055,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.8257e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076950 - 1,
+							mname: "A110V",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							"AFgnomAD": 3.3109e-06,
+							"AFgnomAD_log10": -5.48005393616247,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 3.3109e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076958 - 1,
+							mname: "M113V",
+							class: "M",
+							dt: 1,
+							ref: "A",
+							alt: "G",
+							"AFgnomAD": 9.1254e-07,
+							"AFgnomAD_log10": -6.03974808972241,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1254e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076967 - 1,
+							mname: "C116G",
+							class: "M",
+							dt: 1,
+							ref: "T",
+							alt: "G",
+							"AFgnomAD": 9.1265e-07,
+							"AFgnomAD_log10": -6.03969574186485,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1265e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076974 - 1,
+							mname: "S118I",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "T",
+							"AFgnomAD": 9.1252e-07,
+							"AFgnomAD_log10": -6.03975760819264,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1252e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076976 - 1,
+							mname: "V119I",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 8.0245e-05,
+							"AFgnomAD_log10": -4.0955820186123,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 8.0245e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076979 - 1,
+							mname: "T120A",
+							class: "M",
+							dt: 1,
+							ref: "A",
+							alt: "G",
+							"AFgnomAD": 1.8248e-06,
+							"AFgnomAD_log10": -5.73878472773141,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.8248e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076980 - 1,
+							mname: "T120I",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							"AFgnomAD": 1.3232e-05,
+							"AFgnomAD_log10": -4.87837450779153,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.3232e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076982 - 1,
+							mname: "R121C",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							"AFgnomAD": 4.9626e-06,
+							"AFgnomAD_log10": -5.30429072879092,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 4.9626e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076983 - 1,
+							mname: "R121H",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 1.8249e-06,
+							"AFgnomAD_log10": -5.73876092881741,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.8249e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076988 - 1,
+							mname: "M123L",
+							class: "M",
+							dt: 1,
+							ref: "A",
+							alt: "C",
+							"AFgnomAD": 9.1229e-07,
+							"AFgnomAD_log10": -6.03986708559726,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1229e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076989 - 1,
+							mname: "M123T",
+							class: "M",
+							dt: 1,
+							ref: "T",
+							alt: "C",
+							"AFgnomAD": 9.1227e-07,
+							"AFgnomAD_log10": -6.03987660667592,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1227e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076997 - 1,
+							mname: "A126T",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 9.1255e-07,
+							"AFgnomAD_log10": -6.03974333056552,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1255e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53076998 - 1,
+							mname: "A126V",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							"AFgnomAD": 9.1244e-07,
+							"AFgnomAD_log10": -6.03979568415986,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1244e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077003 - 1,
+							mname: "H128Y",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							"AFgnomAD": 9.1227e-07,
+							"AFgnomAD_log10": -6.03987660667592,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1227e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077006 - 1,
+							mname: "R129C",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							"AFgnomAD": 9.0964e-06,
+							"AFgnomAD_log10": -5.04113045047806,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.0964e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077007 - 1,
+							mname: "R129H",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 1.0753e-05,
+							"AFgnomAD_log10": -4.96847035419658,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.0753e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077015 - 1,
+							mname: "A132T",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 5.4743e-06,
+							"AFgnomAD_log10": -5.2616714062729,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 5.4743e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077016 - 1,
+							mname: "A132G",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "G",
+							"AFgnomAD": 1.8245e-06,
+							"AFgnomAD_log10": -5.73885613229933,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.8245e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077021 - 1,
+							mname: "R134S",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "A",
+							"AFgnomAD": 1.8252e-06,
+							"AFgnomAD_log10": -5.73868953989938,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.8252e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077021 - 1,
+							mname: "R134C",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							"AFgnomAD": 4.1354e-06,
+							"AFgnomAD_log10": -5.3834824765852,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 4.1354e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077022 - 1,
+							mname: "R134H",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 3.0604e-05,
+							"AFgnomAD_log10": -4.51422180670808,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 3.0604e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077024 - 1,
+							mname: "M135V",
+							class: "M",
+							dt: 1,
+							ref: "A",
+							alt: "G",
+							"AFgnomAD": 9.1225e-07,
+							"AFgnomAD_log10": -6.03988612796331,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1225e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077027 - 1,
+							mname: "T136P",
+							class: "M",
+							dt: 1,
+							ref: "A",
+							alt: "C",
+							"AFgnomAD": 9.1359e-07,
+							"AFgnomAD_log10": -6.03924866278538,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1359e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077030 - 1,
+							mname: "L137F",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							"AFgnomAD": 1.8271e-06,
+							"AFgnomAD_log10": -5.73823768239038,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.8271e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077042 - 1,
+							mname: "A141T",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 1.2782e-05,
+							"AFgnomAD_log10": -4.89340118678746,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.2782e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077043 - 1,
+							mname: "A141V",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							"AFgnomAD": 1.6558e-05,
+							"AFgnomAD_log10": -4.78099212174311,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.6558e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077045 - 1,
+							mname: "A142T",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 9.1388e-07,
+							"AFgnomAD_log10": -6.03911082697871,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1388e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077048 - 1,
+							mname: "V143I",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 9.1304e-07,
+							"AFgnomAD_log10": -6.03951019574199,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1304e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077048 - 1,
+							mname: "V143L",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "C",
+							"AFgnomAD": 9.1304e-07,
+							"AFgnomAD_log10": -6.03951019574199,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1304e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077051 - 1,
+							mname: "I144V",
+							class: "M",
+							dt: 1,
+							ref: "A",
+							alt: "G",
+							"AFgnomAD": 2.7393e-06,
+							"AFgnomAD_log10": -5.56236040249963,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 2.7393e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077057 - 1,
+							mname: "M146V",
+							class: "M",
+							dt: 1,
+							ref: "A",
+							alt: "G",
+							"AFgnomAD": 1.8250e-06,
+							"AFgnomAD_log10": -5.73873713120751,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.8250e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077061 - 1,
+							mname: "A147V",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							"AFgnomAD": 1.1586e-05,
+							"AFgnomAD_log10": -4.93606647583696,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.1586e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077100 - 1,
+							mname: "F160S",
+							class: "M",
+							dt: 1,
+							ref: "T",
+							alt: "C",
+							"AFgnomAD": 9.1256e-07,
+							"AFgnomAD_log10": -6.03973857146079,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1256e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077105 - 1,
+							mname: "V162M",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 5.7877e-06,
+							"AFgnomAD_log10": -5.23749398821665,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 5.7877e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077118 - 1,
+							mname: "K166R",
+							class: "M",
+							dt: 1,
+							ref: "A",
+							alt: "G",
+							"AFgnomAD": 9.1186e-07,
+							"AFgnomAD_log10": -6.04007183480174,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1186e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077126 - 1,
+							mname: "R169W",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							"AFgnomAD": 5.4750e-06,
+							"AFgnomAD_log10": -5.26161587648784,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 5.4750e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077127 - 1,
+							mname: "R169Q",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 1.8244e-05,
+							"AFgnomAD_log10": -4.7388799364311,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.8244e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077140 - 1,
+							mname: "Q173H",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "C",
+							"AFgnomAD": 9.1260e-07,
+							"AFgnomAD_log10": -6.03971953556336,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1260e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077153 - 1,
+							mname: "H178N",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "A",
+							"AFgnomAD": 9.1426e-07,
+							"AFgnomAD_log10": -6.03893028073444,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1426e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077155 - 1,
+							mname: "H178Q",
+							class: "M",
+							dt: 1,
+							ref: "T",
+							alt: "G",
+							"AFgnomAD": 9.1370e-07,
+							"AFgnomAD_log10": -6.03919637508823,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1370e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077156 - 1,
+							mname: "R179C",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							"AFgnomAD": 1.8285e-06,
+							"AFgnomAD_log10": -5.73790503532594,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.8285e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077157 - 1,
+							mname: "R179H",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 1.6578e-06,
+							"AFgnomAD_log10": -5.78046786469984,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.6578e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077162 - 1,
+							mname: "F181L",
+							class: "M",
+							dt: 1,
+							ref: "T",
+							alt: "C",
+							"AFgnomAD": 8.8352e-06,
+							"AFgnomAD_log10": -5.05378361504083,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 8.8352e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077164 - 1,
+							mname: "F181L",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "G",
+							"AFgnomAD": 1.8290e-06,
+							"AFgnomAD_log10": -5.73778629452358,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.8290e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077168 - 1,
+							mname: "A183T",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 9.1491e-07,
+							"AFgnomAD_log10": -6.03862162552457,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1491e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077178 - 1,
+							mname: "T186M",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							"AFgnomAD": 3.6679e-06,
+							"AFgnomAD_log10": -5.43558251325289,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 3.6679e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077189 - 1,
+							mname: "M190V",
+							class: "M",
+							dt: 1,
+							ref: "A",
+							alt: "G",
+							"AFgnomAD": 5.5027e-06,
+							"AFgnomAD_log10": -5.25942416371003,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 5.5027e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077192 - 1,
+							mname: "L191F",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							"AFgnomAD": 9.1905e-07,
+							"AFgnomAD_log10": -6.03666086061236,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1905e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077204 - 1,
+							mname: "V195M",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 8.8300e-06,
+							"AFgnomAD_log10": -5.05403929642243,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 8.8300e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077214 - 1,
+							mname: "A198V",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							"AFgnomAD": 1.8460e-06,
+							"AFgnomAD_log10": -5.73376830331011,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.8460e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077234 - 1,
+							mname: "G205S",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 5.5722e-06,
+							"AFgnomAD_log10": -5.25397330406832,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 5.5722e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077243 - 1,
+							mname: "L208F",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							"AFgnomAD": 8.8201e-06,
+							"AFgnomAD_log10": -5.05452649092238,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 8.8201e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077258 - 1,
+							mname: "R213C",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							"AFgnomAD": 8.8225e-06,
+							"AFgnomAD_log10": -5.05440833296799,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 8.8225e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077259 - 1,
+							mname: "R213H",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 6.0004e-05,
+							"AFgnomAD_log10": -4.22181979761595,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 6.0004e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077264 - 1,
+							mname: "R215C",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							"AFgnomAD": 1.8686e-06,
+							"AFgnomAD_log10": -5.72848365548837,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.8686e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077265 - 1,
+							mname: "R215H",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 9.3519e-07,
+							"AFgnomAD_log10": -6.02910014573847,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.3519e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077279 - 1,
+							mname: "V220M",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 3.7926e-04,
+							"AFgnomAD_log10": -3.42106295928859,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 3.7926e-04
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077282 - 1,
+							mname: "Q221K",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "A",
+							"AFgnomAD": 9.3406e-07,
+							"AFgnomAD_log10": -6.02962522566286,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.3406e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077286 - 1,
+							mname: "M222T",
+							class: "M",
+							dt: 1,
+							ref: "T",
+							alt: "C",
+							"AFgnomAD": 8.8285e-06,
+							"AFgnomAD_log10": -5.05411307864906,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 8.8285e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077303 - 1,
+							mname: "Q228K",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "A",
+							"AFgnomAD": 9.2837e-07,
+							"AFgnomAD_log10": -6.03227890208618,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.2837e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077305 - 1,
+							mname: "Q228H",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "C",
+							"AFgnomAD": 9.2733e-07,
+							"AFgnomAD_log10": -6.03276569015372,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.2733e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077322 - 1,
+							mname: "G234A",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "C",
+							"AFgnomAD": 9.2593e-07,
+							"AFgnomAD_log10": -6.03342184459543,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.2593e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077327 - 1,
+							mname: "G236R",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 1.6758e-06,
+							"AFgnomAD_log10": -5.77577781391535,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.6758e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077336 - 1,
+							mname: "G239S",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 8.3660e-06,
+							"AFgnomAD_log10": -5.07748213975539,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 8.3660e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077346 - 1,
+							mname: "A242V",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							"AFgnomAD": 9.2278e-07,
+							"AFgnomAD_log10": -6.03490182679048,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.2278e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077357 - 1,
+							mname: "I246V",
+							class: "M",
+							dt: 1,
+							ref: "A",
+							alt: "G",
+							"AFgnomAD": 5.5329e-06,
+							"AFgnomAD_log10": -5.25704717902508,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 5.5329e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077360 - 1,
+							mname: "A247T",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 1.8480e-06,
+							"AFgnomAD_log10": -5.73329803311591,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.8480e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077363 - 1,
+							mname: "G248S",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 1.8444e-06,
+							"AFgnomAD_log10": -5.73414488645263,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.8444e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077369 - 1,
+							mname: "G250S",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 9.2199e-07,
+							"AFgnomAD_log10": -6.03527378932421,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.2199e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077373 - 1,
+							mname: "R251H",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 1.6695e-05,
+							"AFgnomAD_log10": -4.77741357660961,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.6695e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077375 - 1,
+							mname: "G252R",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 9.2115e-07,
+							"AFgnomAD_log10": -6.03566964356215,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.2115e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077381 - 1,
+							mname: "M254L",
+							class: "M",
+							dt: 1,
+							ref: "A",
+							alt: "T",
+							"AFgnomAD": 9.1994e-07,
+							"AFgnomAD_log10": -6.03624049713125,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1994e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077387 - 1,
+							mname: "P256S",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							"AFgnomAD": 8.8103e-06,
+							"AFgnomAD_log10": -5.05500930315137,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 8.8103e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077390 - 1,
+							mname: "T257A",
+							class: "M",
+							dt: 1,
+							ref: "A",
+							alt: "G",
+							"AFgnomAD": 9.1898e-07,
+							"AFgnomAD_log10": -6.03669394017445,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1898e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077390 - 1,
+							mname: "T257S",
+							class: "M",
+							dt: 1,
+							ref: "A",
+							alt: "T",
+							"AFgnomAD": 9.1898e-07,
+							"AFgnomAD_log10": -6.03669394017445,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1898e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077391 - 1,
+							mname: "T257S",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "G",
+							"AFgnomAD": 1.6646e-06,
+							"AFgnomAD_log10": -5.77869010970307,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.6646e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077402 - 1,
+							mname: "I261V",
+							class: "M",
+							dt: 1,
+							ref: "A",
+							alt: "G",
+							"AFgnomAD": 8.8215e-06,
+							"AFgnomAD_log10": -5.05445756154228,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 8.8215e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077405 - 1,
+							mname: "R262W",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							"AFgnomAD": 1.6625e-05,
+							"AFgnomAD_log10": -4.77923834602486,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.6625e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077406 - 1,
+							mname: "R262Q",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 2.7541e-06,
+							"AFgnomAD_log10": -5.56002029477636,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 2.7541e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077415 - 1,
+							mname: "G265V",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "T",
+							"AFgnomAD": 8.2428e-06,
+							"AFgnomAD_log10": -5.08392523757594,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 8.2428e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077424 - 1,
+							mname: "A268D",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "A",
+							"AFgnomAD": 9.1523e-07,
+							"AFgnomAD_log10": -6.03846975273274,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1523e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077426 - 1,
+							mname: "S269G",
+							class: "M",
+							dt: 1,
+							ref: "A",
+							alt: "G",
+							"AFgnomAD": 1.8290e-06,
+							"AFgnomAD_log10": -5.73778629452358,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.8290e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077427 - 1,
+							mname: "S269N",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 9.1452e-07,
+							"AFgnomAD_log10": -6.03880679232572,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1452e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077429 - 1,
+							mname: "R270W",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							"AFgnomAD": 4.1439e-06,
+							"AFgnomAD_log10": -5.38259073346847,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 4.1439e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077430 - 1,
+							mname: "R270Q",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 8.2305e-06,
+							"AFgnomAD_log10": -5.08457378074824,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 8.2305e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077432 - 1,
+							mname: "R271W",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							"AFgnomAD": 2.7433e-06,
+							"AFgnomAD_log10": -5.56172669650764,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 2.7433e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077433 - 1,
+							mname: "R271Q",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 2.6499e-05,
+							"AFgnomAD_log10": -4.57677051484343,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 2.6499e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077439 - 1,
+							mname: "L273R",
+							class: "M",
+							dt: 1,
+							ref: "T",
+							alt: "G",
+							"AFgnomAD": 1.8262e-06,
+							"AFgnomAD_log10": -5.73845166155531,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.8262e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077441 - 1,
+							mname: "G274C",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "T",
+							"AFgnomAD": 9.1305e-07,
+							"AFgnomAD_log10": -6.03950543919131,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1305e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077442 - 1,
+							mname: "G274A",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "C",
+							"AFgnomAD": 4.1377e-06,
+							"AFgnomAD_log10": -5.38324100063685,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 4.1377e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077442 - 1,
+							mname: "G274V",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "T",
+							"AFgnomAD": 9.1314e-07,
+							"AFgnomAD_log10": -6.03946263257929,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1314e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077450 - 1,
+							mname: "E277K",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 1.7670e-05,
+							"AFgnomAD_log10": -4.75276345049324,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.7670e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077453 - 1,
+							mname: "V278F",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "T",
+							"AFgnomAD": 9.1222e-07,
+							"AFgnomAD_log10": -6.03990041028581,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1222e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077458 - 1,
+							mname: "K279N",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "C",
+							"AFgnomAD": 9.1202e-07,
+							"AFgnomAD_log10": -6.03999563777422,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1202e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077460 - 1,
+							mname: "G280D",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 6.3840e-06,
+							"AFgnomAD_log10": -5.19490712165733,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 6.3840e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077466 - 1,
+							mname: "K282T",
+							class: "M",
+							dt: 1,
+							ref: "A",
+							alt: "C",
+							"AFgnomAD": 9.1172e-07,
+							"AFgnomAD_log10": -6.04013851816917,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1172e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077466 - 1,
+							mname: "K282R",
+							class: "M",
+							dt: 1,
+							ref: "A",
+							alt: "G",
+							"AFgnomAD": 7.4387e-06,
+							"AFgnomAD_log10": -5.12850295587312,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 7.4387e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077477 - 1,
+							mname: "R286C",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							"AFgnomAD": 2.7348e-06,
+							"AFgnomAD_log10": -5.563074428772,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 2.7348e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077478 - 1,
+							mname: "R286H",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 2.5534e-05,
+							"AFgnomAD_log10": -4.59288114595358,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 2.5534e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077489 - 1,
+							mname: "A290T",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 4.5439e-05,
+							"AFgnomAD_log10": -4.34257123493922,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 4.5439e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077490 - 1,
+							mname: "A290V",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							"AFgnomAD": 4.1309e-05,
+							"AFgnomAD_log10": -4.38395531821002,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 4.1309e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077510 - 1,
+							mname: "L297F",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							"AFgnomAD": 9.1141e-07,
+							"AFgnomAD_log10": -6.04028621064386,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1141e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077519 - 1,
+							mname: "S300A",
+							class: "M",
+							dt: 1,
+							ref: "T",
+							alt: "G",
+							"AFgnomAD": 4.9586e-06,
+							"AFgnomAD_log10": -5.30464092393299,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 4.9586e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077525 - 1,
+							mname: "Y302H",
+							class: "M",
+							dt: 1,
+							ref: "T",
+							alt: "C",
+							"AFgnomAD": 9.1162e-07,
+							"AFgnomAD_log10": -6.04018615541536,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1162e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077528 - 1,
+							mname: "I303L",
+							class: "M",
+							dt: 1,
+							ref: "A",
+							alt: "C",
+							"AFgnomAD": 9.1166e-07,
+							"AFgnomAD_log10": -6.04016709988985,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1166e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077528 - 1,
+							mname: "I303V",
+							class: "M",
+							dt: 1,
+							ref: "A",
+							alt: "G",
+							"AFgnomAD": 7.4382e-06,
+							"AFgnomAD_log10": -5.12853214841202,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 7.4382e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077531 - 1,
+							mname: "V304M",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 1.0030e-05,
+							"AFgnomAD_log10": -4.99869906697958,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.0030e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077547 - 1,
+							mname: "R309Q",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 2.4794e-06,
+							"AFgnomAD_log10": -5.60565340313169,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 2.4794e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077547 - 1,
+							mname: "R309P",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "C",
+							"AFgnomAD": 9.1171e-07,
+							"AFgnomAD_log10": -6.04014328165866,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1171e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077562 - 1,
+							mname: "A314G",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "G",
+							"AFgnomAD": 1.8232e-06,
+							"AFgnomAD_log10": -5.73916568782768,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.8232e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077564 - 1,
+							mname: "C315R",
+							class: "M",
+							dt: 1,
+							ref: "T",
+							alt: "C",
+							"AFgnomAD": 2.4786e-06,
+							"AFgnomAD_log10": -5.60579355463977,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 2.4786e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077570 - 1,
+							mname: "V317M",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 9.1143e-07,
+							"AFgnomAD_log10": -6.04027668058127,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1143e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077579 - 1,
+							mname: "R320S",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "A",
+							"AFgnomAD": 1.8229e-06,
+							"AFgnomAD_log10": -5.73923715506383,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.8229e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077579 - 1,
+							mname: "R320C",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							"AFgnomAD": 9.1143e-07,
+							"AFgnomAD_log10": -6.04027668058127,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1143e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077580 - 1,
+							mname: "R320H",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 4.0491e-05,
+							"AFgnomAD_log10": -4.39264149739511,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 4.0491e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077594 - 1,
+							mname: "A325T",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 9.1110e-07,
+							"AFgnomAD_log10": -6.04043395336207,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1110e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077612 - 1,
+							mname: "A331T",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 5.4675e-06,
+							"AFgnomAD_log10": -5.26221120829033,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 5.4675e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077618 - 1,
+							mname: "A333P",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "C",
+							"AFgnomAD": 1.8227e-06,
+							"AFgnomAD_log10": -5.73928480642244,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.8227e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077618 - 1,
+							mname: "A333S",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "T",
+							"AFgnomAD": 9.1135e-07,
+							"AFgnomAD_log10": -6.04031480208642,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1135e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077624 - 1,
+							mname: "V335I",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 1.4878e-05,
+							"AFgnomAD_log10": -4.82745544562764,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.4878e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077625 - 1,
+							mname: "V335A",
+							class: "M",
+							dt: 1,
+							ref: "T",
+							alt: "C",
+							"AFgnomAD": 9.1159e-07,
+							"AFgnomAD_log10": -6.0402004476082,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1159e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077633 - 1,
+							mname: "I338V",
+							class: "M",
+							dt: 1,
+							ref: "A",
+							alt: "G",
+							"AFgnomAD": 1.4887e-05,
+							"AFgnomAD_log10": -4.82719281163091,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.4887e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077668 - 1,
+							mname: "K349N",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "C",
+							"AFgnomAD": 8.2283e-06,
+							"AFgnomAD_log10": -5.08468988251336,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 8.2283e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077678 - 1,
+							mname: "T353A",
+							class: "M",
+							dt: 1,
+							ref: "A",
+							alt: "G",
+							"AFgnomAD": 1.8304e-06,
+							"AFgnomAD_log10": -5.73745399288707,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.8304e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077684 - 1,
+							mname: "A355T",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 1.6583e-06,
+							"AFgnomAD_log10": -5.78033689926298,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.6583e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077685 - 1,
+							mname: "A355V",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							"AFgnomAD": 9.1379e-07,
+							"AFgnomAD_log10": -6.03915359892704,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1379e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077687 - 1,
+							mname: "P356T",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "A",
+							"AFgnomAD": 9.1336e-07,
+							"AFgnomAD_log10": -6.03935801195352,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1336e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077693 - 1,
+							mname: "W358R",
+							class: "M",
+							dt: 1,
+							ref: "T",
+							alt: "C",
+							"AFgnomAD": 1.6632e-05,
+							"AFgnomAD_log10": -4.77905552367659,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.6632e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077696 - 1,
+							mname: "G359S",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 9.1329e-07,
+							"AFgnomAD_log10": -6.03939129760074,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1329e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077696 - 1,
+							mname: "G359R",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "C",
+							"AFgnomAD": 9.1329e-07,
+							"AFgnomAD_log10": -6.03939129760074,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1329e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077697 - 1,
+							mname: "G359D",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 1.8268e-06,
+							"AFgnomAD_log10": -5.73830899706504,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.8268e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077699 - 1,
+							mname: "T360P",
+							class: "M",
+							dt: 1,
+							ref: "A",
+							alt: "C",
+							"AFgnomAD": 9.1396e-07,
+							"AFgnomAD_log10": -6.03907281100513,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1396e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077705 - 1,
+							mname: "G362S",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 2.6567e-05,
+							"AFgnomAD_log10": -4.57565748424253,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 2.6567e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077712 - 1,
+							mname: "P364L",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							"AFgnomAD": 7.4573e-06,
+							"AFgnomAD_log10": -5.12741838530899,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 7.4573e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077714 - 1,
+							mname: "A365T",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 2.7391e-06,
+							"AFgnomAD_log10": -5.56239211208506,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 2.7391e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077717 - 1,
+							mname: "P366S",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							"AFgnomAD": 9.1366e-07,
+							"AFgnomAD_log10": -6.03921538806792,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1366e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077720 - 1,
+							mname: "R367G",
+							class: "M",
+							dt: 1,
+							ref: "A",
+							alt: "G",
+							"AFgnomAD": 9.1307e-07,
+							"AFgnomAD_log10": -6.03949592624623,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1307e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077724 - 1,
+							mname: "E368G",
+							class: "M",
+							dt: 1,
+							ref: "A",
+							alt: "G",
+							"AFgnomAD": 4.1429e-06,
+							"AFgnomAD_log10": -5.382695549437,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 4.1429e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077726 - 1,
+							mname: "P369S",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							"AFgnomAD": 2.4867e-06,
+							"AFgnomAD_log10": -5.60437660564416,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 2.4867e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077727 - 1,
+							mname: "P369H",
+							class: "M",
+							dt: 1,
+							ref: "C",
+							alt: "A",
+							"AFgnomAD": 9.1442e-07,
+							"AFgnomAD_log10": -6.03885428371224,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1442e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077734 - 1,
+							mname: "C371W",
+							class: "M",
+							dt: 1,
+							ref: "T",
+							alt: "G",
+							"AFgnomAD": 9.1582e-07,
+							"AFgnomAD_log10": -6.03818987642877,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1582e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077736 - 1,
+							mname: "V372D",
+							class: "M",
+							dt: 1,
+							ref: "T",
+							alt: "A",
+							"AFgnomAD": 9.1631e-07,
+							"AFgnomAD_log10": -6.037957573807,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 9.1631e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077739 - 1,
+							mname: "M373T",
+							class: "M",
+							dt: 1,
+							ref: "T",
+							alt: "C",
+							"AFgnomAD": 3.3297e-06,
+							"AFgnomAD_log10": -5.4775948938852,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 3.3297e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077740 - 1,
+							mname: "M373I",
+							class: "M",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							"AFgnomAD": 1.8354e-06,
+							"AFgnomAD_log10": -5.73626927263168,
+							info: {
+								"Disease/phenotype": "benign variants",
+								"Source": "gnomAD",
+								"Allele frequency in gnomAD": 1.8354e-06
+							}
+						}
+                    ]
+                },
+                {
+                    type: "mds3",
+                    name: "Motif variants",
+                    skewerModes: [
+                        {
+                            type: "skewer",
+                            inuse: true,
+                            axisheight: 150,
+                        }
+                    ],
+                    custom_variants: [
+						{
+							chr: "chrX",
+							pos: 53077264 - 1,
+							mname: "R215C",
+							class: "L",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							occurrence: 1,
+							"AFgnomAD": 1.8686e-06,
+							"AFgnomAD_log10": -5.72848365548837,
+							info: {
+								"Disease/phenotype": "Female Breast Carcinoma",
+								"Source": "COSMIC genomic screens",
+								"Allele frequency in gnomAD": 1.8686e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077258 - 1,
+							mname: "R213C",
+							class: "I",
+							dt: 1,
+							ref: "C",
+							alt: "T",
+							occurrence: 1,
+							"AFgnomAD": 8.8225e-06,
+							"AFgnomAD_log10": -5.05440833296799,
+							info: {
+								"Disease/phenotype": "Endometrial Endometrioid Adenocarcinoma",
+								"Source": "COSMIC genomic screens",
+								"Allele frequency in gnomAD": 8.8225e-06
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077265 - 1,
+							mname: "R215H",
+							class: "L",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFgnomAD": 9.3519e-07,
+							"AFgnomAD_log10": -6.02910014573847,
+							info: {
+								"Disease/phenotype": "Central Nervous System Embryonal Tumor, Not Otherwise Specified",
+								"Source": "COSMIC genomic screens",
+								"Allele frequency in gnomAD": 9.3519e-07
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077271 - 1,
+							mname: "M217T",
+							class: "I",
+							dt: 1,
+							ref: "T",
+							alt: "C",
+							occurrence: 1,
+							"AFgnomAD": 0.0000e+00,
+							"AFgnomAD_log10": -8,
+							info: {
+								"Disease/phenotype": "Hepatocellular Carcinoma",
+								"Source": "COSMIC genomic screens",
+								"Allele frequency in gnomAD": 0.0000e+00
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077279 - 1,
+							mname: "V220M",
+							class: "L",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFDiseaseCohort": 5.7700e-04,
+							"AFDiseaseCohort_log10": -3.23882418684427,
+							"AFgnomAD": 3.7926e-04,
+							"AFgnomAD_log10": -3.42106295928859,
+							info: {
+								"Disease/phenotype": "ALS",
+								"Source": "AnswerALS",
+								"Allele frequency in disease cohort": 5.7700e-04,
+								"Allele frequency in gnomAD": 3.7926e-04
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077259 - 1,
+							mname: "R213H",
+							class: "I",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFDiseaseCohort": 4.7300e-04,
+							"AFDiseaseCohort_log10": -3.32513885926219,
+							"AFgnomAD": 6.0004e-05,
+							"AFgnomAD_log10": -4.22181979761595,
+							info: {
+								"Disease/phenotype": "Schizophrenia-associated disease in 22q11.2 deletion syndrome",
+								"Source": "SCZ_chr22q11DS",
+								"Allele frequency in disease cohort": 4.7300e-04,
+								"Allele frequency in gnomAD": 6.0004e-05
+							}
+						},
+						{
+							chr: "chrX",
+							pos: 53077279 - 1,
+							mname: "V220M",
+							class: "L",
+							dt: 1,
+							ref: "G",
+							alt: "A",
+							occurrence: 1,
+							"AFDiseaseCohort": 9.4610e-04,
+							"AFDiseaseCohort_log10": -3.02406295751689,
+							"AFgnomAD": 3.7926e-04,
+							"AFgnomAD_log10": -3.42106295928859,
+							info: {
+								"Disease/phenotype": "Schizophrenia-associated disease in 22q11.2 deletion syndrome",
+								"Source": "SCZ_chr22q11DS",
+								"Allele frequency in disease cohort": 9.4610e-04,
+								"Allele frequency in gnomAD": 3.7926e-04
+							}
+						}
+                    ]
+                }
+			]
+        })
+    </script>
+</body>
+</html>
