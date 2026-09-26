@@ -3548,7 +3548,7 @@
 
 <script>
     function sortTable(n) {
-        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+        var table, rows, switching, i, x, y, xVal, yVal, shouldSwitch, dir, switchcount = 0;
         table = document.getElementById("gpcrTable");
         switching = true;
         dir = "asc"; 
@@ -3559,16 +3559,38 @@
             
             for (i = 1; i < (rows.length - 1); i++) {
                 shouldSwitch = false;
+                
+                // Get the two cells to compare
                 x = rows[i].getElementsByTagName("TD")[n];
                 y = rows[i + 1].getElementsByTagName("TD")[n];
                 
+                if (!x || !y) continue;
+
+                // Extract text content and clean up whitespace
+                let xText = x.textContent || x.innerText;
+                let yText = y.textContent || y.innerText;
+
+                // Check if both values can be parsed as valid numbers (handles floats and scientific notation like 3.404e-01)
+                let xNum = parseFloat(xText);
+                let yNum = parseFloat(yText);
+                let isNumeric = !isNaN(xNum) && !isNaN(yNum) && isFinite(xNum) && isFinite(yNum) && 
+                                /^[+-]?(\d+(\.\d*)?|\.\d+)([eE][+-]?\d+)?$/.test(xText.trim());
+
+                if (isNumeric) {
+                    xVal = xNum;
+                    yVal = yNum;
+                } else {
+                    xVal = xText.toLowerCase().trim();
+                    yVal = yText.toLowerCase().trim();
+                }
+                
                 if (dir == "asc") {
-                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                    if (xVal > yVal) {
                         shouldSwitch = true;
                         break;
                     }
                 } else if (dir == "desc") {
-                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                    if (xVal < yVal) {
                         shouldSwitch = true;
                         break;
                     }
@@ -3577,7 +3599,7 @@
             if (shouldSwitch) {
                 rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
                 switching = true;
-                switchcount ++;
+                switchcount++;
             } else {
                 if (switchcount == 0 && dir == "asc") {
                     dir = "desc";
@@ -3587,6 +3609,5 @@
         }
     }
 </script>
-
 </body>
 </html>

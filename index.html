@@ -236,9 +236,8 @@
 <footer><div data-v-3a12db53="" class="footercontainer"><div data-v-3a12db53="" class="row"><div class="d-flex align-items-center justify-content-center mt-3" data-v-3a12db53=""><div class="d-flex flex-wrap justify-content-center gap-2" data-v-3a12db53=""><span class="col-auto text-center copyright-text" data-v-3a12db53=""><a href="https://www.stjude.org/legal/u-s-privacy-policy-statement.html" target="_blank" rel="noopener noreferrer" data-v-3a12db53=""> U.S. Privacy Notice </a></span><span class="col-auto text-center copyright-text" data-v-3a12db53=""><a href="https://www.stjude.org/legal.html" target="_blank" rel="noopener noreferrer" data-v-3a12db53=""> Disclaimer / Registration / Copyright Statement </a></span><span class="col-auto text-center copyright-text" data-v-3a12db53=""><a href="https://www.stjude.org/legal/linking-policy.html" target="_blank" rel="noopener noreferrer" data-v-3a12db53=""> Linking Policy </a></span><span class="col-auto text-center copyright-text" data-v-3a12db53=""><a href="https://www.stjude.org/legal/notice-of-privacy-practices.html" target="_blank" rel="noopener noreferrer" data-v-3a12db53=""> Notice of Privacy Practices (HIPAA) </a></span><span class="col-auto text-center copyright-text" data-v-3a12db53=""><a href="https://www.stjude.org/legal/notice-of-non-discrimination.html" target="_blank" rel="noopener noreferrer" data-v-3a12db53=""> Notice of Non-Discrimination </a></span><span class="col-auto text-center copyright-text" data-v-3a12db53=""></span></div></div><div class="d-flex align-items-center justify-content-center mt-1" data-v-3a12db53=""><hr class="border-white custom-hr" data-v-3a12db53=""></div><div data-v-3a12db53="" class="d-flex flex-wrap justify-content-center gap-2"><span data-v-3a12db53="" class="col-auto text-center copyright-text"><a data-v-3a12db53="" href="mailto:gpcrmotifs@stjude.org">Contact Us (gpcrmotifs@stjude.org)</a></span><span data-v-3a12db53="" class="col-auto text-center copyright-text"> © Copyright 2026. St. Jude Children's Research Hospital, a not for profit, Section 501 (c)(3) <span data-v-3a12db53=""><a data-v-3a12db53="" href="/release-notes" style="text-decoration: none; color: rgba(255, 255, 255, 0.9);" target="_blank">Current Version: 1.2.0</a></span></span></div></div></div></footer>
 
 <script>
-    // Simple table sorting function
     function sortTable(n) {
-        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+        var table, rows, switching, i, x, y, xVal, yVal, shouldSwitch, dir, switchcount = 0;
         table = document.getElementById("gpcrTable");
         switching = true;
         dir = "asc"; 
@@ -249,16 +248,38 @@
             
             for (i = 1; i < (rows.length - 1); i++) {
                 shouldSwitch = false;
+                
+                // Get the two cells to compare
                 x = rows[i].getElementsByTagName("TD")[n];
                 y = rows[i + 1].getElementsByTagName("TD")[n];
                 
+                if (!x || !y) continue;
+
+                // Extract text content and clean up whitespace
+                let xText = x.textContent || x.innerText;
+                let yText = y.textContent || y.innerText;
+
+                // Check if both values can be parsed as valid numbers (handles floats and scientific notation like 3.404e-01)
+                let xNum = parseFloat(xText);
+                let yNum = parseFloat(yText);
+                let isNumeric = !isNaN(xNum) && !isNaN(yNum) && isFinite(xNum) && isFinite(yNum) && 
+                                /^[+-]?(\d+(\.\d*)?|\.\d+)([eE][+-]?\d+)?$/.test(xText.trim());
+
+                if (isNumeric) {
+                    xVal = xNum;
+                    yVal = yNum;
+                } else {
+                    xVal = xText.toLowerCase().trim();
+                    yVal = yText.toLowerCase().trim();
+                }
+                
                 if (dir == "asc") {
-                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                    if (xVal > yVal) {
                         shouldSwitch = true;
                         break;
                     }
                 } else if (dir == "desc") {
-                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                    if (xVal < yVal) {
                         shouldSwitch = true;
                         break;
                     }
@@ -267,7 +288,7 @@
             if (shouldSwitch) {
                 rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
                 switching = true;
-                switchcount ++;
+                switchcount++;
             } else {
                 if (switchcount == 0 && dir == "asc") {
                     dir = "desc";
@@ -277,6 +298,5 @@
         }
     }
 </script>
-
 </body>
 </html>
